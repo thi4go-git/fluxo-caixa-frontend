@@ -3,7 +3,7 @@ pipeline {
     agent any;  
 
     stages {
-        stage('Build Projeto'){
+        stage('Build'){
             steps {
                 sh 'npm run buil'
             }
