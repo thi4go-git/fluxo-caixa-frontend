@@ -1,0 +1,101 @@
+<mat-card>
+
+    <mat-card-header>
+        <mat-card-title>
+            <mat-icon>assignment</mat-icon>
+            Novo Lançamento
+            <br />
+        </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <div id="row">
+            <div id="col-md-12">
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of msgErros">
+                    {{ erro.message }}
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <form #arquivoForm="ngForm" (ngSubmit)="onSubmit()">
+
+
+                <div id="row">
+
+                    <mat-form-field class="full-width" appearance="fill">
+                        <mat-icon matSuffix>fingerprint</mat-icon>
+                        <mat-label> <b>username:</b> </mat-label>
+                        <input matInput placeholder="Informe o username:" name="username"
+                            [(ngModel)]="lancamento.username" disabled="true" />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="full-width">
+                        <mat-label> <b>Tipo:</b> </mat-label>
+                        <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="lancamento.tipo">
+                            <option *ngFor="let tipo of tipo_doc" [ngValue]="tipo">
+                                {{ tipo }}
+                            </option>
+                        </select>
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="fill">
+                        <mat-icon matSuffix>picture_as_pdf</mat-icon>
+                        <mat-label> <b>descricao:</b> </mat-label>
+                        <input matInput placeholder="Informe descricao:" name="descricao"
+                            [(ngModel)]="lancamento.descricao" />
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="fill">
+                        <mat-label> <b>data_referencia:</b> </mat-label>
+                        <input matInput placeholder="Informe a data_referencia" type="date" name="data_referencia"
+                            [(ngModel)]="lancamento.data_referencia" />
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="fill">
+                        <mat-icon matSuffix>fingerprint</mat-icon>
+                        <mat-label> <b>valor_total:</b> </mat-label>
+                        <input matInput placeholder="Informe o valor_total:" name="valor_total" type="text"
+                            [(ngModel)]="lancamento.valor_total" />
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="fill">
+                        <mat-icon matSuffix>fingerprint</mat-icon>
+                        <mat-label> <b>qtde_parcelas:</b> </mat-label>
+                        <input matInput placeholder="Informe qtde_parcelas:" name="qtde_parcelas"
+                            [(ngModel)]="lancamento.qtde_parcelas" />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="full-width">
+                        <mat-label> <b>natureza:</b> </mat-label>
+                        <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="lancamento.id_natureza">
+                            <option *ngFor="let natureza of natureza" [ngValue]="natureza.id">
+                                {{ natureza.descricao }}
+                            </option>
+                        </select>
+                    </mat-form-field>
+
+                </div>
+
+                <br />
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-sync-alt"></i>
+                    <mat-icon>save</mat-icon>Salvar
+                </button>
+                <button type="button" class="btn btn-danger ml-2" (click)="fecharDialog()">
+                    <i class="fa fa-solid fa-arrow-alt-circle-left"></i>
+                    <mat-icon>keyboard_return</mat-icon>Voltar
+                </button>
+            </form>
+        </div>
+
+
+    </mat-card-content>
+
+
+
+</mat-card>

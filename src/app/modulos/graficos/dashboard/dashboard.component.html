@@ -1,0 +1,81 @@
+<div class="container-fluid">
+    <h1 class="mt-4">Dashboard</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Dashboard</li>
+    </ol>
+
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title>Resumo de {{ ano }} </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card bg-success text-white mb-4">
+                        <div class="card-body">
+                            ENTRADAS
+                        </div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <h1>{{ sumEntradasPeriodo }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-danger text-white mb-4">
+                        <div class="card-body">
+                            SAÍDAS
+                        </div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <h1>{{ sumSaidasPeriodo }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-secondary cinza">
+                        <div class="card-body">
+                            SALDO GERAL
+                        </div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <h1>{{ sumSalgoGeralPeriodo}}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <mat-divider></mat-divider>
+        </mat-card-content>
+    </mat-card>
+
+    <div class="row">
+        <div class="card mb-4">
+            <div class="card-header">
+                Entradas / Saídas | Gráfico de Barras
+            </div>
+            <div class="card-body">
+                <div class="full-width">
+                    <canvas #canvasBarra></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card mb-4">
+            <div class="card-header">
+                Entradas / Saídas | Gráfico de Linhas
+            </div>
+            <div class="card-body">
+                <div class="full-width">
+                    <canvas #canvasLine></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+</div>

@@ -1,0 +1,16 @@
+table {
+    width: 100%;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.espaco {
+    margin: 10px;
+}
+
+.cursorMao {
+    cursor: pointer;
+    color: blue;
+}

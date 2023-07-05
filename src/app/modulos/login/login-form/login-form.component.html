@@ -1,0 +1,67 @@
+<div class="silver">
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card-header">
+                                    <h1 class="text-center font-weight-light my-4">
+                                        <b> Login </b>
+                                    </h1>
+                                </div>
+                                <div class="card-body">
+                                    <div class="alert alert-danger" role="alert" *ngFor="let erro of erros">
+                                        {{ erro }}
+                                    </div>
+                                    <form #loginForm="ngForm" (submit)="onSubmit()">
+
+                                        <mat-form-field class="full-width" appearance="fill">
+                                            <mat-icon matSuffix>fingerprint</mat-icon>
+                                            <mat-label>username:</mat-label>
+                                            <input matInput placeholder="Informe o Login:" name="username"
+                                                [(ngModel)]="username" />
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill" class="full-width">
+                                            <mat-label> Informe a Senha:</mat-label>
+                                            <input matInput [type]="hide ? 'password' : 'text'" name="password"
+                                                [(ngModel)]="password">
+                                            <button mat-icon-button matSuffix (click)="hide = !hide"
+                                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
+                                                type="button">
+                                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                            </button>
+                                        </mat-form-field>
+
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" id="inputRememberPassword" type="checkbox"
+                                                value="" />
+                                            <label class="form-check-label" for="inputRememberPassword">
+                                                Remember Password
+                                            </label>
+                                        </div>
+
+                                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                            <button type="submit" class="btn btn-primary">
+                                                Enviar
+                                            </button>
+                                        </div>
+
+
+                                    </form>
+                                </div>
+                                <div class="card-footer text-center py-3">
+                                    <div class="small">
+                                        Fluxo caixa Web | Efetuar Login v.{{ version }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>

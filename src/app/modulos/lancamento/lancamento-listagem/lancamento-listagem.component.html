@@ -1,0 +1,221 @@
+<p>
+    <mat-toolbar>
+        <span>
+            <mat-icon>list</mat-icon>
+            Lançamentos por período
+        </span>
+    </mat-toolbar>
+</p>
+
+<mat-card>
+    <mat-card-content>
+        <b>Filtros</b>
+        <div class="container">
+            <form #arquivoForm="ngForm">
+                <div id="row">
+
+                    <mat-form-field appearance="fill" class="espaco">
+                        <mat-label> <b>Data Inicial:</b> </mat-label>
+                        <input matInput placeholder="Informe a Data Emissão" type="date" name="data_inicio"
+                            [(ngModel)]="lancamentoFilter.data_inicio" />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="espaco">
+                        <mat-label> <b>Data Final:</b> </mat-label>
+                        <input matInput placeholder="Informe a Data Emissão" type="date" name="data_fim"
+                            [(ngModel)]="lancamentoFilter.data_fim" />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label> <b>Tipo:</b> </mat-label>
+                        <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="lancamentoFilter.tipo">
+                            <option>TUDO</option>
+                            <option *ngFor="let tipo of tipoLancamento" [ngValue]="tipo">
+                                {{ tipo }}
+                            </option>
+                        </select>
+                    </mat-form-field>
+
+
+                    <mat-form-field appearance="fill">
+                        <mat-label> <b>natureza:</b> </mat-label>
+                        <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="lancamentoFilter.id_natureza">
+                            <option>TUDO</option>
+                            <option *ngFor="let natureza of naturezas" [ngValue]="natureza.id">
+                                {{ natureza.descricao }}
+                            </option>
+                        </select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-icon matSuffix>fingerprint</mat-icon>
+                        <mat-label> <b>Descrição</b> </mat-label>
+                        <input matInput placeholder="Informe a Descrição:" name="descricao"
+                            [(ngModel)]="lancamentoFilter.descricao" />
+                    </mat-form-field>
+
+
+                    <button type="button" class="btn btn-success" (click)="listagemPersonalizada()">
+                        <i class="fa fa-save"></i>
+                        <mat-icon>search</mat-icon>
+                        Pesquisar
+                    </button>
+
+                </div>
+            </form>
+        </div>
+
+    </mat-card-content>
+</mat-card>
+
+<br>
+<div id="row">
+    <div id="col-md-2">
+        <button class="btn btn-warning" (click)="novoLancamento()">
+            <mat-icon>exposure_plus_1</mat-icon>
+            <i class="fa fa-plus"></i>Novo Lançamento
+        </button>
+    </div>
+</div>
+<br>
+
+<div class="card-header">
+    <b>Total de Registros: {{ total_lancamentos }}</b>
+</div>
+
+<div class="mat-elevation-z8 col-md-12 table-responsive">
+
+    <table mat-table [dataSource]="dataSource">
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id: </th>
+            <td mat-cell *matCellDef="let lancamento"> {{ lancamento.id}} </td>
+            <td mat-footer-cell *matFooterCellDef> roda </td>
+        </ng-container>
+        <ng-container matColumnDef="valor_parcela">
+            <th mat-header-cell *matHeaderCellDef> Valor: </th>
+            <td mat-cell *matCellDef="let lancamento"
+                [ngStyle]="{'color': lancamento.valor_parcela < 0 ? 'red' : 'green'}">
+                {{lancamento.valor_parcela}}
+            </td>
+            <td mat-footer-cell *matFooterCellDef> roda </td>
+        </ng-container>
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="data_lancamento">
+            <th mat-header-cell *matHeaderCellDef>Data:</th>
+            <td mat-cell *matCellDef="let lancamento"> {{lancamento.data_lancamento}} </td>
+            <td mat-footer-cell *matFooterCellDef> roda </td>
+        </ng-container>
+        <!-- Weight Column -->
+        <ng-container matColumnDef="descricao">
+            <th mat-header-cell *matHeaderCellDef> Descrição: </th>
+            <td mat-cell *matCellDef="let lancamento"> {{lancamento.descricao}} </td>
+            <td mat-footer-cell *matFooterCellDef> roda </td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="tipo">
+            <th mat-header-cell *matHeaderCellDef> Tipo: </th>
+            <td mat-cell *matCellDef="let lancamento"> {{lancamento.tipo}} </td>
+            <td mat-footer-cell *matFooterCellDef> roda </td>
+        </ng-container>
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="qtde_parcelas">
+            <th mat-header-cell *matHeaderCellDef> Qtde Parcelas: </th>
+            <td mat-cell *matCellDef="let lancamento"> {{lancamento.qtde_parcelas}} </td>
+            <td mat-footer-cell *matFooterCellDef> roda </td>
+        </ng-container>
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="nr_parcela">
+            <th mat-header-cell *matHeaderCellDef> Nº Parcela: </th>
+            <td mat-cell *matCellDef="let lancamento"> {{ lancamento.nr_parcela }}</td>
+            <td mat-footer-cell *matFooterCellDef> roda </td>
+        </ng-container>
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="natureza">
+            <th mat-header-cell *matHeaderCellDef> Natureza: </th>
+            <td mat-cell *matCellDef="let lancamento"> {{ lancamento.natureza.descricao }} </td>
+            <td mat-footer-cell *matFooterCellDef> roda </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> delete: </th>
+            <td mat-cell *matCellDef="let lancamento">
+                <mat-icon class="cursorMao" (click)="selecionarLancamentoDeletar(lancamento)" data-toggle="modal"
+                    data-target="#modalExclusao">delete</mat-icon>
+            </td>
+            <td mat-footer-cell *matFooterCellDef> delete </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">
+                <b>Sem registros na tabela!</b>
+            </td>
+        </tr>
+    </table>
+    <mat-card>
+        <mat-card-content>
+            <div>
+                <span>
+                    <b> Entradas Período:</b>
+                    <b [ngStyle]="{'color': entradasPeriodo.includes('-')? 'red' : 'green'}">
+                        {{ entradasPeriodo }}
+                    </b>
+                </span>
+            </div>
+            <div>
+                <span>
+                    <b> Saídas Período:</b>
+                    <b [ngStyle]="{'color': saidasPeriodo.includes('-')? 'red' : 'green'}">
+                        {{ saidasPeriodo }}
+                    </b>
+                </span>
+            </div>
+            <div>
+                <span>
+                    <b> Saldo Período:</b>
+                    <b [ngStyle]="{'color': saldoPeriodo.includes('-')? 'red' : 'green'}">
+                        {{ saldoPeriodo }}
+                    </b>
+                </span>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+
+
+<div id="modalExclusao" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Confirmação</h4>
+            </div>
+
+            <div class="modal-body" *ngIf="lancamentoDeletar">
+                Deletar o Lançamento:
+                Id: {{ lancamentoDeletar.id }} - {{ lancamentoDeletar.descricao }} ?
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button class="btn btn-success" (click)="deletarLancamento()" data-dismiss="modal">
+                    Confirmar
+                </button>
+
+                <button class="btn btn-danger" data-dismiss="modal">
+                    Cancelar
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
