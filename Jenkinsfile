@@ -11,7 +11,9 @@ pipeline {
     }
 
    post{
-       emailext attachLog: true, body: 'LOG:', subject: 'BUILD $BUILD_NUMBER suporte-quarkus Executado com Erro(s)!', to: 'thi4go19+jenkins@gmail.com'
+        always {
+            emailext attachLog: true, body: 'LOG:', subject: "BUILD ${BUILD_NUMBER} suporte-quarkus Executado com Erro(s)!", to: 'thi4go19+jenkins@gmail.com'
+        }
    }
 
 }
