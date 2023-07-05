@@ -6,6 +6,7 @@ pipeline {
         stage('Install NPM'){
             steps {
                 echo "Instalando dependências..."
+                sh 'npm cache clean --force' 
                 sh 'npm install'
             }
         } 
