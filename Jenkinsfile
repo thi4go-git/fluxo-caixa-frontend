@@ -2,12 +2,15 @@ pipeline {
 
     agent any;  
 
+    tools{
+        nodejs 'NODE_20.4.0'
+    }
+
     stages {
-        stage('Build') {
+        stage('Dependencias') {
             steps {
-                nodejs(nodeJSInstallationName: 'NODE', configId: '<config-file-provider-id>') {
-                    sh 'npm install'
-                }
+                echo "Instalando dependências"
+                sh 'npm install'
             }
         }
         stage('Log Docker'){
