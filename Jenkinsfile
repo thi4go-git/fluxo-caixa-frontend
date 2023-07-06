@@ -22,8 +22,8 @@ pipeline {
         stage('Deploy Docker') {
             steps {
                 echo "Imagem Docker"
-                sh 'docker stop fluxo-caixa-frontend'
-                sh 'docker rm fluxo-caixa-frontend'
+                sh 'docker stop --if-exists fluxo-caixa-frontend'
+                sh 'docker rm --if-exists fluxo-caixa-frontend'
                 sh 'docker build -t fluxo-caixa-frontend:lts .'
                 sh 'docker run --name fluxo-caixa-frontend --restart=always -d -p 3000:80 fluxo-caixa-frontend:lts'
             }
