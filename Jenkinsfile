@@ -29,6 +29,14 @@ pipeline {
                 }
             }
         }
+        stage('Sonar QualityGate') {
+            steps {
+                sleep(20)
+                timeout(time: 1, unit: 'MINUTES'){
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
         stage('Imagem Docker') {
             steps {
                 echo "Imagem Docker" 
