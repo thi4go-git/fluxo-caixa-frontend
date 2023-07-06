@@ -13,10 +13,22 @@ pipeline {
                 sh 'npm install'
             }
         }
+        stage('Build') {
+            steps {
+                echo "Instalando dependências"
+                sh 'npm run build'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo "Imagem Docker"
+                sh 'docker build -t fluxo-caixa-frontend:lts .'
+            }
+        }
         stage('Log Docker'){
             steps {
                 echo "Verificando Container..."
-                sh 'docker ps'
+                sh 'docker images'
             }
         } 
     }
