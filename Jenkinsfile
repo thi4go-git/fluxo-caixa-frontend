@@ -19,17 +19,21 @@ pipeline {
                 sh 'npm run build'
             }
         }
-        stage('Docker') {
+        stage('Deploy Docker') {
             steps {
                 echo "Imagem Docker"
+                sh 'docker stop fluxo-caixa-frontend'
+                sh 'docker rm fluxo-caixa-frontend'
                 sh 'docker build -t fluxo-caixa-frontend:lts .'
+                sh 'docker run --name fluxo-caixa-frontend --restart=always -d -p 3000:80 fluxo-caixa-frontend:lts'
             }
         }
-        stage('Log Docker'){
-            steps {
-                echo "Verificando Container..."
-                sh 'docker images'
-            }
+        stage('Limpando Cache'){
+           steps {
+                sleep(10)
+                sh 'docker system prune -f'
+                sh 'docker ps'
+           }
         } 
     }
 
