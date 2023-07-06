@@ -13,13 +13,13 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('Build') {
+        stage('NPM Build') {
             steps {
                 echo "Instalando dependências"
                 sh 'npm run build'
             }
         }
-        stage('Build') {
+        stage('Docker') {
             steps {
                 echo "Imagem Docker"
                 sh 'docker build -t fluxo-caixa-frontend:lts .'
