@@ -19,6 +19,16 @@ pipeline {
                 sh 'npm run build'
             }
         }
+        stage('Sonar Analise') {
+            environment{
+                scannerHome = tool 'SONAR_SCANNER'
+            }
+            steps {
+                withSonarQubeEnv('SONAR'){
+                    sh "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=fluxo-caixa-frontend  -Dsonar.sources=. -Dsonar.host.url=http://cloudtecnologia.dynns.com:9000 -Dsonar.login=077acf48ec42830d1467826860ba6cc537a97510"
+                }
+            }
+        }
         stage('Imagem Docker') {
             steps {
                 echo "Imagem Docker" 

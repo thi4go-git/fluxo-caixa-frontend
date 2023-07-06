@@ -10,6 +10,6 @@ services:
           - PRODUCTION=false
           - API_URL=http://192.168.1.254:8085
           - TOKEN_URL=http://192.168.1.254:8180/realms/CLOUD_TECNOLOGIA/protocol/openid-connect/token
-          - VERSAO=1.0.6
+          - VERSAO=1.0.7
           - CLI_ID=fluxo-caixa-client
           - CLI_SECRET=eSuHAFIQVlybVs5Mnr6lDbnovxmWeEcM
