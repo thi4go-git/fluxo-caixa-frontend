@@ -1,0 +1,15 @@
+version: "3"
+services:
+    suporte-quarkus-backend:
+        container_name: fluxo-caixa-frontend
+        image: fluxo-caixa-frontend:lts
+        ports:
+            - 3000:80
+        restart: always
+        environment:
+          - PRODUCTION=false
+          - API_URL=http://192.168.1.254:8085
+          - TOKEN_URL=http://192.168.1.254:8180/realms/CLOUD_TECNOLOGIA/protocol/openid-connect/token
+          - VERSAO=1.0.5
+          - CLI_ID=fluxo-caixa-client
+          - CLI_SECRET=eSuHAFIQVlybVs5Mnr6lDbnovxmWeEcM
