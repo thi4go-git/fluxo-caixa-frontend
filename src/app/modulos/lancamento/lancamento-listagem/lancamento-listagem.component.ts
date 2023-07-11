@@ -7,6 +7,7 @@ import { LancamentoFilterDTO } from 'src/app/entity-class/lancamentoFilterDTO';
 import { NaturezaDTO } from 'src/app/entity-class/naturezaDTO';
 import { LancamentoService } from 'src/app/services/lancamento.service';
 import { LancamentoFormComponent } from '../lancamento-form/lancamento-form.component';
+import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 
 @Component({
   selector: 'app-lancamento-listagem',
@@ -15,11 +16,11 @@ import { LancamentoFormComponent } from '../lancamento-form/lancamento-form.comp
 })
 export class LancamentoListagemComponent implements OnInit {
 
-  
+
   total_lancamentos: number = 0;
   displayedColumns: string[] = ['id', 'valor_parcela', 'data_lancamento', 'descricao', 'tipo'
     , 'qtde_parcelas', 'nr_parcela', 'natureza', 'delete'];
- 
+
   dataSource: MatTableDataSource<LancamentoDTOResponse> = new MatTableDataSource;
 
   listaLancemantos: LancamentoDTOResponse[] = [];
@@ -35,9 +36,10 @@ export class LancamentoListagemComponent implements OnInit {
   naturezas: NaturezaDTO[] = [];
 
   constructor(
-    private service: LancamentoService,  
+    private service: LancamentoService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private avisoDialogService: AvisosDialogService
   ) { }
 
 
@@ -89,7 +91,7 @@ export class LancamentoListagemComponent implements OnInit {
           this.lancamentoFilter.data_fim = resposta.data_fim;
           this.total_lancamentos = resposta.total_lancamentos;
           this.listaLancemantos = resposta.lancamentos;
-        
+
           this.dataSource = new MatTableDataSource(this.listaLancemantos);
           this.definirInfo();
         },
@@ -117,7 +119,7 @@ export class LancamentoListagemComponent implements OnInit {
     this.saldoPeriodo =
       sumSaldo.toLocaleString(undefined,
         { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-   
+
     this.entradasPeriodo =
       sumEntrada.toLocaleString(undefined,
         { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -145,7 +147,7 @@ export class LancamentoListagemComponent implements OnInit {
     }
 
     console.log(this.lancamentoFilter);
-    
+
 
     this.service.finByIdUserDataFilter(this.lancamentoFilter)
       .subscribe({
@@ -180,31 +182,38 @@ export class LancamentoListagemComponent implements OnInit {
   }
 
 
-
   deletarLancamento() {
 
-    this.service.deletarporLancamentoId(this.lancamentoDeletar.id)
-      .subscribe({
-        next: (_resposta) => {
+    this.avisoDialogService.openConfirmationDialog("Tem certeza?")
+      .then(result => {
+        if (result) {
 
-          this.snackBar.open("Sucesso ao deletar!", "Sucess!", {
-            duration: 2000
-          });
+          this.service.deletarporLancamentoId(this.lancamentoDeletar.id)
+            .subscribe({
+              next: (_resposta) => {
 
-          this.listagemMesAtual();
-        },
-        error: (responseError) => {
-          console.log("Erro");
-          console.log(responseError);
-          this.snackBar.open("Erro ao deletar!", "Erro!", {
-            duration: 5000
+                this.snackBar.open("Sucesso ao deletar!", "Sucess!", {
+                  duration: 2000
+                });
+
+                this.listagemMesAtual();
+              },
+              error: (responseError) => {
+                console.log(responseError);
+                this.snackBar.open("Erro ao deletar!", responseError, {
+                  duration: 5000
+                });
+              }
+            });
+
+        } else {
+          this.snackBar.open("Processo cancelado!", "Cancelado!", {
+            duration: 3000
           });
         }
       });
 
   }
-
-
 
 
 }

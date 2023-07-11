@@ -116,7 +116,7 @@ export class LancamentoFormComponent implements OnInit {
       let msgObsSalvar = 'Confirmar Operação?';
 
       if (this.lancamento.tipo == 'AMBOS') {
-        msgObsSalvar = "Atenção: O tipo de lançamento escolhido foi 'AMBOS' essa ação criará os 2 tipos de lançamento: Débito e crédito, Confirma?";
+        msgObsSalvar = "Atenção: O tipo de lançamento escolhido foi 'AMBOS' essa ação criará os 2 tipos de lançamento: Débito e Crédito, Confirma?";
       }
 
       this.avisoDialogService.openConfirmationDialog(msgObsSalvar)
@@ -124,7 +124,7 @@ export class LancamentoFormComponent implements OnInit {
           if (result) {
             this.salvar();
           } else {
-            this.snackBar.open("EXCLUSÃO Cancelada!", "Cancelado!", {
+            this.snackBar.open("Processo cancelado!", "Cancelado!", {
               duration: 3000
             });
           }

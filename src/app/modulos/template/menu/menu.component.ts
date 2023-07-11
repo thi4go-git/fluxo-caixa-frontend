@@ -14,7 +14,7 @@ export class MenuComponent implements OnInit {
 
   usuarioLogado: string = "Deslogado";
   versao: string = '';
-
+  
   constructor(
     private authService: AutenticacaoService,
     private router: Router
