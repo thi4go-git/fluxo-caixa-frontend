@@ -31,6 +31,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NaturezaRoutingModule } from '../natureza/natureza-routing.module';
+import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 
 
 
@@ -90,6 +91,7 @@ import { NaturezaRoutingModule } from '../natureza/natureza-routing.module';
     MatSidenavModule
   ],
   providers: [
+    AvisosDialogService,
     LancamentoService
   ],
 

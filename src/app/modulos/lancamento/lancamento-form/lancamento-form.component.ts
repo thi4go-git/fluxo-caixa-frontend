@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ParameterViolations } from 'src/app/entity-class/parameterViolations';
 import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 import { NaturezaDTO } from 'src/app/entity-class/naturezaDTO';
+import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 
 
 
@@ -33,7 +34,8 @@ export class LancamentoFormComponent implements OnInit {
     public dialogRef: MatDialogRef<LancamentoFormComponent>,
     private service: LancamentoService,
     private snackBar: MatSnackBar,
-    private auth: AutenticacaoService
+    private auth: AutenticacaoService,
+    private avisoDialogService: AvisosDialogService
   ) { }
 
 
@@ -110,7 +112,23 @@ export class LancamentoFormComponent implements OnInit {
 
   onSubmit() {
     if (this.validarLancamento()) {
-      this.salvar();
+
+      let msgObsSalvar = 'Confirmar Operação?';
+
+      if (this.lancamento.tipo == 'AMBOS') {
+        msgObsSalvar = "Atenção: O tipo de lançamento escolhido foi 'AMBOS' essa ação criará os 2 tipos de lançamento: Débito e crédito, Confirma?";
+      }
+
+      this.avisoDialogService.openConfirmationDialog(msgObsSalvar)
+        .then(result => {
+          if (result) {
+            this.salvar();
+          } else {
+            this.snackBar.open("EXCLUSÃO Cancelada!", "Cancelado!", {
+              duration: 3000
+            });
+          }
+        });
     }
   }
 
