@@ -1,5 +1,5 @@
 {
-  "name": "fluxo-caixa-app",
+  "name": "fluxo-caixa-frontend",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
