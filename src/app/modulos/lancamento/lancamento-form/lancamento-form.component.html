@@ -21,7 +21,6 @@
         <div class="container">
             <form #arquivoForm="ngForm" (ngSubmit)="onSubmit()">
 
-
                 <div id="row">
 
                     <mat-form-field class="full-width" appearance="fill">
@@ -37,6 +36,16 @@
                             [(ngModel)]="lancamento.tipo">
                             <option *ngFor="let tipo of tipo_doc" [ngValue]="tipo">
                                 {{ tipo }}
+                            </option>
+                        </select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="full-width">
+                        <mat-label> <b>natureza:</b> </mat-label>
+                        <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="lancamento.id_natureza">
+                            <option *ngFor="let natureza of natureza" [ngValue]="natureza.id">
+                                {{ natureza.descricao }}
                             </option>
                         </select>
                     </mat-form-field>
@@ -66,17 +75,7 @@
                         <mat-label> <b>qtde_parcelas:</b> </mat-label>
                         <input matInput placeholder="Informe qtde_parcelas:" name="qtde_parcelas"
                             [(ngModel)]="lancamento.qtde_parcelas" />
-                    </mat-form-field>
-
-                    <mat-form-field appearance="fill" class="full-width">
-                        <mat-label> <b>natureza:</b> </mat-label>
-                        <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
-                            [(ngModel)]="lancamento.id_natureza">
-                            <option *ngFor="let natureza of natureza" [ngValue]="natureza.id">
-                                {{ natureza.descricao }}
-                            </option>
-                        </select>
-                    </mat-form-field>
+                    </mat-form-field>               
 
                 </div>
 

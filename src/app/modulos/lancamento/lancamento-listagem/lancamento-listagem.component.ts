@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { LancamentoDTOResponse } from 'src/app/entity-class/lancamentoDTOResponse';
 import { LancamentoFilterDTO } from 'src/app/entity-class/lancamentoFilterDTO';
 import { NaturezaDTO } from 'src/app/entity-class/naturezaDTO';
@@ -16,13 +15,13 @@ import { LancamentoFormComponent } from '../lancamento-form/lancamento-form.comp
 })
 export class LancamentoListagemComponent implements OnInit {
 
-  //
+  
   total_lancamentos: number = 0;
   displayedColumns: string[] = ['id', 'valor_parcela', 'data_lancamento', 'descricao', 'tipo'
     , 'qtde_parcelas', 'nr_parcela', 'natureza', 'delete'];
-  //
+ 
   dataSource: MatTableDataSource<LancamentoDTOResponse> = new MatTableDataSource;
-  //
+
   listaLancemantos: LancamentoDTOResponse[] = [];
   saldoPeriodo: string = '';
   entradasPeriodo: string = '';
@@ -36,8 +35,7 @@ export class LancamentoListagemComponent implements OnInit {
   naturezas: NaturezaDTO[] = [];
 
   constructor(
-    private service: LancamentoService,
-    private router: Router,
+    private service: LancamentoService,  
     private dialog: MatDialog,
     private snackBar: MatSnackBar
   ) { }
@@ -84,7 +82,6 @@ export class LancamentoListagemComponent implements OnInit {
   }
 
   listagemMesAtual() {
-
     this.service.finByIdUserDataMesAtual()
       .subscribe({
         next: (resposta) => {
@@ -92,7 +89,7 @@ export class LancamentoListagemComponent implements OnInit {
           this.lancamentoFilter.data_fim = resposta.data_fim;
           this.total_lancamentos = resposta.total_lancamentos;
           this.listaLancemantos = resposta.lancamentos;
-          //
+        
           this.dataSource = new MatTableDataSource(this.listaLancemantos);
           this.definirInfo();
         },
@@ -120,11 +117,11 @@ export class LancamentoListagemComponent implements OnInit {
     this.saldoPeriodo =
       sumSaldo.toLocaleString(undefined,
         { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    //
+   
     this.entradasPeriodo =
       sumEntrada.toLocaleString(undefined,
         { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    //
+
     this.saidasPeriodo =
       sumSaida.toLocaleString(undefined,
         { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -188,7 +185,7 @@ export class LancamentoListagemComponent implements OnInit {
 
     this.service.deletarporLancamentoId(this.lancamentoDeletar.id)
       .subscribe({
-        next: (resposta) => {
+        next: (_resposta) => {
 
           this.snackBar.open("Sucesso ao deletar!", "Sucess!", {
             duration: 2000

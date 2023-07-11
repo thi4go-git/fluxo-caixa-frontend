@@ -34,23 +34,28 @@ export class LancamentoFormComponent implements OnInit {
     private service: LancamentoService,
     private snackBar: MatSnackBar,
     private auth: AutenticacaoService
-  ) {
-    this.lancamento = new LancamentoDTO();
-    this.lancamento.username = auth.getUsuarioAutenticado();
-  }
+  ) { }
 
 
   ngOnInit(): void {
+    this.processoInicial();
+  }
+
+  processoInicial() {
+
+    this.lancamento = new LancamentoDTO();
+    this.lancamento.username = this.auth.getUsuarioAutenticado();
+
+    this.definirTipo();
     this.definirNatureza();
     this.definirSituacao();
-    this.definirTipo();
+
   }
 
   definirNatureza() {
     this.service.getNaturezasByUsername()
       .subscribe({
         next: (resposta) => {
-          console.log(resposta);
           if (resposta == null) {
             this.snackBar.open("Não existem Naturezas, favor cadastrar", "Info!", {
               duration: 5000
@@ -60,8 +65,10 @@ export class LancamentoFormComponent implements OnInit {
           }
         },
         error: (responseError) => {
-          console.log("Erro");
           console.log(responseError);
+          this.snackBar.open("Erro ao definir naturezas: ", responseError, {
+            duration: 5000
+          });
         }
       });
   }
@@ -73,8 +80,10 @@ export class LancamentoFormComponent implements OnInit {
           this.situacao = resposta;
         },
         error: (responseError) => {
-          console.log("Erro");
           console.log(responseError);
+          this.snackBar.open("Erro: ", responseError, {
+            duration: 5000
+          });
         }
       });
   }
@@ -87,8 +96,10 @@ export class LancamentoFormComponent implements OnInit {
           this.tipo_doc = resposta;
         },
         error: (responseError) => {
-          console.log("Erro");
           console.log(responseError);
+          this.snackBar.open("Erro ao definir tipo lançamento: ", responseError, {
+            duration: 5000
+          });
         }
       });
   }
@@ -98,16 +109,63 @@ export class LancamentoFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.salvar();
+    if (this.validarLancamento()) {
+      this.salvar();
+    }
+  }
+
+  validarLancamento(): boolean {
+
+    console.log(this.lancamento);
+    if (this.lancamento.tipo == undefined) {
+      this.snackBar.open("Informe um tipo para o Lançamento!", "Info:", {
+        duration: 4000
+      });
+    } else {
+      if (this.lancamento.id_natureza == undefined) {
+        this.snackBar.open("Informe uma natureza para o Lançamento!", "Info:", {
+          duration: 4000
+        });
+      } else {
+        if (this.lancamento.descricao == '' || this.lancamento.descricao == undefined) {
+          this.snackBar.open("Informe uma descrição para o Lançamento!", "Info:", {
+            duration: 4000
+          });
+        } else {
+          if (this.lancamento.data_referencia == undefined) {
+            this.snackBar.open("Informe a data de referência para o Lançamento!", "Info:", {
+              duration: 4000
+            });
+          } else {
+            if (this.lancamento.valor_total == undefined || this.lancamento.valor_total <= 0) {
+              this.snackBar.open("Informe o valor total do Lançamento!", "Info:", {
+                duration: 4000
+              });
+            } else {
+              if (this.lancamento.qtde_parcelas == undefined || this.lancamento.qtde_parcelas <= 0) {
+                this.snackBar.open("Informe a qtde de parcelas!", "Info:", {
+                  duration: 4000
+                });
+              } else {
+                return true;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return false;
   }
 
   salvar() {
     this.service.save(this.lancamento)
       .subscribe({
-        next: (resposta) => {
+        next: (_resposta) => {
           this.snackBar.open("Sucesso ao salvar!", "Info!", {
-            duration: 2000
+            duration: 4000
           });
+          this.fecharDialog();
         },
         error: (responseError) => {
           this.msgErros = responseError.error.parameterViolations;

@@ -8,7 +8,6 @@ import { NaturezaModule } from '../natureza/natureza.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LayoutComponent } from 'src/app/componentes/layout/layout.component';
 import { NotFoundComponent } from 'src/app/componentes/not-found/not-found.component';
 import { DateFormatPipe } from 'src/app/entity-class/date-format-pipe';
 import { LancamentoService } from 'src/app/services/lancamento.service';

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { NaturezaDTO } from 'src/app/entity-class/naturezaDTO';
 import { LancamentoService } from 'src/app/services/lancamento.service';
 import { NaturezaFormComponent } from '../natureza-form/natureza-form.component';
@@ -20,7 +19,6 @@ export class NaturezaListComponent implements OnInit {
 
   constructor(
     private service: LancamentoService,
-    private router: Router,
     private dialog: MatDialog
   ) { }
 
