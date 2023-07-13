@@ -5,7 +5,7 @@ import { GraficosModule } from '../graficos/graficos.module';
 import { TemplateModule } from '../template/template.module';
 import { LancamentoModule } from '../lancamento/lancamento.module';
 import { NaturezaModule } from '../natureza/natureza.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotFoundComponent } from 'src/app/componentes/not-found/not-found.component';
@@ -32,6 +32,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NaturezaRoutingModule } from '../natureza/natureza-routing.module';
 import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
+import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
 
 
 
@@ -92,7 +93,13 @@ import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
   ],
   providers: [
     AvisosDialogService,
-    LancamentoService
+    LancamentoService,   
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+
   ],
 
 })
