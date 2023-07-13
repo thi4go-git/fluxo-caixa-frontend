@@ -96,6 +96,7 @@
             <th mat-header-cell *matHeaderCellDef> Id: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.id}} </td>
+            <td mat-footer-cell *matFooterCellDef> --- </td>
         </ng-container>
 
         <ng-container matColumnDef="valor_parcela">
@@ -105,42 +106,49 @@
                 (click)=" selecionaLinha(lancamento)" [class.linha-selecionada]="itemSelecionado.has(lancamento)">
                 {{lancamento.valor_parcela}}
             </td>
+            <td mat-footer-cell *matFooterCellDef> --- </td>
         </ng-container>
 
         <ng-container matColumnDef="data_lancamento">
             <th mat-header-cell *matHeaderCellDef>Data:</th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{lancamento.data_lancamento}} </td>
+            <td mat-footer-cell *matFooterCellDef> --- </td>
         </ng-container>
 
         <ng-container matColumnDef="descricao">
             <th mat-header-cell *matHeaderCellDef> Descrição: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
-                [class.linha-selecionada]="itemSelecionado.has(lancamento)" > {{lancamento.descricao}} </td>
+                [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{lancamento.descricao}} </td>
+            <td mat-footer-cell *matFooterCellDef> --- </td>
         </ng-container>
 
         <ng-container matColumnDef="tipo">
             <th mat-header-cell *matHeaderCellDef> Tipo: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{lancamento.tipo}} </td>
+            <td mat-footer-cell *matFooterCellDef> --- </td>
         </ng-container>
 
         <ng-container matColumnDef="qtde_parcelas">
             <th mat-header-cell *matHeaderCellDef> Qtde Parcelas: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
-                [class.linha-selecionada]="itemSelecionado.has(lancamento)" > {{lancamento.qtde_parcelas}} </td>
+                [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{lancamento.qtde_parcelas}} </td>
+            <td mat-footer-cell *matFooterCellDef> --- </td>
         </ng-container>
 
         <ng-container matColumnDef="nr_parcela">
             <th mat-header-cell *matHeaderCellDef> Nº Parcela: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.nr_parcela }}</td>
+            <td mat-footer-cell *matFooterCellDef> --- </td>
         </ng-container>
 
         <ng-container matColumnDef="natureza">
             <th mat-header-cell *matHeaderCellDef> Natureza: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.natureza.descricao }} </td>
+            <td mat-footer-cell *matFooterCellDef> --- </td>
         </ng-container>
 
         <ng-container matColumnDef="delete">
@@ -149,17 +157,20 @@
                 <mat-icon class="cursorMao" (click)="selecionarLancamentoDeletar(lancamento)" data-toggle="modal"
                     data-target="#modalExclusao">delete</mat-icon>
             </td>
-            <td mat-footer-cell *matFooterCellDef> delete </td>
+            <td mat-footer-cell *matFooterCellDef> --- </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
 
         <tr class="mat-row" *matNoDataRow>
             <td class="mat-cell" colspan="4">
                 <b>Sem registros na tabela!</b>
             </td>
         </tr>
+
+
 
     </table>
     <mat-card>
