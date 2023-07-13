@@ -7,10 +7,14 @@ table {
 }
 
 .espaco {
-    margin: 10px;
+    margin: 5px;
 }
 
 .cursorMao {
     cursor: pointer;
     color: blue;
+}
+
+.linha-selecionada {
+    font-weight: bold;
 }

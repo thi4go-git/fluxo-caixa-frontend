@@ -8,6 +8,7 @@ import { NaturezaDTO } from 'src/app/entity-class/naturezaDTO';
 import { LancamentoService } from 'src/app/services/lancamento.service';
 import { LancamentoFormComponent } from '../lancamento-form/lancamento-form.component';
 import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-lancamento-listagem',
@@ -34,6 +35,9 @@ export class LancamentoListagemComponent implements OnInit {
   lancamentoFilter: LancamentoFilterDTO = new LancamentoFilterDTO;
 
   naturezas: NaturezaDTO[] = [];
+
+  selecao = new SelectionModel<LancamentoDTOResponse>(false);
+  itemSelecionado = new Set<LancamentoDTOResponse>();
 
   constructor(
     private service: LancamentoService,
@@ -213,6 +217,17 @@ export class LancamentoListagemComponent implements OnInit {
         }
       });
 
+  }
+
+ 
+  selecionaLinha(lancamento: LancamentoDTOResponse) {
+    this.selecao.toggle(lancamento);
+    if (this.itemSelecionado.has(lancamento)) {
+      this.itemSelecionado.clear();
+    } else {
+      this.itemSelecionado.clear();
+      this.itemSelecionado.add(lancamento);
+    }
   }
 
 

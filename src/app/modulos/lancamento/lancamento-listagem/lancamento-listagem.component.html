@@ -26,7 +26,7 @@
                             [(ngModel)]="lancamentoFilter.data_fim" />
                     </mat-form-field>
 
-                    <mat-form-field appearance="fill">
+                    <mat-form-field appearance="fill" class="espaco">
                         <mat-label> <b>Tipo:</b> </mat-label>
                         <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
                             [(ngModel)]="lancamentoFilter.tipo">
@@ -37,8 +37,7 @@
                         </select>
                     </mat-form-field>
 
-
-                    <mat-form-field appearance="fill">
+                    <mat-form-field appearance="fill" class="espaco">
                         <mat-label> <b>natureza:</b> </mat-label>
                         <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
                             [(ngModel)]="lancamentoFilter.id_natureza">
@@ -49,19 +48,23 @@
                         </select>
                     </mat-form-field>
 
-                    <mat-form-field appearance="fill">
+                    <mat-form-field appearance="fill" class="espaco">
                         <mat-icon matSuffix>fingerprint</mat-icon>
                         <mat-label> <b>Descrição</b> </mat-label>
                         <input matInput placeholder="Informe a Descrição:" name="descricao"
                             [(ngModel)]="lancamentoFilter.descricao" />
                     </mat-form-field>
 
+                    <div id="row">
+                        <button type="button" class="btn btn-success" (click)="listagemPersonalizada()">
+                            <i class="fa fa-save"></i>
+                            <mat-icon>search</mat-icon>
+                            Pesquisar
+                        </button>
 
-                    <button type="button" class="btn btn-success" (click)="listagemPersonalizada()">
-                        <i class="fa fa-save"></i>
-                        <mat-icon>search</mat-icon>
-                        Pesquisar
-                    </button>
+                    </div>
+
+
 
                 </div>
             </form>
@@ -88,55 +91,56 @@
 <div class="mat-elevation-z8 col-md-12 table-responsive">
 
     <table mat-table [dataSource]="dataSource">
-        <!-- Position Column -->
+
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> Id: </th>
-            <td mat-cell *matCellDef="let lancamento"> {{ lancamento.id}} </td>
-            <td mat-footer-cell *matFooterCellDef> roda </td>
+            <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
+                [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.id}} </td>
         </ng-container>
+
         <ng-container matColumnDef="valor_parcela">
             <th mat-header-cell *matHeaderCellDef> Valor: </th>
             <td mat-cell *matCellDef="let lancamento"
-                [ngStyle]="{'color': lancamento.valor_parcela < 0 ? 'red' : 'green'}">
+                [ngStyle]="{'color': lancamento.valor_parcela < 0 ? 'red' : 'green'}"
+                (click)=" selecionaLinha(lancamento)" [class.linha-selecionada]="itemSelecionado.has(lancamento)">
                 {{lancamento.valor_parcela}}
             </td>
-            <td mat-footer-cell *matFooterCellDef> roda </td>
         </ng-container>
-        <!-- Symbol Column -->
+
         <ng-container matColumnDef="data_lancamento">
             <th mat-header-cell *matHeaderCellDef>Data:</th>
-            <td mat-cell *matCellDef="let lancamento"> {{lancamento.data_lancamento}} </td>
-            <td mat-footer-cell *matFooterCellDef> roda </td>
+            <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
+                [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{lancamento.data_lancamento}} </td>
         </ng-container>
-        <!-- Weight Column -->
+
         <ng-container matColumnDef="descricao">
             <th mat-header-cell *matHeaderCellDef> Descrição: </th>
-            <td mat-cell *matCellDef="let lancamento"> {{lancamento.descricao}} </td>
-            <td mat-footer-cell *matFooterCellDef> roda </td>
+            <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
+                [class.linha-selecionada]="itemSelecionado.has(lancamento)" > {{lancamento.descricao}} </td>
         </ng-container>
-        <!-- Name Column -->
+
         <ng-container matColumnDef="tipo">
             <th mat-header-cell *matHeaderCellDef> Tipo: </th>
-            <td mat-cell *matCellDef="let lancamento"> {{lancamento.tipo}} </td>
-            <td mat-footer-cell *matFooterCellDef> roda </td>
+            <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
+                [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{lancamento.tipo}} </td>
         </ng-container>
-        <!-- Symbol Column -->
+
         <ng-container matColumnDef="qtde_parcelas">
             <th mat-header-cell *matHeaderCellDef> Qtde Parcelas: </th>
-            <td mat-cell *matCellDef="let lancamento"> {{lancamento.qtde_parcelas}} </td>
-            <td mat-footer-cell *matFooterCellDef> roda </td>
+            <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
+                [class.linha-selecionada]="itemSelecionado.has(lancamento)" > {{lancamento.qtde_parcelas}} </td>
         </ng-container>
-        <!-- Symbol Column -->
+
         <ng-container matColumnDef="nr_parcela">
             <th mat-header-cell *matHeaderCellDef> Nº Parcela: </th>
-            <td mat-cell *matCellDef="let lancamento"> {{ lancamento.nr_parcela }}</td>
-            <td mat-footer-cell *matFooterCellDef> roda </td>
+            <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
+                [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.nr_parcela }}</td>
         </ng-container>
-        <!-- Symbol Column -->
+
         <ng-container matColumnDef="natureza">
             <th mat-header-cell *matHeaderCellDef> Natureza: </th>
-            <td mat-cell *matCellDef="let lancamento"> {{ lancamento.natureza.descricao }} </td>
-            <td mat-footer-cell *matFooterCellDef> roda </td>
+            <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
+                [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.natureza.descricao }} </td>
         </ng-container>
 
         <ng-container matColumnDef="delete">
@@ -148,15 +152,15 @@
             <td mat-footer-cell *matFooterCellDef> delete </td>
         </ng-container>
 
-
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        <!-- Row shown when there is no matching data. -->
+
         <tr class="mat-row" *matNoDataRow>
             <td class="mat-cell" colspan="4">
                 <b>Sem registros na tabela!</b>
             </td>
         </tr>
+
     </table>
     <mat-card>
         <mat-card-content>

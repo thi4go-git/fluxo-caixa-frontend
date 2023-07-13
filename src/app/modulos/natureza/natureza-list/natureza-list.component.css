@@ -1,3 +1,6 @@
 .full-width {
     width: 100%;
 }
+.linha-selecionada {
+    font-weight: bold;
+}
