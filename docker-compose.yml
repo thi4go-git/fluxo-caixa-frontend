@@ -1,6 +1,6 @@
 version: "3"
 services:
-    suporte-quarkus-backend:
+    fluxo-caixa-frontend:
         container_name: fluxo-caixa-frontend
         image: fluxo-caixa-frontend:lts
         ports:
