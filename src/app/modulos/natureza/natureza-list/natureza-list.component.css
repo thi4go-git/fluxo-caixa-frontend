@@ -4,3 +4,8 @@
 .linha-selecionada {
     font-weight: bold;
 }
+
+.cursorMao {
+    cursor: pointer;
+    color: blue;
+}

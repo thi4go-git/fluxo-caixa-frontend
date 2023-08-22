@@ -9,7 +9,7 @@
 
 <div id="row">
     <div id="col-md-2">
-        <button class="btn btn-warning" (click)="novaCategoria()">
+        <button class="btn btn-warning" (click)="novaNatureza()">
             <mat-icon>exposure_plus_1</mat-icon>
             <i class="fa fa-plus"></i>Nova Natureza
         </button>
@@ -35,6 +35,15 @@
             <th mat-header-cell *matHeaderCellDef> descricao: </th>
             <td mat-cell *matCellDef="let natureza" (click)=" selecionaLinha(natureza)"
                 [class.linha-selecionada]="itemSelecionado.has(natureza)"> {{ natureza.descricao }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="del">
+            <th mat-header-cell *matHeaderCellDef> Del </th>
+            <td mat-cell *matCellDef="let natureza">
+                <mat-icon class="cursorMao" (click)="dialogExclusao(natureza)">
+                    delete
+                </mat-icon>
+            </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

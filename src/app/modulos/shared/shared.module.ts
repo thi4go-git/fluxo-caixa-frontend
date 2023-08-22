@@ -33,6 +33,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NaturezaRoutingModule } from '../natureza/natureza-routing.module';
 import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -68,7 +69,8 @@ import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
     MatTableModule,
     MatDialogModule,
     MatSliderModule,
-    MatSidenavModule
+    MatSidenavModule,
+    RouterModule,
   ], exports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -89,7 +91,8 @@ import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
     MatTableModule,
     MatDialogModule,
     MatSliderModule,
-    MatSidenavModule
+    MatSidenavModule,
+    RouterModule
   ],
   providers: [
     AvisosDialogService,

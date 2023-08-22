@@ -82,6 +82,15 @@ export class LancamentoService {
     return this.http.post<NaturezaDTO>(this.apiUrl + '/naturezas', natureza);
   }
 
+  deletarNaturezaPorId(natureza: Natureza): Observable<any> {
+    const params = new HttpParams()
+      .set('username', this.username)
+      .set('descricaoNatureza', natureza.descricao);
+    return this.http.delete<any>(this.apiUrl + '/naturezas', { params });
+  }
+
+
+
   deletarporLancamentoId(id: number): Observable<any> {
     return this.http.delete<any>(this.apiUrl + "/lancamentos/" + id);
   }
