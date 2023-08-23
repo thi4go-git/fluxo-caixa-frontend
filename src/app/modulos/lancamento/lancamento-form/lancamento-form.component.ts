@@ -121,7 +121,7 @@ export class LancamentoFormComponent implements OnInit {
 
       this.avisoDialogService.openConfirmationDialog(msgObsSalvar)
         .then(result => {
-          if (result) {                 
+          if (result) {
             this.salvar();
           } else {
             this.snackBar.open("Processo cancelado!", "Cancelado!", {
@@ -134,7 +134,6 @@ export class LancamentoFormComponent implements OnInit {
 
   validarLancamento(): boolean {
 
-    console.log(this.lancamento);
     if (this.lancamento.tipo == undefined) {
       this.snackBar.open("Informe um tipo para o Lançamento!", "Info:", {
         duration: 4000
@@ -150,7 +149,7 @@ export class LancamentoFormComponent implements OnInit {
             duration: 4000
           });
         } else {
-          if (this.lancamento.data_referencia == undefined) {
+          if (!this.lancamento.data_referencia) {
             this.snackBar.open("Informe a data de referência para o Lançamento!", "Info:", {
               duration: 4000
             });

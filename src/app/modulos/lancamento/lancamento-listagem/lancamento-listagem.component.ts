@@ -141,6 +141,7 @@ export class LancamentoListagemComponent implements OnInit {
   }
 
   listagemPersonalizada() {
+
     let natu = this.lancamentoFilter.id_natureza;
     let tp = this.lancamentoFilter.tipo;
     if (natu == 'TUDO') {
@@ -150,26 +151,31 @@ export class LancamentoListagemComponent implements OnInit {
       this.lancamentoFilter.tipo = null;
     }
 
-    console.log(this.lancamentoFilter);
+    if (this.lancamentoFilter.data_inicio && this.lancamentoFilter.data_fim) {
 
+      this.service.finByIdUserDataFilter(this.lancamentoFilter)
+        .subscribe({
+          next: (resposta) => {
+            this.lancamentoFilter.data_inicio = resposta.data_inicio;
+            this.lancamentoFilter.data_fim = resposta.data_fim;
+            this.total_lancamentos = resposta.total_lancamentos;
+            this.listaLancamentos = resposta.lancamentos
+            this.dataSource = new MatTableDataSource(this.listaLancamentos);
+            this.definirInfo();
+          },
+          error: (responseError) => {
+            console.log(responseError);
+            this.snackBar.open("Erro ao aplicar Filtros!", "Erro!", {
+              duration: 5000
+            });
+          }
+        });
 
-    this.service.finByIdUserDataFilter(this.lancamentoFilter)
-      .subscribe({
-        next: (resposta) => {
-          this.lancamentoFilter.data_inicio = resposta.data_inicio;
-          this.lancamentoFilter.data_fim = resposta.data_fim;
-          this.total_lancamentos = resposta.total_lancamentos;
-          this.listaLancamentos = resposta.lancamentos
-          this.dataSource = new MatTableDataSource(this.listaLancamentos);
-          this.definirInfo();
-        },
-        error: (responseError) => {
-          console.log(responseError);
-          this.snackBar.open("Erro ao aplicar Filtros!", "Erro!", {
-            duration: 5000
-          });
-        }
+    } else {
+      this.snackBar.open("Verifique a(s) data(s) informada(s)!", "Erro!", {
+        duration: 5000
       });
+    }
 
   }
 
