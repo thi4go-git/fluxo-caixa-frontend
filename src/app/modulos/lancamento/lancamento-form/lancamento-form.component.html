@@ -51,7 +51,7 @@
                     </mat-form-field>
 
                     <mat-form-field class="full-width" appearance="fill">
-                        <mat-icon matSuffix>picture_as_pdf</mat-icon>
+                        <mat-icon matSuffix>description</mat-icon>
                         <mat-label> <b>descricao:</b> </mat-label>
                         <input matInput placeholder="Informe descricao:" name="descricao"
                             [(ngModel)]="lancamento.descricao" />
@@ -64,18 +64,18 @@
                     </mat-form-field>
 
                     <mat-form-field class="full-width" appearance="fill">
-                        <mat-icon matSuffix>fingerprint</mat-icon>
+                        <mat-icon matSuffix>attach_money</mat-icon>
                         <mat-label> <b>valor_total:</b> </mat-label>
                         <input matInput placeholder="Informe o valor_total:" name="valor_total" type="text"
                             [(ngModel)]="lancamento.valor_total" />
                     </mat-form-field>
 
                     <mat-form-field class="full-width" appearance="fill">
-                        <mat-icon matSuffix>fingerprint</mat-icon>
+                        <mat-icon matSuffix>note_add</mat-icon>
                         <mat-label> <b>qtde_parcelas:</b> </mat-label>
-                        <input matInput placeholder="Informe qtde_parcelas:" name="qtde_parcelas"
+                        <input matInput placeholder="Informe qtde_parcelas:" type="number" name="qtde_parcelas"
                             [(ngModel)]="lancamento.qtde_parcelas" />
-                    </mat-form-field>               
+                    </mat-form-field>
 
                 </div>
 
