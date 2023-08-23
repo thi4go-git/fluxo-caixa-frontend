@@ -9,6 +9,7 @@ import { AutenticacaoService } from './autenticacao.service';
 import { NaturezaDTO } from '../entity-class/naturezaDTO';
 import { Natureza } from '../entity-class/natureza';
 import { LancamentoFilterDTO } from '../entity-class/lancamentoFilterDTO';
+import { LancamentoDTOResponse } from '../entity-class/lancamentoDTOResponse';
 
 
 
@@ -93,6 +94,12 @@ export class LancamentoService {
 
   deletarporLancamentoId(id: number): Observable<any> {
     return this.http.delete<any>(this.apiUrl + "/lancamentos/" + id);
+  }
+
+  deletarMultiplosLancamentos(listaIdSelecionados: string[]): Observable<any> {
+    const params = new HttpParams()
+      .set('username', this.username);
+    return this.http.post<any>(this.apiUrl + "/lancamentos/deletar-multiplos", listaIdSelecionados, { params });
   }
 
 }

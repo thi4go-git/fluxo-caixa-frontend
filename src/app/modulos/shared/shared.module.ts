@@ -34,7 +34,7 @@ import { NaturezaRoutingModule } from '../natureza/natureza-routing.module';
 import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
 import { RouterModule } from '@angular/router';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 // MÓDULO que tem todos os imports
@@ -71,6 +71,7 @@ import { RouterModule } from '@angular/router';
     MatSliderModule,
     MatSidenavModule,
     RouterModule,
+    MatCheckboxModule
   ], exports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -92,7 +93,8 @@ import { RouterModule } from '@angular/router';
     MatDialogModule,
     MatSliderModule,
     MatSidenavModule,
-    RouterModule
+    RouterModule,
+    MatCheckboxModule
   ],
   providers: [
     AvisosDialogService,

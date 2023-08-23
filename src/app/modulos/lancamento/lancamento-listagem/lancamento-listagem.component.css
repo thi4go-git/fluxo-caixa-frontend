@@ -18,3 +18,7 @@ table {
 .linha-selecionada {
     font-weight: bold;
 }
+
+.margem-btn {
+    margin: 5px;
+}

@@ -7,3 +7,7 @@
     transition: 0.5s;
     opacity: 100%;
 }
+
+.rota-ativa-css{
+    background-color: rgb(85, 75, 75);
+}

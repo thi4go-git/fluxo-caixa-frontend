@@ -19,12 +19,12 @@ export class LancamentoListagemComponent implements OnInit {
 
 
   total_lancamentos: number = 0;
-  displayedColumns: string[] = ['id', 'valor_parcela', 'data_lancamento', 'descricao', 'tipo'
+  displayedColumns: string[] = ['selecionado', 'id', 'valor_parcela', 'data_lancamento', 'descricao', 'tipo'
     , 'qtde_parcelas', 'nr_parcela', 'natureza', 'delete'];
 
   dataSource: MatTableDataSource<LancamentoDTOResponse> = new MatTableDataSource;
 
-  listaLancemantos: LancamentoDTOResponse[] = [];
+  listaLancamentos: LancamentoDTOResponse[] = [];
   saldoPeriodo: string = '';
   entradasPeriodo: string = '';
   saidasPeriodo: string = '';
@@ -94,9 +94,9 @@ export class LancamentoListagemComponent implements OnInit {
           this.lancamentoFilter.data_inicio = resposta.data_inicio;
           this.lancamentoFilter.data_fim = resposta.data_fim;
           this.total_lancamentos = resposta.total_lancamentos;
-          this.listaLancemantos = resposta.lancamentos;
+          this.listaLancamentos = resposta.lancamentos;
 
-          this.dataSource = new MatTableDataSource(this.listaLancemantos);
+          this.dataSource = new MatTableDataSource(this.listaLancamentos);
           this.definirInfo();
         },
         error: (responseError) => {
@@ -112,7 +112,7 @@ export class LancamentoListagemComponent implements OnInit {
     let sumSaldo = 0;
     let sumEntrada = 0;
     let sumSaida = 0;
-    for (let lancamento of this.listaLancemantos) {
+    for (let lancamento of this.listaLancamentos) {
       sumSaldo = sumSaldo + lancamento.valor_parcela;
       if (lancamento.tipo == 'CREDITO') {
         sumEntrada = sumEntrada + lancamento.valor_parcela;
@@ -159,8 +159,8 @@ export class LancamentoListagemComponent implements OnInit {
           this.lancamentoFilter.data_inicio = resposta.data_inicio;
           this.lancamentoFilter.data_fim = resposta.data_fim;
           this.total_lancamentos = resposta.total_lancamentos;
-          this.listaLancemantos = resposta.lancamentos
-          this.dataSource = new MatTableDataSource(this.listaLancemantos);
+          this.listaLancamentos = resposta.lancamentos
+          this.dataSource = new MatTableDataSource(this.listaLancamentos);
           this.definirInfo();
         },
         error: (responseError) => {
@@ -180,6 +180,23 @@ export class LancamentoListagemComponent implements OnInit {
     });
   }
 
+  deletarSelecionados() {
+    const listaIdSelecionados: string[] = [];
+    this.dataSource.filteredData.forEach(lancamento => {
+      if (lancamento.selecionado != undefined && lancamento.selecionado) {
+        listaIdSelecionados.push(lancamento.id.toString());
+      }
+    });
+
+    if (listaIdSelecionados.length == 0) {
+      this.snackBar.open("Selecione os lançamentos que deseja deletar!", "INFO!", {
+        duration: 5000
+      });
+    } else {
+      this.deletarMultiplosLancamentos(listaIdSelecionados);
+    }
+  }
+
 
   selecionarLancamentoDeletar(lancamento: LancamentoDTOResponse) {
     this.lancamentoDeletar = lancamento;
@@ -187,7 +204,6 @@ export class LancamentoListagemComponent implements OnInit {
 
 
   deletarLancamento() {
-
     this.avisoDialogService.openConfirmationDialog("Tem certeza?")
       .then(result => {
         if (result) {
@@ -216,10 +232,41 @@ export class LancamentoListagemComponent implements OnInit {
           });
         }
       });
-
   }
 
- 
+
+  deletarMultiplosLancamentos(listaIdSelecionados: string[]) {
+    this.avisoDialogService.openConfirmationDialog("Confirma a exclusão de ( " + listaIdSelecionados.length + ' ) Lançamento(s)?')
+      .then(result => {
+        if (result) {
+
+          this.service.deletarMultiplosLancamentos(listaIdSelecionados)
+            .subscribe({
+              next: (_resposta) => {
+
+                this.snackBar.open("Sucesso ao deletar Lançamento(s)!", "Sucess!", {
+                  duration: 2000
+                });
+
+                this.listagemMesAtual();
+              },
+              error: (responseError) => {
+                console.log(responseError);
+                this.snackBar.open("Erro ao deletar!", responseError, {
+                  duration: 5000
+                });
+              }
+            });
+
+        } else {
+          this.snackBar.open("Processo cancelado!", "Cancelado!", {
+            duration: 3000
+          });
+        }
+      });
+  }
+
+
   selecionaLinha(lancamento: LancamentoDTOResponse) {
     this.selecao.toggle(lancamento);
     if (this.itemSelecionado.has(lancamento)) {

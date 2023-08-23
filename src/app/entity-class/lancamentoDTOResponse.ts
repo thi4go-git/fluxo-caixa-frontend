@@ -1,6 +1,7 @@
 import { NaturezaDTO } from "./naturezaDTO";
 
 export class LancamentoDTOResponse {
+    selecionado: boolean = false;
     id: number = 0;
     tipo: any;
     descricao: string = '';
