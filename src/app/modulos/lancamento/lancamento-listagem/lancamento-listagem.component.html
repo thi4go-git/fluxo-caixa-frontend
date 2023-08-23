@@ -175,8 +175,8 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="mat-row"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns" class="mat-row"></tr>
 
         <tr class="mat-row" *matNoDataRow>
             <td class="mat-cell" colspan="4">
