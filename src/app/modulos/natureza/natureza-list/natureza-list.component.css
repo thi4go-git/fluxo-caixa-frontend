@@ -9,3 +9,12 @@
     cursor: pointer;
     color: blue;
 }
+
+.mat-row.mat-row:nth-child(odd) {
+    background-color: #ffffff; /* Cor de fundo para linhas ímpares */
+}
+
+/* Estilo para linhas pares */
+.mat-row.mat-row:nth-child(even) {
+    background-color: #e2e2e2; /* Cor de fundo para linhas pares */
+}
