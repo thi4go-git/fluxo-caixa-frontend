@@ -67,7 +67,8 @@
                         <mat-icon matSuffix>attach_money</mat-icon>
                         <mat-label> <b>valor_total:</b> </mat-label>
                         <input matInput placeholder="Informe o valor_total:" name="valor_total" type="text"
-                            [(ngModel)]="lancamento.valor_total" />
+                            [(ngModel)]="lancamento.valor_total" mask="separator.2" thousandSeparator="."
+                            [allowNegativeNumbers]="false" suffix=" $" />
                     </mat-form-field>
 
                     <mat-form-field class="full-width" appearance="fill">

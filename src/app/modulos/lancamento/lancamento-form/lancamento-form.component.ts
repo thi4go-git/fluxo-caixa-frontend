@@ -121,7 +121,7 @@ export class LancamentoFormComponent implements OnInit {
 
       this.avisoDialogService.openConfirmationDialog(msgObsSalvar)
         .then(result => {
-          if (result) {
+          if (result) {                 
             this.salvar();
           } else {
             this.snackBar.open("Processo cancelado!", "Cancelado!", {

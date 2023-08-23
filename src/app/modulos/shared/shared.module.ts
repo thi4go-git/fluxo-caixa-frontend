@@ -35,7 +35,7 @@ import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
 import { RouterModule } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 
 // MÓDULO que tem todos os imports
@@ -51,7 +51,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule,    
+    HttpClientModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
     GraficosRoutingModule,
     LancamentoRoutingModule,
     NaturezaRoutingModule,
@@ -77,7 +79,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule,    
+    HttpClientModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
@@ -100,6 +104,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   providers: [
     AvisosDialogService,
     LancamentoService,
+    provideNgxMask(),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
