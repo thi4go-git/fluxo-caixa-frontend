@@ -5,6 +5,6 @@ export class LancamentoDTO {
     descricao: string = '';
     data_referencia: Date | undefined;
     valor_total: number = 0;
-    qtde_parcelas: number = 0;
+    qtde_parcelas: number = 1;
     id_natureza: any;
 }

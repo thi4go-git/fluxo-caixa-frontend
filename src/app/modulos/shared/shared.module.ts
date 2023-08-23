@@ -34,7 +34,8 @@ import { NaturezaRoutingModule } from '../natureza/natureza-routing.module';
 import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
 import { RouterModule } from '@angular/router';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 
 // MÓDULO que tem todos os imports
@@ -50,7 +51,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule,
+    HttpClientModule,    
     GraficosRoutingModule,
     LancamentoRoutingModule,
     NaturezaRoutingModule,
@@ -76,7 +77,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule,
+    HttpClientModule,    
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
@@ -98,7 +99,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
   ],
   providers: [
     AvisosDialogService,
-    LancamentoService,   
+    LancamentoService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
