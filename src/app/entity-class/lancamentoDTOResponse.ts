@@ -11,4 +11,6 @@ export class LancamentoDTOResponse {
     nr_parcela: number = 0;
     situacao: any;
     natureza: NaturezaDTO = new NaturezaDTO();
+    data_criacao: any;
+    data_alteracao: any;
 }
