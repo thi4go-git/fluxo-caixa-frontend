@@ -37,7 +37,9 @@
                             SALDO GERAL
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <h1>{{ sumSalgoGeralPeriodo}}</h1>
+                            <h1  [ngStyle]="{'color': sumSalgoGeralPeriodo.substring(0,1) == '-' ? 'red' : 'green'}" >
+                                {{ sumSalgoGeralPeriodo }}
+                            </h1>
                         </div>
                     </div>
                 </div>
