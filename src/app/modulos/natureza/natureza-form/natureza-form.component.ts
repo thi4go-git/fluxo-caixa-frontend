@@ -40,13 +40,14 @@ export class NaturezaFormComponent {
   salvarNatureza() {
     this.lancamentoService.saveNatureza(this.natureza)
       .subscribe({
-        next: (resposta) => {
+        next: (_resposta) => {
           this.msgErros = [];
           this.snackBar.open("Sucesso Ao Salvar Natureza!", "Info!", {
             duration: 5000
           });
-          this.router.navigate(['naturezas/lista']);
           this.fecharDialog();
+          this.router.navigateByUrl('naturezas/lista');    
+          window.location.reload();  
         },
         error: (responseError) => {       
           console.log(responseError);        

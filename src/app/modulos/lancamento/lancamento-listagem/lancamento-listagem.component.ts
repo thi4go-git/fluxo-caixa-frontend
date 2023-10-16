@@ -39,6 +39,8 @@ export class LancamentoListagemComponent implements OnInit {
   selecao = new SelectionModel<LancamentoDTOResponse>(false);
   itemSelecionado = new Set<LancamentoDTOResponse>();
 
+  listaIdSelecionados: string[] = [];
+
   constructor(
     private service: LancamentoService,
     private dialog: MatDialog,
@@ -187,19 +189,12 @@ export class LancamentoListagemComponent implements OnInit {
   }
 
   deletarSelecionados() {
-    const listaIdSelecionados: string[] = [];
-    this.dataSource.filteredData.forEach(lancamento => {
-      if (lancamento.selecionado != undefined && lancamento.selecionado) {
-        listaIdSelecionados.push(lancamento.id.toString());
-      }
-    });
-
-    if (listaIdSelecionados.length == 0) {
+    if (this.listaIdSelecionados.length > 0) {
+      this.deletarMultiplosLancamentos();
+    } else {
       this.snackBar.open("Selecione os lançamentos que deseja deletar!", "INFO!", {
         duration: 5000
       });
-    } else {
-      this.deletarMultiplosLancamentos(listaIdSelecionados);
     }
   }
 
@@ -241,12 +236,12 @@ export class LancamentoListagemComponent implements OnInit {
   }
 
 
-  deletarMultiplosLancamentos(listaIdSelecionados: string[]) {
-    this.avisoDialogService.openConfirmationDialog("Confirma a exclusão de ( " + listaIdSelecionados.length + ' ) Lançamento(s)?')
+  private deletarMultiplosLancamentos() {
+    this.avisoDialogService.openConfirmationDialog("Confirma a exclusão de ( " + this.listaIdSelecionados.length + ' ) Lançamento(s)?')
       .then(result => {
         if (result) {
 
-          this.service.deletarMultiplosLancamentos(listaIdSelecionados)
+          this.service.deletarMultiplosLancamentos(this.listaIdSelecionados)
             .subscribe({
               next: (_resposta) => {
 
@@ -254,6 +249,7 @@ export class LancamentoListagemComponent implements OnInit {
                   duration: 2000
                 });
 
+                this.listaIdSelecionados = [];
                 this.listagemMesAtual();
               },
               error: (responseError) => {
@@ -280,6 +276,17 @@ export class LancamentoListagemComponent implements OnInit {
     } else {
       this.itemSelecionado.clear();
       this.itemSelecionado.add(lancamento);
+    }
+  }
+
+  populaListaSelecionados(lancamento: LancamentoDTOResponse) {
+    if (lancamento.selecionado != undefined && lancamento.selecionado) {
+      this.listaIdSelecionados.push(lancamento.id.toString());
+    } else {
+      const indexRemover = this.listaIdSelecionados.indexOf(lancamento.id.toString());
+      if (indexRemover !== -1) {
+        this.listaIdSelecionados.splice(indexRemover, 1);
+      }
     }
   }
 
