@@ -10,7 +10,7 @@ export class AvisosDialogService {
   constructor(private dialog: MatDialog) { }
 
   openConfirmationDialog(mensagem: String): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
+    return new Promise<boolean>((resolve, _reject) => {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '300px',
         data: mensagem
