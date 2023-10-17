@@ -22,6 +22,7 @@
     "@angular/router": "^16.2.9",
     "@auth0/angular-jwt": "^5.1.2",
     "bootstrap": "^5.2.3",
+    "buffer": "^6.0.3",
     "chart.js": "^4.0.0",
     "jquery": "^3.6.3",
     "ngx-mask": "^15.1.5",

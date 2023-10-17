@@ -9,6 +9,10 @@ import { LancamentoService } from 'src/app/services/lancamento.service';
 import { LancamentoFormComponent } from '../lancamento-form/lancamento-form.component';
 import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { SelectionModel } from '@angular/cdk/collections';
+import { AnexoDownloaDTO } from 'src/app/entity-class/anexoDownloaDTO';
+import { Buffer } from 'buffer';
+
+
 
 @Component({
   selector: 'app-lancamento-listagem',
@@ -20,7 +24,7 @@ export class LancamentoListagemComponent implements OnInit {
 
   total_lancamentos: number = 0;
   displayedColumns: string[] = ['selecionado', 'id', 'valor_parcela', 'data_lancamento', 'descricao', 'tipo'
-    , 'qtde_parcelas', 'nr_parcela', 'natureza', 'data_criacao', 'delete'];
+    , 'qtde_parcelas', 'nr_parcela', 'natureza', 'data_criacao', 'nomeAnexo', 'delete', 'download'];
 
   dataSource: MatTableDataSource<LancamentoDTOResponse> = new MatTableDataSource;
 
@@ -41,6 +45,8 @@ export class LancamentoListagemComponent implements OnInit {
 
   listaIdSelecionados: string[] = [];
 
+  mostraProgresso: boolean = false;
+
   constructor(
     private service: LancamentoService,
     private dialog: MatDialog,
@@ -51,9 +57,9 @@ export class LancamentoListagemComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.listagemMesAtual();
     this.definirTipo();
     this.definirNatureza();
+    this.listagemMesAtual();
   }
 
   definirNatureza() {
@@ -90,6 +96,7 @@ export class LancamentoListagemComponent implements OnInit {
   }
 
   listagemMesAtual() {
+    this.mostraProgresso = true;
     this.service.finByIdUserDataMesAtual()
       .subscribe({
         next: (resposta) => {
@@ -100,8 +107,10 @@ export class LancamentoListagemComponent implements OnInit {
 
           this.dataSource = new MatTableDataSource(this.listaLancamentos);
           this.definirInfo();
+          this.mostraProgresso = false;
         },
         error: (responseError) => {
+          this.mostraProgresso = false;
           console.log("Erro");
           console.log(responseError);
         }
@@ -144,6 +153,8 @@ export class LancamentoListagemComponent implements OnInit {
 
   listagemPersonalizada() {
 
+    this.mostraProgresso = true;
+
     let natu = this.lancamentoFilter.id_natureza;
     let tp = this.lancamentoFilter.tipo;
     if (natu == 'TUDO') {
@@ -164,8 +175,10 @@ export class LancamentoListagemComponent implements OnInit {
             this.listaLancamentos = resposta.lancamentos
             this.dataSource = new MatTableDataSource(this.listaLancamentos);
             this.definirInfo();
+            this.mostraProgresso = false;
           },
           error: (responseError) => {
+            this.mostraProgresso = false;
             console.log(responseError);
             this.snackBar.open("Erro ao aplicar Filtros!", "Erro!", {
               duration: 5000
@@ -240,20 +253,19 @@ export class LancamentoListagemComponent implements OnInit {
     this.avisoDialogService.openConfirmationDialog("Confirma a exclusão de ( " + this.listaIdSelecionados.length + ' ) Lançamento(s)?')
       .then(result => {
         if (result) {
-
+          this.mostraProgresso = true;
           this.service.deletarMultiplosLancamentos(this.listaIdSelecionados)
             .subscribe({
               next: (_resposta) => {
-
                 this.snackBar.open("Sucesso ao deletar Lançamento(s)!", "Sucess!", {
                   duration: 2000
                 });
-
                 this.listaIdSelecionados = [];
                 this.listagemMesAtual();
+                this.mostraProgresso = false;
               },
               error: (responseError) => {
-                console.log(responseError);
+                this.mostraProgresso = false;
                 this.snackBar.open("Erro ao deletar!", responseError, {
                   duration: 5000
                 });
@@ -290,5 +302,106 @@ export class LancamentoListagemComponent implements OnInit {
     }
   }
 
+  uploadFile(event: any, id: number) {
+    const files = event.target.files;
+    if (files) {
+      const anexo: File = files[0];
+      const formData: FormData = new FormData();
+      formData.append("anexo", anexo);
+      formData.append("nome", anexo.name);
+      formData.append("type", anexo.type);
+      this.upload(formData, id);
+    } else {
+      this.snackBar.open("Selecione um arquivo!", "INFO!", {
+        duration: 3000
+      });
+    }
+  }
+
+  private upload(formData: FormData, id: number) {
+    this.avisoDialogService.openConfirmationDialog("Deseja realizar o UPLOAD do Anexo? ")
+      .then(result => {
+        if (result) {
+          this.mostraProgresso = true;
+          this.service.uploadFile(formData, id)
+            .subscribe({
+              next: (_resposta) => {
+                this.listagemMesAtual();
+                this.mostraProgresso = false;
+              },
+              error: (_responseError) => {
+                this.mostraProgresso = false;
+                this.snackBar.open("Erro ao efetuar UPLOAD!", "ERRO!", {
+                  duration: 3000
+                });
+              }
+            });
+        } else {
+          this.mostraProgresso = false;
+          this.snackBar.open("UPLOAD cancelado!", "Cancelado!", {
+            duration: 3000
+          });
+          this.listagemMesAtual();
+        }
+      });
+  }
+
+
+
+  baixar(id: number) {
+    this.avisoDialogService.openConfirmationDialog("Deseja baixar o Anexo? ")
+      .then(result => {
+        if (result) {
+          this.mostraProgresso = true;
+          this.service.downloadFile(id)
+            .subscribe({
+              next: (resposta) => {
+                const sampleArr = this.base64ToArrayBufferAngular16(resposta.anexo);
+                this.saveByteArray(resposta, sampleArr);
+                this.mostraProgresso = false;
+              },
+              error: (_responseError) => {
+                this.mostraProgresso = false;
+                this.snackBar.open("Erro ao efetuar DOWNLOAD!", "ERRO!", {
+                  duration: 3000
+                });
+              }
+            });
+        } else {
+          this.mostraProgresso = false;
+          this.snackBar.open("Download cancelado!", "Cancelado!", {
+            duration: 3000
+          });
+        }
+      });
+  }
+
+
+  private base64ToArrayBufferAngular16(base64: any) {
+    // instalar a dep:  npm i buffer && npm install --save-dev @types/node 
+    // configurar o types node no tsconfig.json  "types": [   "node",] (Dentro de compilerOptions )
+    // Usar o: import { Buffer } from 'buffer';
+    //(Buffer.from) Usar do angular 16 adiante.
+    if (base64) {
+      var binaryString = Buffer.from(base64, 'base64');
+      var bytes = new Uint8Array(binaryString.length);
+      for (var i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString[i];
+      }
+      return bytes;
+    } else {
+      console.error("base64 está indefinido ou vazio");
+      return null;
+    }
+  }
+
+  private saveByteArray(arquivo: AnexoDownloaDTO, byte: any) {
+    var blob = new Blob([byte], { type: arquivo.type });
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    var fileName = arquivo.nome;
+    link.download = fileName;
+    link.click();
+  }
 
 }

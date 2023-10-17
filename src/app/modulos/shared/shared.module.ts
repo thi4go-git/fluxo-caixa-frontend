@@ -36,6 +36,8 @@ import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
 import { RouterModule } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 
 
 // MÓDULO que tem todos os imports
@@ -74,7 +76,8 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     MatSliderModule,
     MatSidenavModule,
     RouterModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressBarModule,
   ], exports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -99,7 +102,8 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     MatSliderModule,
     MatSidenavModule,
     RouterModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressBarModule,
   ],
   providers: [
     AvisosDialogService,

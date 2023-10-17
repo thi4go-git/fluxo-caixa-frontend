@@ -10,6 +10,7 @@ import { NaturezaDTO } from '../entity-class/naturezaDTO';
 import { Natureza } from '../entity-class/natureza';
 import { LancamentoFilterDTO } from '../entity-class/lancamentoFilterDTO';
 import { LancamentoDTOResponse } from '../entity-class/lancamentoDTOResponse';
+import { AnexoDownloaDTO } from '../entity-class/anexoDownloaDTO';
 
 
 
@@ -100,6 +101,14 @@ export class LancamentoService {
     const params = new HttpParams()
       .set('username', this.username);
     return this.http.post<any>(this.apiUrl + "/lancamentos/deletar-multiplos", listaIdSelecionados, { params });
+  }
+
+  uploadFile(formData: FormData, id: number): Observable<any> {
+    return this.http.post(this.apiUrl + `/lancamentos/${id}/upload`, formData, { responseType: 'blob' });
+  }
+
+  downloadFile(id: number): Observable<AnexoDownloaDTO> {
+    return this.http.get<AnexoDownloaDTO>(this.apiUrl + `/lancamentos/${id}/download`);
   }
 
 }

@@ -13,4 +13,5 @@ export class LancamentoDTOResponse {
     natureza: NaturezaDTO = new NaturezaDTO();
     data_criacao: any;
     data_alteracao: any;
+    nomeAnexo: string = '';
 }

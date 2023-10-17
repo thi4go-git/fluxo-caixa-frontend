@@ -23,6 +23,8 @@ export class NaturezaListComponent implements OnInit {
   selecao = new SelectionModel<NaturezaDTO>(false);
   itemSelecionado = new Set<NaturezaDTO>();
 
+  mostraProgresso: boolean = false;
+
   constructor(
     private service: LancamentoService,
     private dialog: MatDialog,
@@ -35,16 +37,17 @@ export class NaturezaListComponent implements OnInit {
   }
 
   listarNaturezas() {
-
+    this.mostraProgresso = true;
     this.service.getNaturezasByUsername()
       .subscribe({
         next: (resposta) => {
           this.naturezas = resposta;
           this.dataSource = new MatTableDataSource(this.naturezas);
+          this.mostraProgresso = false;
         },
         error: (responseError) => {
-          console.log("Erro");
-          console.log(responseError);
+          this.mostraProgresso = false;
+          console.error(responseError);
         }
       });
   }
@@ -88,16 +91,19 @@ export class NaturezaListComponent implements OnInit {
   }
 
   excluirNatureza(natureza: NaturezaDTO) {
+    this.mostraProgresso = true;
     this.service.deletarNaturezaPorId(natureza)
       .subscribe({
-        next: (resposta) => {
+        next: (_resposta) => {
           this.snackBar.open("Sucesso ao excluir natureza!", "SUCESSO!", {
             duration: 3000
           });
           this.listarNaturezas();
+          this.mostraProgresso = false;
         },
         error: (responseError) => {
-          console.log(responseError);
+          this.mostraProgresso = false;
+          console.error(responseError);
           this.snackBar.open(responseError.error.erros, "ERRO!", {
             duration: 6000
           });
