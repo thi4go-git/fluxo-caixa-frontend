@@ -113,14 +113,14 @@
                     </mat-checkbox>
                 </section>
             </td>
-            <td mat-footer-cell *matFooterCellDef> --- </td>
+            <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
 
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> Id: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.id}} </td>
-            <td mat-footer-cell *matFooterCellDef> --- </td>
+            <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
 
         <ng-container matColumnDef="valor_parcela">
@@ -130,7 +130,7 @@
                 (click)=" selecionaLinha(lancamento)" [class.linha-selecionada]="itemSelecionado.has(lancamento)">
                 {{lancamento.valor_parcela}}
             </td>
-            <td mat-footer-cell *matFooterCellDef> --- </td>
+            <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
 
         <ng-container matColumnDef="data_lancamento">
@@ -138,14 +138,14 @@
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{lancamento.data_lancamento |
                 date:'dd/MM/yyyy' }} </td>
-            <td mat-footer-cell *matFooterCellDef> --- </td>
+            <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
 
         <ng-container matColumnDef="descricao">
             <th mat-header-cell *matHeaderCellDef> Descrição: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{lancamento.descricao}} </td>
-            <td mat-footer-cell *matFooterCellDef> --- </td>
+            <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
 
         <ng-container matColumnDef="tipo">
@@ -154,28 +154,28 @@
                 [ngStyle]="{'color': lancamento.tipo == 'DEBITO' ? 'red' : 'green'}"
                 (click)=" selecionaLinha(lancamento)" [class.linha-selecionada]="itemSelecionado.has(lancamento)">
                 {{lancamento.tipo}} </td>
-            <td mat-footer-cell *matFooterCellDef> --- </td>
+            <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
 
         <ng-container matColumnDef="qtde_parcelas">
             <th mat-header-cell *matHeaderCellDef> Qtde Parcelas: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{lancamento.qtde_parcelas}} </td>
-            <td mat-footer-cell *matFooterCellDef> --- </td>
+            <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
 
         <ng-container matColumnDef="nr_parcela">
             <th mat-header-cell *matHeaderCellDef> Nº Parcela: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.nr_parcela }}</td>
-            <td mat-footer-cell *matFooterCellDef> --- </td>
+            <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
 
         <ng-container matColumnDef="natureza">
             <th mat-header-cell *matHeaderCellDef> Natureza: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.natureza.descricao }} </td>
-            <td mat-footer-cell *matFooterCellDef> --- </td>
+            <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
 
         <ng-container matColumnDef="data_criacao">
@@ -183,7 +183,7 @@
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.data_criacao |
                 date:'dd/MM/yyyy' }} </td>
-            <td mat-footer-cell *matFooterCellDef> --- </td>
+            <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
 
 
@@ -198,7 +198,7 @@
                     <input type="file" name="anexo" (change)="uploadFile($event,lancamento.id)" />
                 </div>
             </td>
-            <td mat-footer-cell *matFooterCellDef> --- </td>
+            <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
 
         <ng-container matColumnDef="delete">
@@ -207,7 +207,7 @@
                 <mat-icon class="cursorMao" (click)="selecionarLancamentoDeletar(lancamento)" data-toggle="modal"
                     data-target="#modalExclusao">delete</mat-icon>
             </td>
-            <td mat-footer-cell *matFooterCellDef> --- </td>
+            <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
 
         <ng-container matColumnDef="download">
@@ -217,7 +217,7 @@
                     get_app
                 </mat-icon>
             </td>
-            <td mat-footer-cell *matFooterCellDef> --- </td>
+            <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

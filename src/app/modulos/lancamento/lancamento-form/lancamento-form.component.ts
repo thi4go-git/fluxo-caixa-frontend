@@ -67,7 +67,7 @@ export class LancamentoFormComponent implements OnInit {
           }
         },
         error: (responseError) => {
-          console.log(responseError);
+          console.error(responseError);
           this.snackBar.open("Erro ao definir naturezas: ", responseError, {
             duration: 5000
           });
@@ -82,7 +82,7 @@ export class LancamentoFormComponent implements OnInit {
           this.situacao = resposta;
         },
         error: (responseError) => {
-          console.log(responseError);
+          console.error(responseError);
           this.snackBar.open("Erro: ", responseError, {
             duration: 5000
           });
@@ -98,7 +98,7 @@ export class LancamentoFormComponent implements OnInit {
           this.tipo_doc = resposta;
         },
         error: (responseError) => {
-          console.log(responseError);
+          console.error(responseError);
           this.snackBar.open("Erro ao definir tipo lançamento: ", responseError, {
             duration: 5000
           });

@@ -1,18 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginModule } from '../login/login.module';
-import { GraficosModule } from '../graficos/graficos.module';
-import { TemplateModule } from '../template/template.module';
-import { LancamentoModule } from '../lancamento/lancamento.module';
-import { NaturezaModule } from '../natureza/natureza.module';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NotFoundComponent } from 'src/app/componentes/not-found/not-found.component';
-import { DateFormatPipe } from 'src/app/entity-class/date-format-pipe';
-import { LancamentoService } from 'src/app/services/lancamento.service';
-import { AppComponent } from 'src/app/app.component';
-import { AppRoutingModule } from 'src/app/app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -31,8 +18,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NaturezaRoutingModule } from '../natureza/natureza-routing.module';
-import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
-import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
 import { RouterModule } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
@@ -44,24 +29,18 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NotFoundComponent,
-    DateFormatPipe,
     DecimalPipe
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    HttpClientModule,
+    CommonModule,
+    FormsModule,
+    RouterModule,
     NgxMaskDirective,
     NgxMaskPipe,
     GraficosRoutingModule,
     LancamentoRoutingModule,
     NaturezaRoutingModule,
-    CommonModule,
     ReactiveFormsModule,
-    FormsModule,
     MatIconModule,
     MatInputModule,
     MatCardModule,
@@ -75,19 +54,20 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatDialogModule,
     MatSliderModule,
     MatSidenavModule,
-    RouterModule,
     MatCheckboxModule,
     MatProgressBarModule,
+    NgxMaskDirective,
+    NgxMaskPipe
   ], exports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    HttpClientModule,
+    CommonModule,
+    FormsModule,
+    RouterModule,
     NgxMaskDirective,
     NgxMaskPipe,
-    CommonModule,
+    GraficosRoutingModule,
+    LancamentoRoutingModule,
+    NaturezaRoutingModule,
     ReactiveFormsModule,
-    FormsModule,
     MatIconModule,
     MatInputModule,
     MatCardModule,
@@ -101,20 +81,13 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatDialogModule,
     MatSliderModule,
     MatSidenavModule,
-    RouterModule,
     MatCheckboxModule,
     MatProgressBarModule,
+    NgxMaskDirective,
+    NgxMaskPipe
   ],
   providers: [
-    AvisosDialogService,
-    LancamentoService,
     provideNgxMask(),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }
-
   ],
 
 })

@@ -74,9 +74,11 @@ export class LancamentoListagemComponent implements OnInit {
             this.naturezas = resposta;
           }
         },
-        error: (responseError) => {
-          console.log("Erro");
-          console.log(responseError);
+        error: (responseError) => {    
+          console.error(responseError);
+          this.snackBar.open("Erro ao Obter naturezas ", "Erro!", {
+            duration: 2000
+          });
         }
       });
   }
@@ -88,9 +90,11 @@ export class LancamentoListagemComponent implements OnInit {
         next: (resposta) => {
           this.tipoLancamento = resposta;
         },
-        error: (responseError) => {
-          console.log("Erro");
-          console.log(responseError);
+        error: (responseError) => {      
+          console.error(responseError);
+          this.snackBar.open("Erro ao obter lista de Tipos ", "Erro!", {
+            duration: 2000
+          });
         }
       });
   }
@@ -110,9 +114,11 @@ export class LancamentoListagemComponent implements OnInit {
           this.mostraProgresso = false;
         },
         error: (responseError) => {
-          this.mostraProgresso = false;
-          console.log("Erro");
-          console.log(responseError);
+          this.mostraProgresso = false; 
+          console.error(responseError);
+          this.snackBar.open("Erro ao obter Lançamentos do mÊs atual ", "Erro!", {
+            duration: 2000
+          });
         }
       });
   }
@@ -179,7 +185,7 @@ export class LancamentoListagemComponent implements OnInit {
           },
           error: (responseError) => {
             this.mostraProgresso = false;
-            console.log(responseError);
+            console.error(responseError);
             this.snackBar.open("Erro ao aplicar Filtros!", "Erro!", {
               duration: 5000
             });
@@ -233,7 +239,7 @@ export class LancamentoListagemComponent implements OnInit {
                 this.listagemMesAtual();
               },
               error: (responseError) => {
-                console.log(responseError);
+                console.error(responseError);
                 this.snackBar.open("Erro ao deletar!", responseError, {
                   duration: 5000
                 });

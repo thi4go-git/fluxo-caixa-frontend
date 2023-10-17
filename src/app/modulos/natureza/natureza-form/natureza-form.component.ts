@@ -50,7 +50,7 @@ export class NaturezaFormComponent {
           window.location.reload();  
         },
         error: (responseError) => {       
-          console.log(responseError);        
+          console.error(responseError);        
           this.msgErros = responseError.error.erros
           this.snackBar.open("Erro Ao Salvar!", "Err!", {
             duration: 5000

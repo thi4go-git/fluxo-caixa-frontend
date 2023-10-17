@@ -30,7 +30,6 @@ export class AutenticacaoService {
       'Authorization': 'Basic ' + btoa(this.cli_id + ':' + this.cli_secret),
       'Content-Type': 'application/x-www-form-urlencoded'
     };
-    console.log(this.urlToken);
     return this.http.post(this.urlToken, params.toString(), { headers });
   }
 
