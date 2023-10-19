@@ -17,7 +17,7 @@ import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { LancamentoService } from 'src/app/services/lancamento.service';
 import { AppComponent } from 'src/app/app.component';
 import { NotFoundComponent } from 'src/app/componentes/not-found/not-found.component';
-import { DateFormatPipe } from 'src/app/entity-class/date-format-pipe';
+import { DateFormatPipe } from 'src/app/pipes/date-format-pipe';
 
 
 

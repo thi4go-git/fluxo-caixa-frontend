@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { LancamentoDTO } from 'src/app/entity-class/lancamentoDTO';
 import { LancamentoService } from 'src/app/services/lancamento.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ParameterViolations } from 'src/app/entity-class/parameterViolations';
+import { ParameterViolations } from 'src/app/model/parameterViolations';
 import { AutenticacaoService } from 'src/app/services/autenticacao.service';
-import { NaturezaDTO } from 'src/app/entity-class/naturezaDTO';
 import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
+import { NaturezaNewDTO } from 'src/app/model/natureza/naturezaNewDTO';
+import { LancamentoNewDTO } from 'src/app/model/lancamento/lancamentoNewDTO';
 
 
 
@@ -20,12 +20,12 @@ export class LancamentoFormComponent implements OnInit {
 
 
   hide = true;
-  natureza: NaturezaDTO[] = [];
+  natureza: NaturezaNewDTO[] = [];
   situacao: any[] = [];
 
   tipo_doc: any[] = [];
 
-  lancamento!: LancamentoDTO;
+  lancamento!: LancamentoNewDTO;
   data_referencia!: Date;
 
   msgErros: ParameterViolations[] = [];
@@ -45,7 +45,7 @@ export class LancamentoFormComponent implements OnInit {
 
   processoInicial() {
 
-    this.lancamento = new LancamentoDTO();
+    this.lancamento = new LancamentoNewDTO();
     this.lancamento.username = this.auth.getUsuarioAutenticado();
 
     this.definirTipo();
@@ -139,7 +139,7 @@ export class LancamentoFormComponent implements OnInit {
         duration: 4000
       });
     } else {
-      if (this.lancamento.id_natureza == undefined) {
+      if (this.lancamento.idNatureza == undefined) {
         this.snackBar.open("Informe uma natureza para o Lançamento!", "Info:", {
           duration: 4000
         });
@@ -149,17 +149,17 @@ export class LancamentoFormComponent implements OnInit {
             duration: 4000
           });
         } else {
-          if (!this.lancamento.data_referencia) {
+          if (!this.lancamento.dataReferencia) {
             this.snackBar.open("Informe a data de referência para o Lançamento!", "Info:", {
               duration: 4000
             });
           } else {
-            if (this.lancamento.valor_total == undefined || this.lancamento.valor_total <= 0) {
+            if (this.lancamento.valorTotal == undefined || this.lancamento.valorTotal <= 0) {
               this.snackBar.open("Informe o valor total do Lançamento!", "Info:", {
                 duration: 4000
               });
             } else {
-              if (this.lancamento.qtde_parcelas == undefined || this.lancamento.qtde_parcelas <= 0) {
+              if (this.lancamento.qtdeParcelas == undefined || this.lancamento.qtdeParcelas <= 0) {
                 this.snackBar.open("Informe a qtde de parcelas!", "Info:", {
                   duration: 4000
                 });

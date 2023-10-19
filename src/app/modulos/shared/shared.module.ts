@@ -7,7 +7,7 @@ import { GraficosRoutingModule } from '../graficos/graficos-routing.module';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { DecimalPipe } from 'src/app/entity-class/decimal-pipe';
+import { DecimalPipe } from 'src/app/pipes/decimal-pipe';
 import { LancamentoRoutingModule } from '../lancamento/lancamento-routing.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';

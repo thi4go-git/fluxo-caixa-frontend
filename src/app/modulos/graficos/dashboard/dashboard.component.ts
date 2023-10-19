@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild, } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Chart from 'chart.js/auto'
-import { LancamentoDashboardDTO } from 'src/app/entity-class/lancamentoDashboardDTO';
+import { LancamentoDashboardDTO } from 'src/app/model/lancamento/lancamentoDashboardDTO';
 import { LancamentoService } from 'src/app/services/lancamento.service';
 
 
@@ -77,17 +77,17 @@ export class DashboardComponent implements OnInit {
         datasets: [
           {
             label: 'Entradas',
-            data: this.lancamentosDashboard.map(row => row.saldo_entradas),
+            data: this.lancamentosDashboard.map(row => row.entradas),
             backgroundColor: ['rgba(0, 0, 255)']
           },
           {
             label: 'Saídas',
-            data: this.lancamentosDashboard.map(row => Math.abs(row.saldo_saidas)),
+            data: this.lancamentosDashboard.map(row => Math.abs(row.saidas)),
             backgroundColor: ['rgba(255, 0, 0)']
           },
           {
             label: 'Saldo',
-            data: this.lancamentosDashboard.map(row => (row.saldo_entradas + row.saldo_saidas)),
+            data: this.lancamentosDashboard.map(row => (row.entradas + row.saidas)),
 
             backgroundColor: ['rgba(255, 165, 0)']
           }
@@ -112,17 +112,17 @@ export class DashboardComponent implements OnInit {
         datasets: [
           {
             label: 'Entradas',
-            data: this.lancamentosDashboard.map(row => row.saldo_entradas),
+            data: this.lancamentosDashboard.map(row => row.entradas),
             //   backgroundColor: ['rgba(4, 177, 255)']
           },
           {
             label: 'Saídas',
-            data: this.lancamentosDashboard.map(row => Math.abs(row.saldo_saidas)),
+            data: this.lancamentosDashboard.map(row => Math.abs(row.saidas)),
             // backgroundColor: ['rgba(255, 80, 40)']
           },
           {
             label: 'Saldo',
-            data: this.lancamentosDashboard.map(row => (row.saldo_entradas + row.saldo_saidas)),
+            data: this.lancamentosDashboard.map(row => (row.entradas + row.saidas)),
 
             //  backgroundColor: ['rgba(255, 165, 0)']
           }

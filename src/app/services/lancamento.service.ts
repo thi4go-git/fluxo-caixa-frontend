@@ -2,15 +2,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { apiEnvironment } from 'src/environments/apiEnvironment';
 import { Observable } from 'rxjs';
-import { LancamentoDataDTO } from '../entity-class/lancamentoDataDTO';
-import { LancamentoDTO } from '../entity-class/lancamentoDTO';
-import { DashboardDTO } from '../entity-class/dashboardDTO';
+import { LancamentoDataDTO } from '../model/lancamento/lancamentoDataDTO';
+import { DashboardDTO } from '../model/lancamento/dashboardDTO';
 import { AutenticacaoService } from './autenticacao.service';
-import { NaturezaDTO } from '../entity-class/naturezaDTO';
-import { Natureza } from '../entity-class/natureza';
-import { LancamentoFilterDTO } from '../entity-class/lancamentoFilterDTO';
-import { LancamentoDTOResponse } from '../entity-class/lancamentoDTOResponse';
-import { AnexoDownloaDTO } from '../entity-class/anexoDownloaDTO';
+import { Natureza } from '../model/natureza/natureza';
+import { LancamentoFilterDTO } from '../model/lancamento/lancamentoFilterDTO';
+import { AnexoDownloaDTO } from '../model/anexoDownloaDTO';
+import { LancamentoNewDTO } from '../model/lancamento/lancamentoNewDTO';
+import { NaturezaNewDTO } from '../model/natureza/naturezaNewDTO';
 
 
 
@@ -29,8 +28,8 @@ export class LancamentoService {
     this.username = this.authService.getUsuarioAutenticado();
   }
 
-  save(lancamento: LancamentoDTO): Observable<LancamentoDTO> {
-    return this.http.post<LancamentoDTO>(this.apiUrl + '/lancamentos', lancamento);
+  save(lancamento: LancamentoNewDTO): Observable<LancamentoNewDTO> {
+    return this.http.post<LancamentoNewDTO>(this.apiUrl + '/lancamentos', lancamento);
   }
 
 
@@ -52,17 +51,17 @@ export class LancamentoService {
 
   finByIdUserDataFilter(lancamentoFilter: LancamentoFilterDTO): Observable<LancamentoDataDTO> {
     const params = new HttpParams()
-      .set('inicio', lancamentoFilter.data_inicio)
-      .set('fim', lancamentoFilter.data_fim);
+      .set('inicio', lancamentoFilter.dataInicio)
+      .set('fim', lancamentoFilter.dataFim);
     lancamentoFilter.username = this.username;
     return this.http.post<LancamentoDataDTO>(this.apiUrl + '/lancamentos/filter',
       lancamentoFilter, { params });
   }
 
-  getNaturezasByUsername(): Observable<NaturezaDTO[]> {
+  getNaturezasByUsername(): Observable<NaturezaNewDTO[]> {
     const params = new HttpParams()
       .set('username', this.username);
-    return this.http.get<NaturezaDTO[]>(this.apiUrl + '/naturezas', { params });
+    return this.http.get<NaturezaNewDTO[]>(this.apiUrl + '/naturezas', { params });
   }
 
   findAllSituacao(): Observable<any[]> {
@@ -80,8 +79,8 @@ export class LancamentoService {
   }
 
 
-  saveNatureza(natureza: Natureza): Observable<NaturezaDTO> {
-    return this.http.post<NaturezaDTO>(this.apiUrl + '/naturezas', natureza);
+  saveNatureza(natureza: Natureza): Observable<NaturezaNewDTO> {
+    return this.http.post<NaturezaNewDTO>(this.apiUrl + '/naturezas', natureza);
   }
 
   deletarNaturezaPorId(natureza: Natureza): Observable<any> {

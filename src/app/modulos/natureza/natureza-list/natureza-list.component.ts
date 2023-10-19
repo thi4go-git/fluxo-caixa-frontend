@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { NaturezaDTO } from 'src/app/entity-class/naturezaDTO';
 import { LancamentoService } from 'src/app/services/lancamento.service';
 import { NaturezaFormComponent } from '../natureza-form/natureza-form.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NaturezaNewDTO } from 'src/app/model/natureza/naturezaNewDTO';
 
 @Component({
   selector: 'app-natureza-list',
@@ -16,12 +16,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class NaturezaListComponent implements OnInit {
 
 
-  naturezas: NaturezaDTO[] = [];
-  dataSource: MatTableDataSource<NaturezaDTO> = new MatTableDataSource;
+  naturezas: NaturezaNewDTO[] = [];
+  dataSource: MatTableDataSource<NaturezaNewDTO> = new MatTableDataSource;
   displayedColumns: string[] = ['id', 'descricao', 'del'];
 
-  selecao = new SelectionModel<NaturezaDTO>(false);
-  itemSelecionado = new Set<NaturezaDTO>();
+  selecao = new SelectionModel<NaturezaNewDTO>(false);
+  itemSelecionado = new Set<NaturezaNewDTO>();
 
   mostraProgresso: boolean = false;
 
@@ -64,7 +64,7 @@ export class NaturezaListComponent implements OnInit {
     });
   }
 
-  selecionaLinha(natureza: NaturezaDTO) {
+  selecionaLinha(natureza: NaturezaNewDTO) {
     this.selecao.toggle(natureza);
     if (this.itemSelecionado.has(natureza)) {
       this.itemSelecionado.clear();
@@ -74,7 +74,7 @@ export class NaturezaListComponent implements OnInit {
     }
   }
 
-  dialogExclusao(natureza: NaturezaDTO) {
+  dialogExclusao(natureza: NaturezaNewDTO) {
 
     this.avisoDialogService.openConfirmationDialog("Confirma a Exclusão da Natureza '"
       + natureza.descricao + "' ?")
@@ -90,7 +90,7 @@ export class NaturezaListComponent implements OnInit {
 
   }
 
-  excluirNatureza(natureza: NaturezaDTO) {
+  excluirNatureza(natureza: NaturezaNewDTO) {
     this.mostraProgresso = true;
     this.service.deletarNaturezaPorId(natureza)
       .subscribe({

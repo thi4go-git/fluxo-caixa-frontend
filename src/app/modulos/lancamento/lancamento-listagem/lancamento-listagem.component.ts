@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { LancamentoDTOResponse } from 'src/app/entity-class/lancamentoDTOResponse';
-import { LancamentoFilterDTO } from 'src/app/entity-class/lancamentoFilterDTO';
-import { NaturezaDTO } from 'src/app/entity-class/naturezaDTO';
+import { LancamentoDTOResponse } from 'src/app/model/lancamento/lancamentoDTOResponse';
+import { LancamentoFilterDTO } from 'src/app/model/lancamento/lancamentoFilterDTO';
 import { LancamentoService } from 'src/app/services/lancamento.service';
 import { LancamentoFormComponent } from '../lancamento-form/lancamento-form.component';
 import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AnexoDownloaDTO } from 'src/app/entity-class/anexoDownloaDTO';
+import { AnexoDownloaDTO } from 'src/app/model/anexoDownloaDTO';
 import { Buffer } from 'buffer';
+import { NaturezaNewDTO } from 'src/app/model/natureza/naturezaNewDTO';
 
 
 
@@ -23,8 +23,8 @@ export class LancamentoListagemComponent implements OnInit {
 
 
   total_lancamentos: number = 0;
-  displayedColumns: string[] = ['selecionado', 'id', 'valor_parcela', 'data_lancamento', 'descricao', 'tipo'
-    , 'qtde_parcelas', 'nr_parcela', 'natureza', 'data_criacao', 'nomeAnexo', 'delete', 'download'];
+  displayedColumns: string[] = ['selecionado', 'id', 'valorParcela', 'dataLancamento', 'descricao', 'tipo'
+    , 'qtdeParcelas', 'nrParcela', 'natureza', 'dataCriacao', 'nomeAnexo', 'delete', 'download'];
 
   dataSource: MatTableDataSource<LancamentoDTOResponse> = new MatTableDataSource;
 
@@ -38,7 +38,7 @@ export class LancamentoListagemComponent implements OnInit {
 
   lancamentoFilter: LancamentoFilterDTO = new LancamentoFilterDTO;
 
-  naturezas: NaturezaDTO[] = [];
+  naturezas: NaturezaNewDTO[] = [];
 
   selecao = new SelectionModel<LancamentoDTOResponse>(false);
   itemSelecionado = new Set<LancamentoDTOResponse>();
@@ -104,9 +104,9 @@ export class LancamentoListagemComponent implements OnInit {
     this.service.finByIdUserDataMesAtual()
       .subscribe({
         next: (resposta) => {
-          this.lancamentoFilter.data_inicio = resposta.data_inicio;
-          this.lancamentoFilter.data_fim = resposta.data_fim;
-          this.total_lancamentos = resposta.total_lancamentos;
+          this.lancamentoFilter.dataInicio = resposta.dataInicio;
+          this.lancamentoFilter.dataFim = resposta.dataFim;
+          this.total_lancamentos = resposta.totalLancamentos;
           this.listaLancamentos = resposta.lancamentos;
 
           this.dataSource = new MatTableDataSource(this.listaLancamentos);
@@ -130,11 +130,11 @@ export class LancamentoListagemComponent implements OnInit {
     let sumEntrada = 0;
     let sumSaida = 0;
     for (let lancamento of this.listaLancamentos) {
-      sumSaldo = sumSaldo + lancamento.valor_parcela;
+      sumSaldo = sumSaldo + lancamento.valorParcela;
       if (lancamento.tipo == 'CREDITO') {
-        sumEntrada = sumEntrada + lancamento.valor_parcela;
+        sumEntrada = sumEntrada + lancamento.valorParcela;
       } else {
-        sumSaida = sumSaida + lancamento.valor_parcela;
+        sumSaida = sumSaida + lancamento.valorParcela;
       }
     }
     this.saldoPeriodo =
@@ -161,23 +161,23 @@ export class LancamentoListagemComponent implements OnInit {
 
     this.mostraProgresso = true;
 
-    let natu = this.lancamentoFilter.id_natureza;
+    let natu = this.lancamentoFilter.idNatureza;
     let tp = this.lancamentoFilter.tipo;
     if (natu == 'TUDO') {
-      this.lancamentoFilter.id_natureza = null;
+      this.lancamentoFilter.idNatureza = null;
     }
     if (tp == 'TUDO') {
       this.lancamentoFilter.tipo = null;
     }
 
-    if (this.lancamentoFilter.data_inicio && this.lancamentoFilter.data_fim) {
+    if (this.lancamentoFilter.dataInicio && this.lancamentoFilter.dataFim) {
 
       this.service.finByIdUserDataFilter(this.lancamentoFilter)
         .subscribe({
           next: (resposta) => {
-            this.lancamentoFilter.data_inicio = resposta.data_inicio;
-            this.lancamentoFilter.data_fim = resposta.data_fim;
-            this.total_lancamentos = resposta.total_lancamentos;
+            this.lancamentoFilter.dataInicio = resposta.dataInicio;
+            this.lancamentoFilter.dataFim = resposta.dataFim;
+            this.total_lancamentos = resposta.totalLancamentos;
             this.listaLancamentos = resposta.lancamentos
             this.dataSource = new MatTableDataSource(this.listaLancamentos);
             this.definirInfo();
