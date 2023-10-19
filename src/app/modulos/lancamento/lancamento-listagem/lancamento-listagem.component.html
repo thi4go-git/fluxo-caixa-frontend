@@ -195,17 +195,15 @@
                     {{ lancamento.nomeAnexo }}
                 </div>
                 <div *ngIf="!lancamento.nomeAnexo">
-                    <input type="file" name="anexo" (change)="uploadFile($event,lancamento.id)" />
+                    <input type="file" name="anexo" class="file-input" (change)="uploadFile($event,lancamento.id)"
+                        #fileUpload />
+                    <div class="file-upload">
+                        <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+                            <mat-icon>attach_file</mat-icon>
+                        </button>
+                        {{ "Enviar" || "No file uploaded yet." }}
+                    </div>
                 </div>
-            </td>
-            <td mat-footer-cell *matFooterCellDef> . </td>
-        </ng-container>
-
-        <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let lancamento">
-                <mat-icon class="cursorMao" (click)="selecionarLancamentoDeletar(lancamento)" data-toggle="modal"
-                    data-target="#modalExclusao">delete</mat-icon>
             </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
@@ -216,6 +214,15 @@
                 <mat-icon class="cursorMao" *ngIf="lancamento.nomeAnexo" (click)="baixar(lancamento.id)">
                     get_app
                 </mat-icon>
+            </td>
+            <td mat-footer-cell *matFooterCellDef> . </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let lancamento">
+                <mat-icon class="cursorMao-delete" (click)="selecionarLancamentoDeletar(lancamento)" data-toggle="modal"
+                    data-target="#modalExclusao">delete</mat-icon>
             </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>

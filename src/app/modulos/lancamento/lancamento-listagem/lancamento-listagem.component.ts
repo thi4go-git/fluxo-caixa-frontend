@@ -24,7 +24,7 @@ export class LancamentoListagemComponent implements OnInit {
 
   total_lancamentos: number = 0;
   displayedColumns: string[] = ['selecionado', 'id', 'valorParcela', 'dataLancamento', 'descricao', 'tipo'
-    , 'qtdeParcelas', 'nrParcela', 'natureza', 'dataCriacao', 'nomeAnexo', 'delete', 'download'];
+    , 'qtdeParcelas', 'nrParcela', 'natureza', 'dataCriacao', 'nomeAnexo', 'download', 'delete',];
 
   dataSource: MatTableDataSource<LancamentoDTOResponse> = new MatTableDataSource;
 
@@ -74,7 +74,7 @@ export class LancamentoListagemComponent implements OnInit {
             this.naturezas = resposta;
           }
         },
-        error: (responseError) => {    
+        error: (responseError) => {
           console.error(responseError);
           this.snackBar.open("Erro ao Obter naturezas ", "Erro!", {
             duration: 2000
@@ -90,7 +90,7 @@ export class LancamentoListagemComponent implements OnInit {
         next: (resposta) => {
           this.tipoLancamento = resposta;
         },
-        error: (responseError) => {      
+        error: (responseError) => {
           console.error(responseError);
           this.snackBar.open("Erro ao obter lista de Tipos ", "Erro!", {
             duration: 2000
@@ -114,7 +114,7 @@ export class LancamentoListagemComponent implements OnInit {
           this.mostraProgresso = false;
         },
         error: (responseError) => {
-          this.mostraProgresso = false; 
+          this.mostraProgresso = false;
           console.error(responseError);
           this.snackBar.open("Erro ao obter Lançamentos do mÊs atual ", "Erro!", {
             duration: 2000

@@ -15,6 +15,12 @@ table {
     color: blue;
 }
 
+.cursorMao-delete {
+    cursor: pointer;
+    color: rgb(207, 71, 18);
+}
+
+
 .linha-selecionada {
     font-weight: bold;
 }
@@ -24,10 +30,16 @@ table {
 }
 
 .mat-row.mat-row:nth-child(odd) {
-    background-color: #ffffff; /* Cor de fundo para linhas ímpares */
+    background-color: #ffffff;
+    /* Cor de fundo para linhas ímpares */
 }
 
 /* Estilo para linhas pares */
 .mat-row.mat-row:nth-child(even) {
-    background-color: #e2e2e2; /* Cor de fundo para linhas pares */
+    background-color: #e2e2e2;
+    /* Cor de fundo para linhas pares */
+}
+
+.file-input {
+    display: none;
 }
