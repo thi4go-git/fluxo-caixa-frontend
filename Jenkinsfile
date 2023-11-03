@@ -40,7 +40,7 @@ pipeline {
         stage('Imagem Docker') {
             steps {
                 echo "Imagem Docker" 
-                sh 'docker build -t fluxo-caixa-frontend:lts .'           
+                sh 'docker build -t fluxo-caixa-frontend:latest .'           
             }
         }
         stage('Deploy'){
