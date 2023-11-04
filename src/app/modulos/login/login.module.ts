@@ -7,13 +7,13 @@ import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
-    LoginFormComponent
+    LoginFormComponent    
   ],
   imports: [
     LoginRoutingModule,
     SharedModule
   ], exports: [
-    LoginFormComponent
+    LoginFormComponent    
   ]
 })
 export class LoginModule { }

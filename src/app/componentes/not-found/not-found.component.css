@@ -1,0 +1,15 @@
+.error {
+    background-color: #f1f1f1;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 100px;
+    font-size: 50px;
+    color: #555555;
+}
+
+p {
+    font-size: 20px;
+    color: #777777;
+}
