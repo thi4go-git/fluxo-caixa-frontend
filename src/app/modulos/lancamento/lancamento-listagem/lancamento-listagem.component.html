@@ -15,25 +15,25 @@
 
 <mat-card>
     <mat-card-content>
-        <b>Filtros</b>
+        <strong>Filtros</strong>
         <div class="container">
             <form #arquivoForm="ngForm">
                 <div id="row">
 
                     <mat-form-field appearance="fill" class="espaco">
-                        <mat-label> <b>Data Inicial:</b> </mat-label>
+                        <mat-label> <strong>Data Inicial:</strong> </mat-label>
                         <input matInput placeholder="Informe a Data Emissão" type="date" name="dataInicio"
                             [(ngModel)]="lancamentoFilter.dataInicio" />
                     </mat-form-field>
 
                     <mat-form-field appearance="fill" class="espaco">
-                        <mat-label> <b>Data Final:</b> </mat-label>
+                        <mat-label> <strong>Data Final:</strong> </mat-label>
                         <input matInput placeholder="Informe a Data Emissão" type="date" name="data_fim"
                             [(ngModel)]="lancamentoFilter.dataFim" />
                     </mat-form-field>
 
                     <mat-form-field appearance="fill" class="espaco">
-                        <mat-label> <b>Tipo:</b> </mat-label>
+                        <mat-label> <strong>Tipo:</strong> </mat-label>
                         <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
                             [(ngModel)]="lancamentoFilter.tipo">
                             <option>TUDO</option>
@@ -44,7 +44,7 @@
                     </mat-form-field>
 
                     <mat-form-field appearance="fill" class="espaco">
-                        <mat-label> <b>natureza:</b> </mat-label>
+                        <mat-label> <strong>natureza:</strong> </mat-label>
                         <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
                             [(ngModel)]="lancamentoFilter.idNatureza">
                             <option>TUDO</option>
@@ -56,14 +56,14 @@
 
                     <mat-form-field appearance="fill" class="espaco">
                         <mat-icon matSuffix>fingerprint</mat-icon>
-                        <mat-label> <b>Descrição</b> </mat-label>
+                        <mat-label> <strong>Descrição</strong> </mat-label>
                         <input matInput placeholder="Informe a Descrição:" name="descricao"
                             [(ngModel)]="lancamentoFilter.descricao" />
                     </mat-form-field>
 
                     <div id="row">
                         <button type="button" class="btn btn-success" (click)="listagemPersonalizada()">
-                            <i class="fa fa-save"></i>
+                            <em class="fa fa-save"></em>
                             <mat-icon>search</mat-icon>
                             Pesquisar
                         </button>
@@ -81,11 +81,11 @@
     <div id="col-md-2">
         <button class="btn btn-warning margem-btn" (click)="novoLancamento()">
             <mat-icon>exposure_plus_1</mat-icon>
-            <i class="fa fa-plus"></i>Novo Lançamento
+            <em class="fa fa-plus"></em>Novo Lançamento
         </button>
         <div *ngIf="listaIdSelecionados.length > 0">
             <button type="button" class="btn btn-danger espaco-filter" (click)="deletarSelecionados()">
-                <i class="fa fa-save"></i>
+                <em class="fa fa-save"></em>
                 <mat-icon>delete</mat-icon>
                 Deletar Selecionados
             </button>
@@ -98,7 +98,7 @@
 <br>
 
 <div class="card-header">
-    <b>Total de Registros: {{ total_lancamentos }}</b>
+    <strong>Total de Registros: {{ total_lancamentos }}</strong>
 </div>
 
 <div class="mat-elevation-z8 col-md-12 table-responsive">
@@ -244,26 +244,26 @@
         <mat-card-content>
             <div>
                 <span>
-                    <b> Entradas Período:</b>
-                    <b [ngStyle]="{'color': entradasPeriodo.includes('-')? 'red' : 'green'}">
+                    <strong> Entradas Período:</strong>
+                    <strong [ngStyle]="{'color': entradasPeriodo.includes('-')? 'red' : 'green'}">
                         {{ entradasPeriodo }}
-                    </b>
+                    </strong>
                 </span>
             </div>
             <div>
                 <span>
-                    <b> Saídas Período:</b>
-                    <b [ngStyle]="{'color': saidasPeriodo.includes('-')? 'red' : 'green'}">
+                    <strong> Saídas Período:</strong>
+                    <strong [ngStyle]="{'color': saidasPeriodo.includes('-')? 'red' : 'green'}">
                         {{ saidasPeriodo }}
-                    </b>
+                    </strong>
                 </span>
             </div>
             <div>
                 <span>
-                    <b> Saldo Período:</b>
-                    <b [ngStyle]="{'color': saldoPeriodo.includes('-')? 'red' : 'green'}">
+                    <strong> Saldo Período:</strong>
+                    <strong [ngStyle]="{'color': saldoPeriodo.includes('-')? 'red' : 'green'}">
                         {{ saldoPeriodo }}
-                    </b>
+                    </strong>
                 </span>
             </div>
         </mat-card-content>
@@ -283,7 +283,6 @@
             <div class="modal-body" *ngIf="lancamentoDeletar">
                 Deletar o Lançamento:
                 Id: {{ lancamentoDeletar.id }} - {{ lancamentoDeletar.descricao }} ?
-
             </div>
 
             <div class="modal-footer">

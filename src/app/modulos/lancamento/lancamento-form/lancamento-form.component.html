@@ -25,13 +25,13 @@
 
                     <mat-form-field class="full-width" appearance="fill">
                         <mat-icon matSuffix>fingerprint</mat-icon>
-                        <mat-label> <b>username:</b> </mat-label>
+                        <mat-label> <strong>username:</strong> </mat-label>
                         <input matInput placeholder="Informe o username:" name="username"
                             [(ngModel)]="lancamento.username" disabled="true" />
                     </mat-form-field>
 
                     <mat-form-field appearance="fill" class="full-width">
-                        <mat-label> <b>Tipo:</b> </mat-label>
+                        <mat-label> <strong>Tipo:</strong> </mat-label>
                         <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
                             [(ngModel)]="lancamento.tipo">
                             <option *ngFor="let tipo of tipo_doc" [ngValue]="tipo">
@@ -41,7 +41,7 @@
                     </mat-form-field>
 
                     <mat-form-field appearance="fill" class="full-width">
-                        <mat-label> <b>natureza:</b> </mat-label>
+                        <mat-label> <strong>natureza:</strong> </mat-label>
                         <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
                             [(ngModel)]="lancamento.idNatureza">
                             <option *ngFor="let natureza of natureza" [ngValue]="natureza.id">
@@ -52,20 +52,20 @@
 
                     <mat-form-field class="full-width" appearance="fill">
                         <mat-icon matSuffix>description</mat-icon>
-                        <mat-label> <b>descricao:</b> </mat-label>
+                        <mat-label> <strong>descricao:</strong> </mat-label>
                         <input matInput placeholder="Informe descricao:" name="descricao"
                             [(ngModel)]="lancamento.descricao" />
                     </mat-form-field>
 
                     <mat-form-field class="full-width" appearance="fill">
-                        <mat-label> <b>dataReferencia:</b> </mat-label>
+                        <mat-label> <strong>dataReferencia:</strong> </mat-label>
                         <input matInput placeholder="Informe a dataReferencia" type="date" name="dataReferencia"
                             [(ngModel)]="lancamento.dataReferencia" />
                     </mat-form-field>
 
                     <mat-form-field class="full-width" appearance="fill">
                         <mat-icon matSuffix>attach_money</mat-icon>
-                        <mat-label> <b>valorTotal:</b> </mat-label>
+                        <mat-label> <strong>valorTotal:</strong> </mat-label>
                         <input matInput placeholder="Informe o valorTotal:" name="valorTotal" type="text"
                             [(ngModel)]="lancamento.valorTotal" mask="separator.2" thousandSeparator="."
                             [allowNegativeNumbers]="false" suffix=" $" />
@@ -73,7 +73,7 @@
 
                     <mat-form-field class="full-width" appearance="fill">
                         <mat-icon matSuffix>note_add</mat-icon>
-                        <mat-label> <b>qtdeParcelas:</b> </mat-label>
+                        <mat-label> <strong>qtdeParcelas:</strong> </mat-label>
                         <input matInput placeholder="Informe qtdeParcelas:" type="number" min="1" name="qtdeParcelas"
                             [(ngModel)]="lancamento.qtdeParcelas" />
                     </mat-form-field>
@@ -83,11 +83,11 @@
                 <br />
 
                 <button type="submit" class="btn btn-primary">
-                    <i class="fa fa-sync-alt"></i>
+                    <em class="fa fa-sync-alt"></em>
                     <mat-icon>save</mat-icon>Salvar
                 </button>
                 <button type="button" class="btn btn-danger ml-2" (click)="fecharDialog()">
-                    <i class="fa fa-solid fa-arrow-alt-circle-left"></i>
+                    <em class="fa fa-solid fa-arrow-alt-circle-left"></em>
                     <mat-icon>keyboard_return</mat-icon>Voltar
                 </button>
             </form>
