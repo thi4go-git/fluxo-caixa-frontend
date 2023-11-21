@@ -73,8 +73,14 @@ body {
 hr {
     box-sizing: content-box;
     height: 0;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, .1);
     overflow: visible
 }
+
+
 
 h1,
 h2,
@@ -180,9 +186,17 @@ a:not([href]):not([class]):hover {
     text-decoration: none
 }
 
+
+pre {
+    display: block;
+    font-size: 87.5%;
+    color: #3a3b45;
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 1em
+}
+
 code,
 kbd,
-pre,
 samp {
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     font-size: 1em
@@ -436,12 +450,7 @@ h6 {
     line-height: 1.2
 }
 
-hr {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    border: 0;
-    border-top: 1px solid rgba(0, 0, 0, .1)
-}
+
 
 .small,
 small {
@@ -545,11 +554,7 @@ kbd kbd {
     font-weight: 700
 }
 
-pre {
-    display: block;
-    font-size: 87.5%;
-    color: #3a3b45
-}
+
 
 pre code {
     font-size: inherit;

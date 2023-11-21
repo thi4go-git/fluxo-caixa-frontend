@@ -66,10 +66,10 @@ export class LancamentoFormComponent implements OnInit {
             this.natureza = resposta;
           }
         },
-        error: (responseError) => {
-          console.error(responseError);
-          this.snackBar.open("Erro ao definir naturezas: ", responseError, {
-            duration: 5000
+        error: (errorDefinirNatureza) => {
+          console.error(errorDefinirNatureza);
+          this.snackBar.open("Erro ao definir naturezas: ", errorDefinirNatureza, {
+            duration: 4000
           });
         }
       });
@@ -81,9 +81,9 @@ export class LancamentoFormComponent implements OnInit {
         next: (resposta) => {
           this.situacao = resposta;
         },
-        error: (responseError) => {
-          console.error(responseError);
-          this.snackBar.open("Erro: ", responseError, {
+        error: (erroDefinirSituacao) => {
+          console.error(erroDefinirSituacao);
+          this.snackBar.open("Erro: ", erroDefinirSituacao, {
             duration: 5000
           });
         }
@@ -97,9 +97,9 @@ export class LancamentoFormComponent implements OnInit {
         next: (resposta) => {
           this.tipo_doc = resposta;
         },
-        error: (responseError) => {
-          console.error(responseError);
-          this.snackBar.open("Erro ao definir tipo lançamento: ", responseError, {
+        error: (erroDefinirTipo) => {
+          console.error(erroDefinirTipo);
+          this.snackBar.open("Erro ao definir tipo lançamento: ", erroDefinirTipo, {
             duration: 5000
           });
         }
@@ -184,8 +184,8 @@ export class LancamentoFormComponent implements OnInit {
           });
           this.fecharDialog();
         },
-        error: (responseError) => {
-          this.msgErros = responseError.error.parameterViolations;
+        error: (erroSalvar) => {
+          this.msgErros = erroSalvar.error.parameterViolations;
         }
       });
 

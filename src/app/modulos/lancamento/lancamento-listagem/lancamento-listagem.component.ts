@@ -74,8 +74,8 @@ export class LancamentoListagemComponent implements OnInit {
             this.naturezas = resposta;
           }
         },
-        error: (responseError) => {
-          console.error(responseError);
+        error: (erroDefinirNatureza) => {
+          console.error(erroDefinirNatureza);
           this.snackBar.open("Erro ao Obter naturezas ", "Erro!", {
             duration: 2000
           });
@@ -90,8 +90,8 @@ export class LancamentoListagemComponent implements OnInit {
         next: (resposta) => {
           this.tipoLancamento = resposta;
         },
-        error: (responseError) => {
-          console.error(responseError);
+        error: (erroDefinirTipo) => {
+          console.error(erroDefinirTipo);
           this.snackBar.open("Erro ao obter lista de Tipos ", "Erro!", {
             duration: 2000
           });
@@ -113,9 +113,9 @@ export class LancamentoListagemComponent implements OnInit {
           this.definirInfo();
           this.mostraProgresso = false;
         },
-        error: (responseError) => {
+        error: (erroListagemMesAtual) => {
           this.mostraProgresso = false;
-          console.error(responseError);
+          console.error(erroListagemMesAtual);
           this.snackBar.open("Erro ao obter Lançamentos do mÊs atual ", "Erro!", {
             duration: 2000
           });
@@ -183,9 +183,9 @@ export class LancamentoListagemComponent implements OnInit {
             this.definirInfo();
             this.mostraProgresso = false;
           },
-          error: (responseError) => {
+          error: (erroListagemPersonalizada) => {
             this.mostraProgresso = false;
-            console.error(responseError);
+            console.error(erroListagemPersonalizada);
             this.snackBar.open("Erro ao aplicar Filtros!", "Erro!", {
               duration: 5000
             });
@@ -238,9 +238,9 @@ export class LancamentoListagemComponent implements OnInit {
 
                 this.listagemMesAtual();
               },
-              error: (responseError) => {
-                console.error(responseError);
-                this.snackBar.open("Erro ao deletar!", responseError, {
+              error: (erroDeletar) => {
+                console.error(erroDeletar);
+                this.snackBar.open("Erro ao deletar!", erroDeletar, {
                   duration: 5000
                 });
               }
@@ -270,9 +270,9 @@ export class LancamentoListagemComponent implements OnInit {
                 this.listagemMesAtual();
                 this.mostraProgresso = false;
               },
-              error: (responseError) => {
+              error: (erroDeletarMultiplos) => {
                 this.mostraProgresso = false;
-                this.snackBar.open("Erro ao deletar!", responseError, {
+                this.snackBar.open("Erro ao deletar!", erroDeletarMultiplos, {
                   duration: 5000
                 });
               }
@@ -335,7 +335,7 @@ export class LancamentoListagemComponent implements OnInit {
                 this.listagemMesAtual();
                 this.mostraProgresso = false;
               },
-              error: (_responseError) => {
+              error: (_erroUpload) => {
                 this.mostraProgresso = false;
                 this.snackBar.open("Erro ao efetuar UPLOAD!", "ERRO!", {
                   duration: 3000
@@ -366,7 +366,7 @@ export class LancamentoListagemComponent implements OnInit {
                 this.saveByteArray(resposta, sampleArr);
                 this.mostraProgresso = false;
               },
-              error: (_responseError) => {
+              error: (_erroBaixar) => {
                 this.mostraProgresso = false;
                 this.snackBar.open("Erro ao efetuar DOWNLOAD!", "ERRO!", {
                   duration: 3000
