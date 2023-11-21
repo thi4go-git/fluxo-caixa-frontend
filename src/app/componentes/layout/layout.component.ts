@@ -7,7 +7,7 @@ declare var $: any;
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+  styleUrls: []
 })
 export class LayoutComponent implements AfterViewInit {
 

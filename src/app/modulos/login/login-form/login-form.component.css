@@ -11326,7 +11326,7 @@ a:focus {
     border: 0;
     font-weight: 900;
     content: '\f105';
-    font-family: 'Font Awesome 5 Free'
+    font-family: 'Font Awesome 5 Free', Arial, sans-serif;
 }
 
 .sidebar .nav-item.dropdown.show .dropdown-toggle::after,
@@ -11611,7 +11611,7 @@ a:focus {
 .sidebar #sidebarToggle::after {
     font-weight: 900;
     content: '\f104';
-    font-family: 'Font Awesome 5 Free';
+    font-family: 'Font Awesome 5 Free', Arial, sans-serif;
     margin-right: .1rem
 }
 
@@ -11630,7 +11630,7 @@ a:focus {
 
 .sidebar.toggled #sidebarToggle::after {
     content: '\f105';
-    font-family: 'Font Awesome 5 Free';
+    font-family: 'Font Awesome 5 Free', Arial, sans-serif;
     margin-left: .25rem
 }
 
@@ -11728,7 +11728,6 @@ a:focus {
 
     .sidebar .nav-item .nav-link {
         display: block;
-        width: 100%;
         text-align: left;
         padding: 1rem;
         width: 14rem
@@ -11752,7 +11751,7 @@ a:focus {
         border: 0;
         font-weight: 900;
         content: '\f107';
-        font-family: 'Font Awesome 5 Free'
+        font-family: 'Font Awesome 5 Free', Arial, sans-serif;
     }
 
     .sidebar .nav-item .nav-link[data-toggle=collapse].collapsed::after {
@@ -12041,7 +12040,7 @@ a:focus {
     line-height: 51px;
     font-weight: 900;
     content: '\f107';
-    font-family: 'Font Awesome 5 Free';
+    font-family: 'Font Awesome 5 Free', Arial, sans-serif;
     color: #d1d3e2
 }
 
