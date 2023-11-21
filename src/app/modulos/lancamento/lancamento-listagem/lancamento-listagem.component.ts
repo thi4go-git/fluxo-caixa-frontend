@@ -76,9 +76,7 @@ export class LancamentoListagemComponent implements OnInit {
         },
         error: (erroDefinirNatureza) => {
           console.error(erroDefinirNatureza);
-          this.snackBar.open("Erro ao Obter naturezas ", "Erro!", {
-            duration: 2000
-          });
+          this.handleError("Erro ao Obter naturezas ");
         }
       });
   }
@@ -92,9 +90,7 @@ export class LancamentoListagemComponent implements OnInit {
         },
         error: (erroDefinirTipo) => {
           console.error(erroDefinirTipo);
-          this.snackBar.open("Erro ao obter lista de Tipos ", "Erro!", {
-            duration: 2000
-          });
+          this.handleError("Erro ao obter lista de Tipos ");
         }
       });
   }
@@ -114,11 +110,8 @@ export class LancamentoListagemComponent implements OnInit {
           this.mostraProgresso = false;
         },
         error: (erroListagemMesAtual) => {
-          this.mostraProgresso = false;
           console.error(erroListagemMesAtual);
-          this.snackBar.open("Erro ao obter Lançamentos do mÊs atual ", "Erro!", {
-            duration: 2000
-          });
+          this.handleError("Erro ao obter Lançamentos do mÊs atual ");
         }
       });
   }
@@ -184,11 +177,8 @@ export class LancamentoListagemComponent implements OnInit {
             this.mostraProgresso = false;
           },
           error: (erroListagemPersonalizada) => {
-            this.mostraProgresso = false;
             console.error(erroListagemPersonalizada);
-            this.snackBar.open("Erro ao aplicar Filtros!", "Erro!", {
-              duration: 5000
-            });
+            this.handleError("Erro ao aplicar Filtros!");
           }
         });
 
@@ -240,9 +230,7 @@ export class LancamentoListagemComponent implements OnInit {
               },
               error: (erroDeletar) => {
                 console.error(erroDeletar);
-                this.snackBar.open("Erro ao deletar!", erroDeletar, {
-                  duration: 5000
-                });
+                this.handleError("Erro ao deletar!");
               }
             });
 
@@ -270,11 +258,8 @@ export class LancamentoListagemComponent implements OnInit {
                 this.listagemMesAtual();
                 this.mostraProgresso = false;
               },
-              error: (erroDeletarMultiplos) => {
-                this.mostraProgresso = false;
-                this.snackBar.open("Erro ao deletar!", erroDeletarMultiplos, {
-                  duration: 5000
-                });
+              error: (_erroDeletarMultiplos) => {
+                this.handleError("Erro ao deletar!");
               }
             });
 
@@ -336,10 +321,7 @@ export class LancamentoListagemComponent implements OnInit {
                 this.mostraProgresso = false;
               },
               error: (_erroUpload) => {
-                this.mostraProgresso = false;
-                this.snackBar.open("Erro ao efetuar UPLOAD!", "ERRO!", {
-                  duration: 3000
-                });
+                this.handleError("Erro ao efetuar UPLOAD!");
               }
             });
         } else {
@@ -367,10 +349,7 @@ export class LancamentoListagemComponent implements OnInit {
                 this.mostraProgresso = false;
               },
               error: (_erroBaixar) => {
-                this.mostraProgresso = false;
-                this.snackBar.open("Erro ao efetuar DOWNLOAD!", "ERRO!", {
-                  duration: 3000
-                });
+                this.handleError("Erro ao efetuar DOWNLOAD!");
               }
             });
         } else {
@@ -408,6 +387,15 @@ export class LancamentoListagemComponent implements OnInit {
     var fileName = arquivo.nome;
     link.download = fileName;
     link.click();
+  }
+
+
+  // Função compartilhada para lidar com erros
+  private handleError(errorMessage: string) {
+    this.mostraProgresso = false;
+    this.snackBar.open(errorMessage, "ERRO!", {
+      duration: 4000
+    });
   }
 
 }

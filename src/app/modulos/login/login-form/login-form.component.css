@@ -186,10 +186,12 @@ a:not([href]):not([class]):hover {
     text-decoration: none
 }
 
-
 pre {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    overflow: auto;
+    -ms-overflow-style: scrollbar;
     display: block;
-    font-size: 87.5%;
     color: #3a3b45;
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     font-size: 1em
@@ -200,13 +202,6 @@ kbd,
 samp {
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     font-size: 1em
-}
-
-pre {
-    margin-top: 0;
-    margin-bottom: 1rem;
-    overflow: auto;
-    -ms-overflow-style: scrollbar
 }
 
 figure {
@@ -3519,6 +3514,7 @@ input[type=submit].btn-block {
 }
 
 .dropright .dropdown-toggle::after {
+    vertical-align: 0;
     display: inline-block;
     margin-left: .255em;
     vertical-align: .255em;
@@ -3531,10 +3527,6 @@ input[type=submit].btn-block {
 
 .dropright .dropdown-toggle:empty::after {
     margin-left: 0
-}
-
-.dropright .dropdown-toggle::after {
-    vertical-align: 0
 }
 
 .dropleft .dropdown-menu {
@@ -3552,11 +3544,8 @@ input[type=submit].btn-block {
     content: ""
 }
 
-.dropleft .dropdown-toggle::after {
-    display: none
-}
-
 .dropleft .dropdown-toggle::before {
+    vertical-align: 0;
     display: inline-block;
     margin-right: .255em;
     vertical-align: .255em;
@@ -3567,12 +3556,11 @@ input[type=submit].btn-block {
 }
 
 .dropleft .dropdown-toggle:empty::after {
+    display: none;
     margin-left: 0
 }
 
-.dropleft .dropdown-toggle::before {
-    vertical-align: 0
-}
+
 
 .dropdown-menu[x-placement^=bottom],
 .dropdown-menu[x-placement^=left],
@@ -4869,31 +4857,20 @@ input[type=submit].btn-block {
     flex-wrap: nowrap
 }
 
-.navbar-expand .navbar-nav-scroll {
-    overflow: visible
-}
-
-.navbar-expand .navbar-collapse {
+.navbar-expand .navbar-nav-scroll .navbar-collapse .navbar-toggler {
+    overflow: visible;
     display: flex !important;
-    flex-basis: auto
+    flex-basis: auto;
+    display: none;
 }
 
-.navbar-expand .navbar-toggler {
-    display: none
-}
 
-.navbar-light .navbar-brand {
-    color: rgba(0, 0, 0, .9)
-}
 
 .navbar-light .navbar-brand:focus,
-.navbar-light .navbar-brand:hover {
-    color: rgba(0, 0, 0, .9)
-}
-
-.navbar-light .navbar-nav .nav-link {
+.navbar-light .navbar-brand:hover .navbar-brand .navbar-light .navbar-nav .nav-link {
     color: rgba(0, 0, 0, .5)
 }
+
 
 .navbar-light .navbar-nav .nav-link:focus,
 .navbar-light .navbar-nav .nav-link:hover {
@@ -5249,11 +5226,8 @@ input[type=submit].btn-block {
 }
 
 .breadcrumb-item+.breadcrumb-item:hover::before {
-    text-decoration: underline
-}
-
-.breadcrumb-item+.breadcrumb-item:hover::before {
-    text-decoration: none
+    text-decoration: underline;
+    text-decoration: none;
 }
 
 .breadcrumb-item.active {
