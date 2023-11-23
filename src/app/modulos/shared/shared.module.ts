@@ -22,6 +22,7 @@ import { RouterModule } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MesStrPipe } from 'src/app/pipes/mes-str-pipe';
 
 
 
@@ -29,7 +30,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
-    DecimalPipe
+    DecimalPipe,
+    MesStrPipe    
   ],
   imports: [
     CommonModule,
@@ -84,7 +86,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatCheckboxModule,
     MatProgressBarModule,
     NgxMaskDirective,
-    NgxMaskPipe
+    NgxMaskPipe,
+    MesStrPipe
   ],
   providers: [
     provideNgxMask(),

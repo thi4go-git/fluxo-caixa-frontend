@@ -27,7 +27,7 @@ import { DateFormatPipe } from 'src/app/pipes/date-format-pipe';
     NotFoundComponent,
     LayoutComponent,
     ConfirmationDialogComponent,
-    DateFormatPipe,
+    DateFormatPipe        
   ],
   imports: [
     CommonModule,

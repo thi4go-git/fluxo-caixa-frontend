@@ -8,7 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 @NgModule({
   declarations: [
     LancamentoListagemComponent,
-    LancamentoFormComponent
+    LancamentoFormComponent    
   ],
   imports: [
     SharedModule,

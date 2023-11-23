@@ -24,7 +24,7 @@ export class LancamentoListagemComponent implements OnInit {
 
   total_lancamentos: number = 0;
   displayedColumns: string[] = ['selecionado', 'id', 'valorParcela', 'dataLancamento', 'descricao', 'tipo'
-    , 'qtdeParcelas', 'nrParcela', 'natureza', 'dataCriacao', 'nomeAnexo', 'download', 'delete',];
+    , 'qtdeParcelas', 'nrParcela', 'natureza', 'dataCriacao', 'nomeAnexo', 'download', 'edit', 'delete',];
 
   dataSource: MatTableDataSource<LancamentoDTOResponse> = new MatTableDataSource;
 
@@ -32,6 +32,7 @@ export class LancamentoListagemComponent implements OnInit {
   saldoPeriodo: string = '';
   entradasPeriodo: string = '';
   saidasPeriodo: string = '';
+  mesExtenso: string = '';
 
   lancamentoDeletar: LancamentoDTOResponse = new LancamentoDTOResponse;
   tipoLancamento: any[] = [];
@@ -142,6 +143,10 @@ export class LancamentoListagemComponent implements OnInit {
       sumSaida.toLocaleString(undefined,
         { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
+
+    this.mesExtenso = this.lancamentoFilter.dataInicio;
+    console.log(this.mesExtenso);
+
   }
 
 
@@ -226,7 +231,11 @@ export class LancamentoListagemComponent implements OnInit {
                   duration: 2000
                 });
 
-                this.listagemMesAtual();
+                if (this.filtroExistente()) {
+                  this.listagemPersonalizada();
+                } else {
+                  this.listagemMesAtual();
+                }
               },
               error: (erroDeletar) => {
                 console.error(erroDeletar);
@@ -255,7 +264,11 @@ export class LancamentoListagemComponent implements OnInit {
                   duration: 2000
                 });
                 this.listaIdSelecionados = [];
-                this.listagemMesAtual();
+                if (this.filtroExistente()) {
+                  this.listagemPersonalizada();
+                } else {
+                  this.listagemMesAtual();
+                }
                 this.mostraProgresso = false;
               },
               error: (_erroDeletarMultiplos) => {
@@ -317,7 +330,11 @@ export class LancamentoListagemComponent implements OnInit {
           this.service.uploadFile(formData, id)
             .subscribe({
               next: (_resposta) => {
-                this.listagemMesAtual();
+                if (this.filtroExistente()) {
+                  this.listagemPersonalizada();
+                } else {
+                  this.listagemMesAtual();
+                }
                 this.mostraProgresso = false;
               },
               error: (_erroUpload) => {
@@ -329,7 +346,6 @@ export class LancamentoListagemComponent implements OnInit {
           this.snackBar.open("UPLOAD cancelado!", "Cancelado!", {
             duration: 3000
           });
-          this.listagemMesAtual();
         }
       });
   }
@@ -396,6 +412,11 @@ export class LancamentoListagemComponent implements OnInit {
     this.snackBar.open(errorMessage, "ERRO!", {
       duration: 4000
     });
+  }
+
+  private filtroExistente(): boolean {
+    return this.lancamentoFilter.descricao || this.lancamentoFilter.idNatureza ||
+      this.lancamentoFilter.tipo || this.lancamentoFilter.dataInicio || this.lancamentoFilter.dataFim;
   }
 
 }

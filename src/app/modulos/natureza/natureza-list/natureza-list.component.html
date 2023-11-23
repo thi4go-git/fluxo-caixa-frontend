@@ -7,6 +7,13 @@
     </mat-toolbar>
 </p>
 
+
+<div *ngIf="mostraProgresso">
+    Aguarde Processando arquivos...
+    <mat-progress-bar mode="indeterminate" class="progress">
+    </mat-progress-bar>
+</div>
+
 <div id="row">
     <div id="col-md-2">
         <button class="btn btn-warning" (click)="novaNatureza()">
