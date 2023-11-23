@@ -11,6 +11,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { AnexoDownloaDTO } from 'src/app/model/anexoDownloaDTO';
 import { Buffer } from 'buffer';
 import { NaturezaNewDTO } from 'src/app/model/natureza/naturezaNewDTO';
+import { Router } from '@angular/router';
 
 
 
@@ -24,7 +25,7 @@ export class LancamentoListagemComponent implements OnInit {
 
   total_lancamentos: number = 0;
   displayedColumns: string[] = ['selecionado', 'id', 'valorParcela', 'dataLancamento', 'descricao', 'tipo'
-    , 'qtdeParcelas', 'nrParcela', 'natureza', 'dataCriacao', 'nomeAnexo', 'download', 'edit', 'delete',];
+    , 'qtdeParcelas', 'nrParcela', 'natureza', 'dataCriacao', 'nomeAnexo', 'edit', 'delete',];
 
   dataSource: MatTableDataSource<LancamentoDTOResponse> = new MatTableDataSource;
 
@@ -52,7 +53,8 @@ export class LancamentoListagemComponent implements OnInit {
     private service: LancamentoService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private avisoDialogService: AvisosDialogService
+    private avisoDialogService: AvisosDialogService,
+    private router: Router
   ) { }
 
 
@@ -419,4 +421,7 @@ export class LancamentoListagemComponent implements OnInit {
       this.lancamentoFilter.tipo || this.lancamentoFilter.dataInicio || this.lancamentoFilter.dataFim;
   }
 
+  editarLancamento(id: number) {
+    this.router.navigate(['/lancamento/listagem/' + id]);
+  }
 }

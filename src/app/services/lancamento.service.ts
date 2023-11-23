@@ -10,6 +10,7 @@ import { LancamentoFilterDTO } from '../model/lancamento/lancamentoFilterDTO';
 import { AnexoDownloaDTO } from '../model/anexoDownloaDTO';
 import { LancamentoNewDTO } from '../model/lancamento/lancamentoNewDTO';
 import { NaturezaNewDTO } from '../model/natureza/naturezaNewDTO';
+import { LancamentoDTOResponse } from '../model/lancamento/lancamentoDTOResponse';
 
 
 
@@ -17,9 +18,8 @@ import { NaturezaNewDTO } from '../model/natureza/naturezaNewDTO';
 export class LancamentoService {
 
 
-  username: string = "";
-
-  apiUrl: string = apiEnvironment.apiUrl;
+  private username: string = "";
+  private apiUrl: string = apiEnvironment.apiUrl;
 
   constructor(
     private http: HttpClient,
@@ -31,7 +31,6 @@ export class LancamentoService {
   save(lancamento: LancamentoNewDTO): Observable<LancamentoNewDTO> {
     return this.http.post<LancamentoNewDTO>(this.apiUrl + '/lancamentos', lancamento);
   }
-
 
   finByIdUserDataMesAtual(): Observable<LancamentoDataDTO> {
     const params = new HttpParams()
@@ -78,7 +77,6 @@ export class LancamentoService {
     return this.http.get<DashboardDTO>(this.apiUrl + '/lancamentos/dashboard', { params });
   }
 
-
   saveNatureza(natureza: Natureza): Observable<NaturezaNewDTO> {
     return this.http.post<NaturezaNewDTO>(this.apiUrl + '/naturezas', natureza);
   }
@@ -89,8 +87,6 @@ export class LancamentoService {
       .set('descricaoNatureza', natureza.descricao);
     return this.http.delete<any>(this.apiUrl + '/naturezas', { params });
   }
-
-
 
   deletarporLancamentoId(id: number): Observable<any> {
     return this.http.delete<any>(this.apiUrl + "/lancamentos/" + id);
@@ -108,6 +104,10 @@ export class LancamentoService {
 
   downloadFile(id: number): Observable<AnexoDownloaDTO> {
     return this.http.get<AnexoDownloaDTO>(this.apiUrl + `/lancamentos/${id}/download`);
+  }
+
+  getLancamentoById(id: number): Observable<LancamentoDTOResponse> {
+    return this.http.get<any>(this.apiUrl + "/lancamentos/" + id);
   }
 
 }

@@ -1,0 +1,136 @@
+<h1 class="mt-4">Editar Lançamento</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Edição</li>
+</ol>
+
+<div *ngIf="mostraProgresso">
+    Aguarde Processando arquivos...
+    <mat-progress-bar mode="indeterminate" class="progress">
+    </mat-progress-bar>
+</div>
+
+<div class="container">
+    <form #lancamentoForm="ngForm" (ngSubmit)="onSubmit()">
+
+        <div id="col-md-12">
+            <div class="alert alert-danger" role="alert" *ngFor="let erro of listaErros">
+                {{ erro }}
+            </div>
+        </div>
+
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-icon matSuffix>fingerprint</mat-icon>
+            <mat-label> <strong>ID:</strong> </mat-label>
+            <input matInput placeholder="Informe o ID:" name="id" [(ngModel)]="lancamento.id" disabled="true" />
+        </mat-form-field>
+
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label> <strong>Tipo Lançamento:</strong> </mat-label>
+            <select matNativeControl matInput [(ngModel)]="lancamento.tipo" [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let tipo of tipoLancamento" [value]="tipo" [selected]="tipo">
+                    {{ tipo }}
+                </option>
+            </select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label> <strong>Natureza Lançamento:</strong> </mat-label>
+            <select matNativeControl matInput [(ngModel)]="lancamento.natureza" [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let natureza of naturezaLancamento" [value]="natureza" [selected]="natureza">
+                    {{ natureza.descricao }}
+                </option>
+            </select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label> <strong>Situação Lançamento:</strong> </mat-label>
+            <select matNativeControl matInput [(ngModel)]="lancamento.situacao" [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let situacao of situacaoLancamento" [value]="situacao" [selected]="situacao">
+                    {{ situacao }}
+                </option>
+            </select>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-icon matSuffix>text_format</mat-icon>
+            <mat-label> <strong>Descrição:</strong> </mat-label>
+            <input matInput placeholder="Informe a Descrição" name="descricao" [(ngModel)]="lancamento.descricao" />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label> <strong>Data Lançamento:</strong> </mat-label>
+            <input matInput placeholder="Informe a Data do Lançamento" type="date" name="dataLancamento"
+                [(ngModel)]="lancamento.dataLancamento" />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-icon matSuffix>attach_money</mat-icon>
+            <mat-label> <strong>Valor lançamento:</strong> </mat-label>
+            <input matInput placeholder="Informe o Valor:" name="valorParcela" type="text"
+                [(ngModel)]="lancamento.valorParcela" mask="separator.2" thousandSeparator=","
+                [allowNegativeNumbers]="false" suffix=" $" />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-icon matSuffix>fingerprint</mat-icon>
+            <mat-label> <strong>Nº da Parcela</strong> </mat-label>
+            <input matInput placeholder="parcelas:" name="nrParcela" [(ngModel)]="lancamento.nrParcela"
+                disabled="true" />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-icon matSuffix>fingerprint</mat-icon>
+            <mat-label> <strong>Qtde de Parcelas:</strong> </mat-label>
+            <input matInput placeholder="QTDE de parcelas:" name="qtdeParcelas" [(ngModel)]="lancamento.qtdeParcelas"
+                disabled="true" />
+        </mat-form-field>
+
+
+        <div>
+            <hr />
+            <div>
+                <mat-label>
+                    <b>
+                        Informações do Anexo:
+                    </b>
+                </mat-label>
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-icon matSuffix>fingerprint</mat-icon>
+                    <mat-label> <strong>Nome anexo:</strong> </mat-label>
+                    <input matInput placeholder="Nome Anexo:" name="nomeAnexo" [(ngModel)]="lancamento.nomeAnexo"
+                        disabled="true" />
+                </mat-form-field>
+            </div>
+        </div>
+
+        <mat-label>
+            <b>
+                Substituir Anexo:
+            </b>
+        </mat-label>
+        <div>
+            <input type="file" name="anexo" class="file-input" (change)="uploadFile($event,lancamento.id)"
+                #fileUpload />
+            <div class="file-upload">
+                <button type="button" class="btn btn-primary" (click)="fileUpload.click()">
+                    Upload
+                </button>
+            </div>
+        </div>
+
+        <br />
+        <br />
+        <br />
+
+        <button type="submit" class="btn btn-primary">
+            <em class="fa fa-sync-alt"></em>
+            <mat-icon>autorenew</mat-icon>Atualizar
+        </button>
+        <button type="button" class="btn btn-danger ml-2">
+            <em class="fa fa-solid fa-arrow-alt-circle-left"></em>
+            <mat-icon>keyboard_return</mat-icon>Voltar
+        </button>
+
+    </form>
+</div>

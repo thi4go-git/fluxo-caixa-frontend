@@ -1,7 +1,7 @@
 export const apiEnvironment = {
     production: false,
-    apiUrl: 'http://localhost:8080',
-    //  apiUrl: 'http://cloudtecnologia.dynns.com:8001',
+    //apiUrl: 'http://localhost:8080',
+    apiUrl: 'http://cloudtecnologia.dynns.com:8001',
     tokenUrl: 'http://cloudtecnologia.dynns.com:8180/realms/CLOUD_TECNOLOGIA/protocol/openid-connect/token',
     versao: 'v_23.11.2023',
     cli_id: 'fluxo-caixa-client',
