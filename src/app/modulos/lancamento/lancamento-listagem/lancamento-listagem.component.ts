@@ -25,7 +25,7 @@ export class LancamentoListagemComponent implements OnInit {
 
   total_lancamentos: number = 0;
   displayedColumns: string[] = ['selecionado', 'id', 'valorParcela', 'dataLancamento', 'descricao', 'tipo'
-    , 'qtdeParcelas', 'nrParcela', 'natureza', 'dataCriacao', 'nomeAnexo', 'edit', 'delete',];
+    , 'situacao', 'qtdeParcelas', 'nrParcela', 'natureza', 'dataCriacao', 'nomeAnexo', 'edit', 'delete',];
 
   dataSource: MatTableDataSource<LancamentoDTOResponse> = new MatTableDataSource;
 

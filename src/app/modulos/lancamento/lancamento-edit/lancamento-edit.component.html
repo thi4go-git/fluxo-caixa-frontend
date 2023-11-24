@@ -38,7 +38,7 @@
             <mat-label> <strong>Natureza Lançamento:</strong> </mat-label>
             <select matNativeControl matInput [(ngModel)]="lancamento.natureza" [ngModelOptions]="{standalone: true}">
                 <option *ngFor="let natureza of naturezaLancamento" [value]="natureza" [selected]="natureza">
-                    {{ natureza.descricao }}
+                    {{ natureza }}
                 </option>
             </select>
         </mat-form-field>
@@ -127,7 +127,7 @@
             <em class="fa fa-sync-alt"></em>
             <mat-icon>autorenew</mat-icon>Atualizar
         </button>
-        <button type="button" class="btn btn-danger ml-2">
+        <button type="button" class="btn btn-danger ml-2" (click)="voltarParaListagem()">
             <em class="fa fa-solid fa-arrow-alt-circle-left"></em>
             <mat-icon>keyboard_return</mat-icon>Voltar
         </button>

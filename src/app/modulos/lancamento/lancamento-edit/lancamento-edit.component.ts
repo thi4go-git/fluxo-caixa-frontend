@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LancamentoDTOResponse } from 'src/app/model/lancamento/lancamentoDTOResponse';
-import { NaturezaNewDTO } from 'src/app/model/natureza/naturezaNewDTO';
+import { LancamentoUpdateDTO } from 'src/app/model/lancamento/lancamentoUpdateDTO';
 import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { LancamentoService } from 'src/app/services/lancamento.service';
 
@@ -13,21 +13,30 @@ import { LancamentoService } from 'src/app/services/lancamento.service';
 })
 export class LancamentoEditComponent implements OnInit {
 
-  id: number = 0;
+  id: number;
   lancamento: LancamentoDTOResponse;
-  mostraProgresso: boolean = false;
-  listaErros: string[] = [];
-  tipoLancamento: any[] = [];
-  naturezaLancamento: NaturezaNewDTO[] = [];
-  situacaoLancamento: any[] = [];
+  mostraProgresso: boolean;
+  listaErros: string[];
+  tipoLancamento: any[];
+  naturezaLancamento: any[];
+  situacaoLancamento: any[];
+  lancamentoUpdate: LancamentoUpdateDTO;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private service: LancamentoService,
     private snackBar: MatSnackBar,
-    private avisoDialogService: AvisosDialogService
+    private avisoDialogService: AvisosDialogService,
+    private router: Router
   ) {
+    this.id = 0;
     this.lancamento = new LancamentoDTOResponse();
+    this.lancamentoUpdate = new LancamentoUpdateDTO();
+    this.mostraProgresso = false;
+    this.listaErros = [];
+    this.tipoLancamento = [];
+    this.naturezaLancamento = [];
+    this.situacaoLancamento = [];
   }
 
 
@@ -42,14 +51,15 @@ export class LancamentoEditComponent implements OnInit {
     );
   }
 
-  private processoInicial() {
-    this.obterLancamentoById();
-    this.definirComboBoxTipo();
-    this.definirComboBoxNatureza();
-    this.definirComboBoxSituacao();
+  //o await bloqueia a linha até que seja executada.
+  private async processoInicial() {
+    await this.definirComboBoxNatureza();
+    await this.definirComboBoxTipo();
+    await this.definirComboBoxSituacao();
+    await this.obterLancamentoById();
   }
 
-  private obterLancamentoById() {
+  private async obterLancamentoById() {
     this.mostraProgresso = true;
     this.service
       .getLancamentoById(this.id).subscribe({
@@ -66,12 +76,13 @@ export class LancamentoEditComponent implements OnInit {
       });
   }
 
-  private definirComboBoxTipo() {
+  private async definirComboBoxTipo() {
     this.mostraProgresso = true;
     this.service
       .findAllTipo().subscribe({
         next: (resposta) => {
           this.tipoLancamento = resposta;
+          this.tipoLancamento = this.tipoLancamento.filter(tipo => tipo !== "AMBOS");
           this.mostraProgresso = false;
         },
         error: (_errorResponse) => {
@@ -83,12 +94,16 @@ export class LancamentoEditComponent implements OnInit {
       });
   }
 
-  private definirComboBoxNatureza() {
+  private async definirComboBoxNatureza() {
     this.mostraProgresso = true;
     this.service
       .getNaturezasByUsername().subscribe({
         next: (resposta) => {
-          this.naturezaLancamento = resposta;
+          resposta.forEach(
+            natureza => {
+              this.naturezaLancamento.push(natureza.descricao);
+            }
+          );
           this.mostraProgresso = false;
         },
         error: (_errorResponse) => {
@@ -100,7 +115,7 @@ export class LancamentoEditComponent implements OnInit {
       });
   }
 
-  private definirComboBoxSituacao() {
+  private async definirComboBoxSituacao() {
     this.mostraProgresso = true;
     this.service
       .findAllSituacao().subscribe({
@@ -165,6 +180,9 @@ export class LancamentoEditComponent implements OnInit {
       });
   }
 
+  voltarParaListagem() {
+    this.router.navigate(['/lancamento/listagem']);
+  }
 
   onSubmit() {
     this.avisoDialogService.openConfirmationDialog("Confirmar Atualização? ")
@@ -181,7 +199,36 @@ export class LancamentoEditComponent implements OnInit {
   }
 
   private atualizarLancamento() {
-    console.log(this.lancamento);
+    this.lancamentoUpdate.id = this.lancamento.id;
+    this.lancamentoUpdate.tipo = this.lancamento.tipo;
+    this.lancamentoUpdate.descricao = this.lancamento.descricao;
+    this.lancamentoUpdate.dataLancamento = this.lancamento.dataLancamento;
+    this.lancamentoUpdate.valorParcela = this.lancamento.valorParcela;
+    this.lancamentoUpdate.natureza = this.lancamento.natureza;
+    this.lancamentoUpdate.situacao = this.lancamento.situacao;
+
+    console.log(this.lancamentoUpdate);
+
+    this.mostraProgresso = true;
+    this.service.update(this.lancamentoUpdate)
+      .subscribe({
+        next: (_resposta) => {
+          this.listaErros = [];
+          this.mostraProgresso = false;
+          this.snackBar.open("Sucesso ao Atualizar Lançamento!", "SUCESSO!", {
+            duration: 3000
+          });
+          this.processoInicial();
+        },
+        error: (erroUpdate) => {
+          this.listaErros = erroUpdate.error.erros
+          this.mostraProgresso = false;
+          this.snackBar.open("Erro ao Atualziar Lançamento.", "Erro!", {
+            duration: 3000
+          });
+        }
+      });
+
   }
 
 }

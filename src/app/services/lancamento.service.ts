@@ -11,6 +11,7 @@ import { AnexoDownloaDTO } from '../model/anexoDownloaDTO';
 import { LancamentoNewDTO } from '../model/lancamento/lancamentoNewDTO';
 import { NaturezaNewDTO } from '../model/natureza/naturezaNewDTO';
 import { LancamentoDTOResponse } from '../model/lancamento/lancamentoDTOResponse';
+import { LancamentoUpdateDTO } from '../model/lancamento/lancamentoUpdateDTO';
 
 
 
@@ -110,4 +111,8 @@ export class LancamentoService {
     return this.http.get<any>(this.apiUrl + "/lancamentos/" + id);
   }
 
+  update(lancamentoUpdate: LancamentoUpdateDTO): Observable<LancamentoUpdateDTO> {
+    lancamentoUpdate.username = this.username;
+    return this.http.put<LancamentoUpdateDTO>(this.apiUrl + '/lancamentos', lancamentoUpdate);
+  }
 }
