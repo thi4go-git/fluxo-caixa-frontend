@@ -24,6 +24,7 @@ export class LancamentoFormComponent implements OnInit {
   situacao: any[] = [];
 
   tipo_doc: any[] = [];
+  origemEnum: any[] = [];
 
   lancamento!: LancamentoNewDTO;
   data_referencia!: Date;
@@ -51,6 +52,7 @@ export class LancamentoFormComponent implements OnInit {
     this.definirTipo();
     this.definirNatureza();
     this.definirSituacao();
+    this.definirOrigem();
 
   }
 
@@ -100,6 +102,21 @@ export class LancamentoFormComponent implements OnInit {
         error: (erroDefinirTipo) => {
           console.error(erroDefinirTipo);
           this.snackBar.open("Erro ao definir tipo lançamento: ", erroDefinirTipo, {
+            duration: 5000
+          });
+        }
+      });
+  }
+
+  definirOrigem() {
+    this.service.findAllOrigem()
+      .subscribe({
+        next: (resposta) => {
+          this.origemEnum = resposta;
+        },
+        error: (erroDefinirOrigem) => {
+          console.error(erroDefinirOrigem);
+          this.snackBar.open("Erro ao definir Origem lançamento: ", erroDefinirOrigem, {
             duration: 5000
           });
         }

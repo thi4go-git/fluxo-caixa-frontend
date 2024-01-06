@@ -72,6 +72,10 @@ export class LancamentoService {
     return this.http.get<any[]>(this.apiUrl + '/lancamentos/tipo');
   }
 
+  findAllOrigem(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + '/lancamentos/origem');
+  }
+
   getLancamentosDashboard(): Observable<DashboardDTO> {
     const params = new HttpParams()
       .set('username', this.username);

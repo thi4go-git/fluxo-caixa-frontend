@@ -10,6 +10,6 @@ services:
             - PRODUCTION=false
             - API_URL=http://cloudtecnologia.dynns.com:8001
             - TOKEN_URL=http://cloudtecnologia.dynns.com:8180/realms/CLOUD_TECNOLOGIA/protocol/openid-connect/token
-            - VERSAO='v_23.11.2023'
+            - VERSAO='v_05.01.2024'
             - CLI_ID=fluxo-caixa-client
             - CLI_SECRET=q80HxrDVjoX93hdA81g3JI4L61FUO2T9

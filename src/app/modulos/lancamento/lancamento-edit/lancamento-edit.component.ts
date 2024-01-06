@@ -20,6 +20,7 @@ export class LancamentoEditComponent implements OnInit {
   tipoLancamento: any[];
   naturezaLancamento: any[];
   situacaoLancamento: any[];
+  origemLancamento: any[];
   lancamentoUpdate: LancamentoUpdateDTO;
 
   constructor(
@@ -37,6 +38,7 @@ export class LancamentoEditComponent implements OnInit {
     this.tipoLancamento = [];
     this.naturezaLancamento = [];
     this.situacaoLancamento = [];
+    this.origemLancamento = [];
   }
 
 
@@ -56,6 +58,7 @@ export class LancamentoEditComponent implements OnInit {
     await this.definirComboBoxNatureza();
     await this.definirComboBoxTipo();
     await this.definirComboBoxSituacao();
+    await this.definirComboBoxOrigem();
     await this.obterLancamentoById();
   }
 
@@ -126,6 +129,23 @@ export class LancamentoEditComponent implements OnInit {
         error: (_errorResponse) => {
           this.mostraProgresso = false;
           this.snackBar.open("Erro ao obter Lista Situação.", "Erro!", {
+            duration: 2000
+          });
+        }
+      });
+  }
+
+  private async definirComboBoxOrigem() {
+    this.mostraProgresso = true;
+    this.service
+      .findAllOrigem().subscribe({
+        next: (resposta) => {
+          this.origemLancamento = resposta;
+          this.mostraProgresso = false;
+        },
+        error: (_errorResponse) => {
+          this.mostraProgresso = false;
+          this.snackBar.open("Erro ao obter Lista Origem.", "Erro!", {
             duration: 2000
           });
         }
@@ -206,8 +226,7 @@ export class LancamentoEditComponent implements OnInit {
     this.lancamentoUpdate.valorParcela = this.lancamento.valorParcela;
     this.lancamentoUpdate.natureza = this.lancamento.natureza;
     this.lancamentoUpdate.situacao = this.lancamento.situacao;
-
-    console.log(this.lancamentoUpdate);
+    this.lancamentoUpdate.origem = this.lancamento.origem;
 
     this.mostraProgresso = true;
     this.service.update(this.lancamentoUpdate)

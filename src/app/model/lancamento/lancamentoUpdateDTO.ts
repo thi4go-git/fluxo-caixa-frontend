@@ -7,4 +7,5 @@ export class LancamentoUpdateDTO {
     valorParcela: number = 0;
     natureza: string = '';
     situacao: any;
+    origem: any;
 }
