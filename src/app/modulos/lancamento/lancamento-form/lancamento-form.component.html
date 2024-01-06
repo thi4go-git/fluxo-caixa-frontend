@@ -31,6 +31,16 @@
                     </mat-form-field>
 
                     <mat-form-field appearance="fill" class="full-width">
+                        <mat-label> <strong>Origem Lançamento:</strong> </mat-label>
+                        <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="lancamento.origem">
+                            <option *ngFor="let origem of origemEnum" [ngValue]="origem">
+                                {{ origem }}
+                            </option>
+                        </select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="full-width">
                         <mat-label> <strong>Tipo:</strong> </mat-label>
                         <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
                             [(ngModel)]="lancamento.tipo">

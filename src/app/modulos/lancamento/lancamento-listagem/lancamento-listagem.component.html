@@ -33,6 +33,17 @@
                     </mat-form-field>
 
                     <mat-form-field appearance="fill" class="espaco">
+                        <mat-label> <strong>Origem:</strong> </mat-label>
+                        <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="lancamentoFilter.origem">
+                            <option>TUDO</option>
+                            <option *ngFor="let origem of origemEnum" [ngValue]="origem">
+                                {{ origem }}
+                            </option>
+                        </select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="espaco">
                         <mat-label> <strong>Tipo:</strong> </mat-label>
                         <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
                             [(ngModel)]="lancamentoFilter.tipo">
@@ -185,6 +196,13 @@
             <th mat-header-cell *matHeaderCellDef> Natureza: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.natureza }} </td>
+            <td mat-footer-cell *matFooterCellDef> . </td>
+        </ng-container>
+
+        <ng-container matColumnDef="origem">
+            <th mat-header-cell *matHeaderCellDef> Origem: </th>
+            <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
+                [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.origem }} </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
 

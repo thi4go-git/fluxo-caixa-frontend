@@ -9,6 +9,7 @@ export class LancamentoDTOResponse {
     nrParcela: number = 0;
     natureza: string = '';
     situacao: any;
+    origem: any;
     dataCriacao: any;
     dataAlteracao: any;
     nomeAnexo: string = '';

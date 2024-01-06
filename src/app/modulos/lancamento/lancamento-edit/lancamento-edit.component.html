@@ -24,6 +24,14 @@
             <input matInput placeholder="Informe o ID:" name="id" [(ngModel)]="lancamento.id" disabled="true" />
         </mat-form-field>
 
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label> <strong>Origem Lançamento:</strong> </mat-label>
+            <select matNativeControl matInput [(ngModel)]="lancamento.origem" [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let origem of origemLancamento" [value]="origem" [selected]="origem">
+                    {{ origem }}
+                </option>
+            </select>
+        </mat-form-field>
 
         <mat-form-field appearance="fill" class="full-width">
             <mat-label> <strong>Tipo Lançamento:</strong> </mat-label>

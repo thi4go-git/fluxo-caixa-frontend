@@ -25,7 +25,7 @@ export class LancamentoListagemComponent implements OnInit {
 
   total_lancamentos: number = 0;
   displayedColumns: string[] = ['selecionado', 'id', 'valorParcela', 'dataLancamento', 'descricao', 'tipo'
-    , 'situacao', 'qtdeParcelas', 'nrParcela', 'natureza', 'dataCriacao', 'nomeAnexo', 'edit', 'delete',];
+    , 'situacao', 'qtdeParcelas', 'nrParcela', 'natureza', 'origem', 'dataCriacao', 'nomeAnexo', 'edit', 'delete',];
 
   dataSource: MatTableDataSource<LancamentoDTOResponse> = new MatTableDataSource;
 
@@ -37,6 +37,7 @@ export class LancamentoListagemComponent implements OnInit {
 
   lancamentoDeletar: LancamentoDTOResponse = new LancamentoDTOResponse;
   tipoLancamento: any[] = [];
+  origemEnum: any[] = [];
 
   lancamentoFilter: LancamentoFilterDTO = new LancamentoFilterDTO;
 
@@ -62,6 +63,7 @@ export class LancamentoListagemComponent implements OnInit {
   ngOnInit(): void {
     this.definirTipo();
     this.definirNatureza();
+    this.definirOrigemEnum();
     this.listagemMesAtual();
   }
 
@@ -97,6 +99,21 @@ export class LancamentoListagemComponent implements OnInit {
         }
       });
   }
+
+
+  definirOrigemEnum() {
+    this.service.findAllOrigem()
+      .subscribe({
+        next: (resposta) => {
+          this.origemEnum = resposta;
+        },
+        error: (erroDefinirOrigemEnum) => {
+          console.error(erroDefinirOrigemEnum);
+          this.handleError("Erro ao obter Origem Enum.");
+        }
+      });
+  }
+
 
   listagemMesAtual() {
     this.mostraProgresso = true;
@@ -161,13 +178,18 @@ export class LancamentoListagemComponent implements OnInit {
 
     this.mostraProgresso = true;
 
-    let natu = this.lancamentoFilter.idNatureza;
-    let tp = this.lancamentoFilter.tipo;
-    if (natu == 'TUDO') {
+    let natureza = this.lancamentoFilter.idNatureza;
+    let tipo = this.lancamentoFilter.tipo;
+    let origem = this.lancamentoFilter.origem;
+
+    if (natureza == 'TUDO') {
       this.lancamentoFilter.idNatureza = null;
     }
-    if (tp == 'TUDO') {
+    if (tipo == 'TUDO') {
       this.lancamentoFilter.tipo = null;
+    }
+    if (origem == 'TUDO') {
+      this.lancamentoFilter.origem = null;
     }
 
     if (this.lancamentoFilter.dataInicio && this.lancamentoFilter.dataFim) {

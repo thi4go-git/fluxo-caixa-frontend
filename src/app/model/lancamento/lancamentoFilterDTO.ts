@@ -7,6 +7,7 @@ export class LancamentoFilterDTO {
     nrParcela: any;
     idNatureza: any;
     situacao: any;
+    origem: any;
     dataInicio: any;
     dataFim: any;
     username: any;
