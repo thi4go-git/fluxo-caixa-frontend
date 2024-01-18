@@ -139,7 +139,7 @@
             <td mat-cell *matCellDef="let lancamento"
                 [ngStyle]="{'color': lancamento.valorParcela < 0 ? 'red' : 'green'}"
                 (click)=" selecionaLinha(lancamento)" [class.linha-selecionada]="itemSelecionado.has(lancamento)">
-                {{lancamento.valorParcela}}
+                {{ lancamento.valorParcela | number:'1.2-2' }}
             </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
