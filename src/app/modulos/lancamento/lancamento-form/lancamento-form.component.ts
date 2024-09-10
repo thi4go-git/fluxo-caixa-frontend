@@ -7,6 +7,7 @@ import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { NaturezaNewDTO } from 'src/app/model/natureza/naturezaNewDTO';
 import { LancamentoNewDTO } from 'src/app/model/lancamento/lancamentoNewDTO';
+import { Router } from '@angular/router';
 
 
 
@@ -36,7 +37,8 @@ export class LancamentoFormComponent implements OnInit {
     private service: LancamentoService,
     private snackBar: MatSnackBar,
     private auth: AutenticacaoService,
-    private avisoDialogService: AvisosDialogService
+    private avisoDialogService: AvisosDialogService,
+    private router: Router
   ) { }
 
 
@@ -200,6 +202,7 @@ export class LancamentoFormComponent implements OnInit {
             duration: 4000
           });
           this.fecharDialog();
+          location.reload();
         },
         error: (erroSalvar) => {
           this.msgErros = erroSalvar.error.parameterViolations;
