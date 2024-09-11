@@ -19,7 +19,6 @@
         <div class="container">
             <form #arquivoForm="ngForm">
                 <div id="row">
-
                     <mat-form-field appearance="fill" class="espaco">
                         <mat-label> <strong>Data Inicial:</strong> </mat-label>
                         <input matInput placeholder="Informe a Data Emissão" type="date" name="dataInicio"
@@ -77,6 +76,11 @@
                             <em class="fa fa-save"></em>
                             <mat-icon>search</mat-icon>
                             Pesquisar
+                        </button>
+                        <button type="button" class="btn btn-warning ml-3" (click)="limparFiltros()">
+                            <em class="fa fa-save"></em>
+                            <mat-icon>clear</mat-icon>
+                            Limpar
                         </button>
                     </div>
 
