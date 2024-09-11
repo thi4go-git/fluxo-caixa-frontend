@@ -64,7 +64,14 @@ export class LancamentoListagemComponent implements OnInit {
     this.definirTipo();
     this.definirNatureza();
     this.definirOrigemEnum();
-    this.listagemMesAtual();
+
+    const filtrosSalvos = sessionStorage.getItem('filtrosLancamento');
+    if (filtrosSalvos) {
+      this.lancamentoFilter = JSON.parse(filtrosSalvos);
+      this.listagemPersonalizada();
+    } else {
+      this.listagemMesAtual();
+    }
   }
 
   definirNatureza() {
@@ -194,6 +201,8 @@ export class LancamentoListagemComponent implements OnInit {
 
     if (this.lancamentoFilter.dataInicio && this.lancamentoFilter.dataFim) {
 
+      sessionStorage.setItem('filtrosLancamento', JSON.stringify(this.lancamentoFilter));
+
       this.service.finByIdUserDataFilter(this.lancamentoFilter)
         .subscribe({
           next: (resposta) => {
@@ -216,7 +225,6 @@ export class LancamentoListagemComponent implements OnInit {
         duration: 5000
       });
     }
-
   }
 
 
@@ -445,5 +453,11 @@ export class LancamentoListagemComponent implements OnInit {
 
   editarLancamento(id: number) {
     this.router.navigate(['/lancamento/listagem/' + id]);
+  }
+
+  limparFiltros() {
+    this.lancamentoFilter = new LancamentoFilterDTO;
+    sessionStorage.removeItem('filtrosLancamento');
+    this.listagemMesAtual();
   }
 }
