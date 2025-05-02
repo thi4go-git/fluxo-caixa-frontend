@@ -97,10 +97,11 @@ export class LancamentoService {
     return this.http.delete<any>(this.apiUrl + "/lancamentos/" + id);
   }
 
-  deletarMultiplosLancamentos(listaIdSelecionados: string[]): Observable<any> {
+  operacaoPersonalizada(listaIdSelecionados: string[], tipoOperacao: number): Observable<any> {
     const params = new HttpParams()
-      .set('username', this.username);
-    return this.http.post<any>(this.apiUrl + "/lancamentos/deletar-multiplos", listaIdSelecionados, { params });
+      .set('username', this.username)
+      .set('tipoOperacao', tipoOperacao);
+    return this.http.post<any>(this.apiUrl + "/lancamentos/operacao-personalizada", listaIdSelecionados, { params });
   }
 
   uploadFile(formData: FormData, id: number): Observable<any> {

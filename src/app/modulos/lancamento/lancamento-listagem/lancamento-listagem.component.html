@@ -83,25 +83,33 @@
 </mat-card>
 
 <div class="row mt-3 mb-3">
-    <div class="col-6 d-flex justify-content-between">
-      <div *ngIf="listaIdSelecionados.length > 0" class="d-flex align-items-center">
-        
-        <button type="button" class="btn btn-danger me-2" (click)="deletarSelecionados()">
-          <em class="fa fa-save"></em>
-          <mat-icon>delete</mat-icon>
-          Deletar Selecionados
-        </button>
-
-        <div>Itens selecionados: {{ listaIdSelecionados.length }}</div>
-      </div>
-    </div>
-    <div class="col-6 d-flex justify-content-end">      
+    <div class="col-12 d-flex justify-content-end">      
       <button class="btn btn-primary" (click)="novoLancamento()">
         <mat-icon>exposure_plus_1</mat-icon>
         <em class="fa fa-plus"></em>Novo
       </button>
     </div>
 </div>  
+
+
+<div *ngIf="listaIdSelecionados.length > 0">
+    <mat-form-field appearance="fill" class="espaco">
+        <mat-label> <strong>Selecionar Operação</strong> </mat-label>
+        <select matNativeControl matInput 
+            [ngModelOptions]="{standalone: true}" 
+            [(ngModel)]="tipeOperacaoLancamento">
+            <option></option>
+            <option [ngValue]="1">Deletar Lançamento(s)</option>
+            <option [ngValue]="2">Marcar Como Pago(s)</option>
+        </select>
+    </mat-form-field>
+    <button class="btn btn-secondary" 
+        (click)="realizarOperacaoLancamento()" 
+        *ngIf="tipeOperacaoLancamento" >
+        <em class="fa fa-plus"></em>Confirmar
+    </button>
+</div>
+
   
 <div>
 <div class="card-header">
