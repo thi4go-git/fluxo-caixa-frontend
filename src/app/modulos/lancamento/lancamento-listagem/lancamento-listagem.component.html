@@ -1,7 +1,6 @@
 <p>
     <mat-toolbar>
         <span>
-            <mat-icon>list</mat-icon>
             {{ mesExtenso | mesStr }}
         </span>
     </mat-toolbar>
@@ -16,7 +15,7 @@
 <mat-card>
     <mat-card-content>
         <strong>Filtros</strong>
-        <div class="container">
+        <div>
             <form #arquivoForm="ngForm">
                 <div id="row">
                     <mat-form-field appearance="fill" class="espaco">
@@ -24,13 +23,11 @@
                         <input matInput placeholder="Informe a Data Emissão" type="date" name="dataInicio"
                             [(ngModel)]="lancamentoFilter.dataInicio" />
                     </mat-form-field>
-
                     <mat-form-field appearance="fill" class="espaco">
                         <mat-label> <strong>Data Final:</strong> </mat-label>
                         <input matInput placeholder="Informe a Data Emissão" type="date" name="data_fim"
                             [(ngModel)]="lancamentoFilter.dataFim" />
                     </mat-form-field>
-
                     <mat-form-field appearance="fill" class="espaco">
                         <mat-label> <strong>Origem:</strong> </mat-label>
                         <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
@@ -41,7 +38,6 @@
                             </option>
                         </select>
                     </mat-form-field>
-
                     <mat-form-field appearance="fill" class="espaco">
                         <mat-label> <strong>Tipo:</strong> </mat-label>
                         <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
@@ -52,7 +48,6 @@
                             </option>
                         </select>
                     </mat-form-field>
-
                     <mat-form-field appearance="fill" class="espaco">
                         <mat-label> <strong>natureza:</strong> </mat-label>
                         <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
@@ -63,14 +58,12 @@
                             </option>
                         </select>
                     </mat-form-field>
-
                     <mat-form-field appearance="fill" class="espaco">
                         <mat-icon matSuffix>fingerprint</mat-icon>
                         <mat-label> <strong>Descrição</strong> </mat-label>
                         <input matInput placeholder="Informe a Descrição:" name="descricao"
                             [(ngModel)]="lancamentoFilter.descricao" />
                     </mat-form-field>
-
                     <div id="row">
                         <button type="button" class="btn btn-success" (click)="listagemPersonalizada()">
                             <em class="fa fa-save"></em>
@@ -82,44 +75,40 @@
                             <mat-icon>clear</mat-icon>
                             Limpar
                         </button>
-                    </div>
-
+                    </div>                  
                 </div>
             </form>
         </div>
-
     </mat-card-content>
 </mat-card>
 
-<br>
-<div id="row">
-    <div id="col-md-2">
-        <button class="btn btn-warning margem-btn" (click)="novoLancamento()">
-            <mat-icon>exposure_plus_1</mat-icon>
-            <em class="fa fa-plus"></em>Novo Lançamento
+<div class="row mt-3 mb-3">
+    <div class="col-6 d-flex justify-content-between">
+      <div *ngIf="listaIdSelecionados.length > 0" class="d-flex align-items-center">
+        
+        <button type="button" class="btn btn-danger me-2" (click)="deletarSelecionados()">
+          <em class="fa fa-save"></em>
+          <mat-icon>delete</mat-icon>
+          Deletar Selecionados
         </button>
-        <div *ngIf="listaIdSelecionados.length > 0">
-            <button type="button" class="btn btn-danger espaco-filter" (click)="deletarSelecionados()">
-                <em class="fa fa-save"></em>
-                <mat-icon>delete</mat-icon>
-                Deletar Selecionados
-            </button>
-            <h1>
-                ( {{ listaIdSelecionados.length }} )
-            </h1>
-        </div>
-    </div>
-</div>
-<br>
 
+        <div>Itens selecionados: {{ listaIdSelecionados.length }}</div>
+      </div>
+    </div>
+    <div class="col-6 d-flex justify-content-end">      
+      <button class="btn btn-primary" (click)="novoLancamento()">
+        <mat-icon>exposure_plus_1</mat-icon>
+        <em class="fa fa-plus"></em>Novo
+      </button>
+    </div>
+</div>  
+  
+<div>
 <div class="card-header">
     <strong>Total de Registros: {{ total_lancamentos }}</strong>
 </div>
-
-<div class="mat-elevation-z8 col-md-12 table-responsive">
-
+    <div class="mat-elevation-z8 col-md-12 table-responsive">
     <table mat-table [dataSource]="dataSource">
-
         <ng-container matColumnDef="selecionado">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let lancamento">
@@ -130,7 +119,6 @@
             </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
-
         <ng-container matColumnDef="valorParcela">
             <th mat-header-cell *matHeaderCellDef> Valor: </th>
             <td mat-cell *matCellDef="let lancamento"
@@ -140,7 +128,6 @@
             </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
-
         <ng-container matColumnDef="dataLancamento">
             <th mat-header-cell *matHeaderCellDef>Data:</th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
@@ -148,7 +135,6 @@
                 date:'dd/MM/yyyy' }} </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
-
         <ng-container matColumnDef="tipo">
             <th mat-header-cell *matHeaderCellDef> Tipo: </th>
             <td mat-cell *matCellDef="let lancamento"
@@ -157,14 +143,12 @@
                 {{lancamento.tipo}} </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
-
         <ng-container matColumnDef="descricao">
             <th mat-header-cell *matHeaderCellDef> Descrição: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{lancamento.descricao}} </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
-
         <ng-container matColumnDef="situacao">
             <th mat-header-cell *matHeaderCellDef> Situação: </th>
             <td mat-cell *matCellDef="let lancamento"
@@ -174,35 +158,30 @@
             </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
-
         <ng-container matColumnDef="nrParcela">
             <th mat-header-cell *matHeaderCellDef> Nº Parcela: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.nrParcela }}</td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
-
         <ng-container matColumnDef="qtdeParcelas">
             <th mat-header-cell *matHeaderCellDef> Qtde Parcelas: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{lancamento.qtdeParcelas}} </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
-
         <ng-container matColumnDef="natureza">
             <th mat-header-cell *matHeaderCellDef> Natureza: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.natureza }} </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
-
         <ng-container matColumnDef="origem">
             <th mat-header-cell *matHeaderCellDef> Origem: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.origem }} </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
-
         <ng-container matColumnDef="dataCriacao">
             <th mat-header-cell *matHeaderCellDef> Criado em: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
@@ -210,8 +189,6 @@
                 date:'dd/MM/yyyy' }} </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
-
-
         <ng-container matColumnDef="nomeAnexo">
             <th mat-header-cell *matHeaderCellDef> Anexo: </th>
             <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
@@ -225,7 +202,6 @@
             </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
-
         <ng-container matColumnDef="edit">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let lancamento">
@@ -233,7 +209,6 @@
             </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
-
         <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let lancamento">
@@ -246,16 +221,13 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="mat-row"></tr>
         <tr mat-footer-row *matFooterRowDef="displayedColumns" class="mat-row"></tr>
-
         <tr class="mat-row" *matNoDataRow>
             <td class="mat-cell" colspan="4">
                 <strong>Sem registros na tabela!</strong>
             </td>
         </tr>
-
-
-
     </table>
+
     <mat-card>
         <mat-card-content>
             <div>
@@ -284,35 +256,28 @@
             </div>
         </mat-card-content>
     </mat-card>
+    </div>
 </div>
-
 
 
 <div id="modalExclusao" class="modal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-
             <div class="modal-header">
                 <h4 class="modal-title">Confirmação</h4>
             </div>
-
             <div class="modal-body" *ngIf="lancamentoDeletar">
                 Deletar o Lançamento:
                 Id: {{ lancamentoDeletar.id }} - {{ lancamentoDeletar.descricao }} ?
             </div>
-
             <div class="modal-footer">
-
                 <button class="btn btn-success" (click)="deletarLancamento()" data-dismiss="modal">
                     Confirmar
                 </button>
-
                 <button class="btn btn-danger" data-dismiss="modal">
                     Cancelar
                 </button>
-
             </div>
-
         </div>
     </div>
 </div>
