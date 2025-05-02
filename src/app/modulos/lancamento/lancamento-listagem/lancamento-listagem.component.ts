@@ -50,6 +50,9 @@ export class LancamentoListagemComponent implements OnInit {
 
   mostraProgresso: boolean = false;
 
+  tipeOperacaoLancamento: any
+
+
   constructor(
     private service: LancamentoService,
     private dialog: MatDialog,
@@ -234,21 +237,10 @@ export class LancamentoListagemComponent implements OnInit {
     });
   }
 
-  deletarSelecionados() {
-    if (this.listaIdSelecionados.length > 0) {
-      this.deletarMultiplosLancamentos();
-    } else {
-      this.snackBar.open("Selecione os lançamentos que deseja deletar!", "INFO!", {
-        duration: 5000
-      });
-    }
-  }
-
 
   selecionarLancamentoDeletar(lancamento: LancamentoDTOResponse) {
     this.lancamentoDeletar = lancamento;
   }
-
 
   deletarLancamento() {
     this.avisoDialogService.openConfirmationDialog("Tem certeza?")
@@ -284,15 +276,20 @@ export class LancamentoListagemComponent implements OnInit {
   }
 
 
-  private deletarMultiplosLancamentos() {
-    this.avisoDialogService.openConfirmationDialog("Confirma a exclusão de ( " + this.listaIdSelecionados.length + ' ) Lançamento(s)?')
-      .then(result => {
+  private operacaoPersonalizadaLancamentos() {
+    if (this.listaIdSelecionados.length > 0) { 
+
+      const mensagem = this.tipeOperacaoLancamento == 1? 
+        'Confirma a exclusão de ( ' + this.listaIdSelecionados.length + ' ) Lançamento(s)?' : 
+        'Deseja marcar ( ' + this.listaIdSelecionados.length + ' ) Lançamento(s) como pago(s)?';
+        
+      this.avisoDialogService.openConfirmationDialog(mensagem).then(result => {
         if (result) {
           this.mostraProgresso = true;
-          this.service.deletarMultiplosLancamentos(this.listaIdSelecionados)
+          this.service.operacaoPersonalizada(this.listaIdSelecionados, this.tipeOperacaoLancamento )
             .subscribe({
               next: (_resposta) => {
-                this.snackBar.open("Sucesso ao deletar Lançamento(s)!", "Sucess!", {
+                this.snackBar.open("Sucesso ao processar Lançamento(s)!", "Sucess!", {
                   duration: 2000
                 });
                 this.listaIdSelecionados = [];
@@ -304,7 +301,7 @@ export class LancamentoListagemComponent implements OnInit {
                 this.mostraProgresso = false;
               },
               error: (_erroDeletarMultiplos) => {
-                this.handleError("Erro ao deletar!");
+                this.handleError("Erro ao processar!");
               }
             });
 
@@ -314,6 +311,7 @@ export class LancamentoListagemComponent implements OnInit {
           });
         }
       });
+    }
   }
 
 
@@ -459,5 +457,16 @@ export class LancamentoListagemComponent implements OnInit {
     this.lancamentoFilter = new LancamentoFilterDTO;
     sessionStorage.removeItem('filtrosLancamento');
     this.listagemMesAtual();
+    this.listaIdSelecionados = [];
+  }
+
+  realizarOperacaoLancamento(){
+    if(this.tipeOperacaoLancamento == undefined || !this.tipeOperacaoLancamento){
+      this.snackBar.open("Selecione a operação!", "Atenção", {
+        duration: 3000
+      });
+    }else{
+      this.operacaoPersonalizadaLancamentos();
+    }      
   }
 }
