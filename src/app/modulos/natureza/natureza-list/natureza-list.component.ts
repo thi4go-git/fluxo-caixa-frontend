@@ -7,6 +7,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NaturezaNewDTO } from 'src/app/model/natureza/naturezaNewDTO';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-natureza-list',
@@ -23,12 +24,13 @@ export class NaturezaListComponent implements OnInit {
   selecao = new SelectionModel<NaturezaNewDTO>(false);
   itemSelecionado = new Set<NaturezaNewDTO>();
 
-  mostraProgresso: boolean = false;
+
 
   constructor(
     private service: LancamentoService,
     private dialog: MatDialog,
     private avisoDialogService: AvisosDialogService,
+    private loadingService: LoadingService,
     private snackBar: MatSnackBar,
   ) { }
 
@@ -37,16 +39,16 @@ export class NaturezaListComponent implements OnInit {
   }
 
   listarNaturezas() {
-    this.mostraProgresso = true;
+    this.loadingService.show();
     this.service.getNaturezasByUsername()
       .subscribe({
         next: (resposta) => {
+          this.loadingService.hide();
           this.naturezas = resposta;
           this.dataSource = new MatTableDataSource(this.naturezas);
-          this.mostraProgresso = false;
         },
         error: (responseError) => {
-          this.mostraProgresso = false;
+          this.loadingService.hide();
           console.error(responseError);
         }
       });
@@ -91,18 +93,18 @@ export class NaturezaListComponent implements OnInit {
   }
 
   excluirNatureza(natureza: NaturezaNewDTO) {
-    this.mostraProgresso = true;
+    this.loadingService.show();
     this.service.deletarNaturezaPorId(natureza)
       .subscribe({
         next: (_resposta) => {
+          this.loadingService.hide();
           this.snackBar.open("Sucesso ao excluir natureza!", "SUCESSO!", {
             duration: 3000
           });
-          this.listarNaturezas();
-          this.mostraProgresso = false;
+          this.listarNaturezas();   
         },
         error: (responseError) => {
-          this.mostraProgresso = false;
+          this.loadingService.hide();
           console.error(responseError);
           this.snackBar.open(responseError.error.erros, "ERRO!", {
             duration: 6000

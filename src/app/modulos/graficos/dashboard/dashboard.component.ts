@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import Chart from 'chart.js/auto'
 import { LancamentoDashboardDTO } from 'src/app/model/lancamento/lancamentoDashboardDTO';
 import { LancamentoService } from 'src/app/services/lancamento.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 
 
@@ -22,6 +23,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private service: LancamentoService,
+    private loadingService: LoadingService,
     private snackBar: MatSnackBar
   ) {  }
 
@@ -32,6 +34,7 @@ export class DashboardComponent implements OnInit {
 
 
   carregarListaDash() {
+    this.loadingService.show();
     this.service.getLancamentosDashboard()
       .subscribe({
         next: (resposta) => {
@@ -53,6 +56,8 @@ export class DashboardComponent implements OnInit {
 
           this.carregarCanvasBarra();
           this.carregarCanvasLinha();
+
+          this.loadingService.hide();
 
         },
         error: (responseError) => {

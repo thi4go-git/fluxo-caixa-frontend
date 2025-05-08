@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AutenticacaoService } from 'src/app/services/autenticacao.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import { apiEnvironment } from 'src/environments/apiEnvironment';
 
 
@@ -23,6 +24,7 @@ export class LoginFormComponent {
   constructor(
     private router: Router,
     private authService: AutenticacaoService,
+    private loadingService: LoadingService,
     private snackBar: MatSnackBar
   ) {
     this.username = '';
@@ -42,10 +44,12 @@ export class LoginFormComponent {
   }
 
   logar() {
+    this.loadingService.show();
     this.authService
       .obterToken(this.username, this.password)
       .subscribe({
         next: (response) => {
+          this.loadingService.hide();
           this.loginError = false;
           this.erros = [];
           const access_token = JSON.stringify(response);
@@ -53,6 +57,7 @@ export class LoginFormComponent {
           this.router.navigate(['/graficos/dashboard'])
         },
         error: (errorResponse) => {
+          this.loadingService.hide();
           const status = errorResponse.status;
           const msgErro = errorResponse.message;
           this.loginError = true;

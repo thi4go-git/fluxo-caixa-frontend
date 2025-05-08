@@ -8,6 +8,7 @@ import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { NaturezaNewDTO } from 'src/app/model/natureza/naturezaNewDTO';
 import { LancamentoNewDTO } from 'src/app/model/lancamento/lancamentoNewDTO';
 import { Router } from '@angular/router';
+import { LoadingService } from 'src/app/services/loading.service';
 
 
 
@@ -38,6 +39,7 @@ export class LancamentoFormComponent implements OnInit {
     private snackBar: MatSnackBar,
     private auth: AutenticacaoService,
     private avisoDialogService: AvisosDialogService,
+    private loadingService: LoadingService,
     private router: Router
   ) { }
 
@@ -59,9 +61,11 @@ export class LancamentoFormComponent implements OnInit {
   }
 
   definirNatureza() {
+    this.loadingService.show();
     this.service.getNaturezasByUsername()
       .subscribe({
         next: (resposta) => {
+          this.loadingService.hide();
           if (resposta == null) {
             this.snackBar.open("Não existem Naturezas, favor cadastrar", "Info!", {
               duration: 5000
@@ -71,6 +75,7 @@ export class LancamentoFormComponent implements OnInit {
           }
         },
         error: (errorDefinirNatureza) => {
+          this.loadingService.hide();
           console.error(errorDefinirNatureza);
           this.snackBar.open("Erro ao definir naturezas: ", errorDefinirNatureza, {
             duration: 4000
@@ -80,12 +85,15 @@ export class LancamentoFormComponent implements OnInit {
   }
 
   definirSituacao() {
+    this.loadingService.show();
     this.service.findAllSituacao()
       .subscribe({
         next: (resposta) => {
+          this.loadingService.hide();
           this.situacao = resposta;
         },
         error: (erroDefinirSituacao) => {
+          this.loadingService.hide();
           console.error(erroDefinirSituacao);
           this.snackBar.open("Erro: ", erroDefinirSituacao, {
             duration: 5000
@@ -96,12 +104,15 @@ export class LancamentoFormComponent implements OnInit {
 
 
   definirTipo() {
+    this.loadingService.show();
     this.service.findAllTipo()
       .subscribe({
         next: (resposta) => {
+          this.loadingService.hide();
           this.tipo_doc = resposta;
         },
         error: (erroDefinirTipo) => {
+          this.loadingService.hide();
           console.error(erroDefinirTipo);
           this.snackBar.open("Erro ao definir tipo lançamento: ", erroDefinirTipo, {
             duration: 5000
@@ -111,12 +122,15 @@ export class LancamentoFormComponent implements OnInit {
   }
 
   definirOrigem() {
+    this.loadingService.show();
     this.service.findAllOrigem()
       .subscribe({
         next: (resposta) => {
+          this.loadingService.hide();
           this.origemEnum = resposta;
         },
         error: (erroDefinirOrigem) => {
+          this.loadingService.hide();
           console.error(erroDefinirOrigem);
           this.snackBar.open("Erro ao definir Origem lançamento: ", erroDefinirOrigem, {
             duration: 5000
@@ -195,9 +209,11 @@ export class LancamentoFormComponent implements OnInit {
   }
 
   salvar() {
+    this.loadingService.show();
     this.service.save(this.lancamento)
       .subscribe({
         next: (_resposta) => {
+          this.loadingService.hide();
           this.snackBar.open("Sucesso ao salvar!", "Info!", {
             duration: 4000
           });
@@ -205,6 +221,7 @@ export class LancamentoFormComponent implements OnInit {
           location.reload();
         },
         error: (erroSalvar) => {
+          this.loadingService.hide();
           this.msgErros = erroSalvar.error.parameterViolations;
         }
       });

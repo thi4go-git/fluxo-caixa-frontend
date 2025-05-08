@@ -78,9 +78,11 @@ export class LancamentoListagemComponent implements OnInit {
   }
 
   definirNatureza() {
+    this.loadingService.show();
     this.service.getNaturezasByUsername()
       .subscribe({
         next: (resposta) => {
+          this.loadingService.hide();
           if (resposta == null) {
             this.snackBar.open("Não existem Naturezas, favor cadastrar", "Info!", {
               duration: 5000
@@ -90,6 +92,7 @@ export class LancamentoListagemComponent implements OnInit {
           }
         },
         error: (erroDefinirNatureza) => {
+          this.loadingService.hide();
           console.error(erroDefinirNatureza);
           this.handleError("Erro ao Obter naturezas ");
         }
@@ -98,12 +101,15 @@ export class LancamentoListagemComponent implements OnInit {
 
 
   definirTipo() {
+    this.loadingService.show();
     this.service.findAllTipo()
       .subscribe({
         next: (resposta) => {
+          this.loadingService.hide();
           this.tipoLancamento = resposta;
         },
         error: (erroDefinirTipo) => {
+          this.loadingService.hide();
           console.error(erroDefinirTipo);
           this.handleError("Erro ao obter lista de Tipos ");
         }
@@ -112,12 +118,15 @@ export class LancamentoListagemComponent implements OnInit {
 
 
   definirOrigemEnum() {
+    this.loadingService.show();
     this.service.findAllOrigem()
       .subscribe({
         next: (resposta) => {
+          this.loadingService.hide();
           this.origemEnum = resposta;
         },
         error: (erroDefinirOrigemEnum) => {
+          this.loadingService.hide();
           console.error(erroDefinirOrigemEnum);
           this.handleError("Erro ao obter Origem Enum.");
         }
@@ -140,6 +149,7 @@ export class LancamentoListagemComponent implements OnInit {
           this.loadingService.hide();
         },
         error: (erroListagemMesAtual) => {
+          this.loadingService.hide();
           console.error(erroListagemMesAtual);
           this.handleError("Erro ao obter Lançamentos do mÊs atual ");
         }
@@ -218,12 +228,14 @@ export class LancamentoListagemComponent implements OnInit {
             this.loadingService.hide();
           },
           error: (erroListagemPersonalizada) => {
+            this.loadingService.hide();
             console.error(erroListagemPersonalizada);
             this.handleError("Erro ao aplicar Filtros!");
           }
         });
 
     } else {
+      this.loadingService.hide();
       this.snackBar.open("Verifique a(s) data(s) informada(s)!", "Erro!", {
         duration: 5000
       });
@@ -242,15 +254,15 @@ export class LancamentoListagemComponent implements OnInit {
     this.lancamentoDeletar = lancamento;
   }
 
-  deletarLancamento() {
+  deletarLancamento() {    
     this.avisoDialogService.openConfirmationDialog("Tem certeza?")
-      .then(result => {
+      .then(result => {  
         if (result) {
-
+          this.loadingService.show();
           this.service.deletarporLancamentoId(this.lancamentoDeletar.id)
             .subscribe({
               next: (_resposta) => {
-
+                this.loadingService.hide();
                 this.snackBar.open("Sucesso ao deletar!", "Sucess!", {
                   duration: 2000
                 });
@@ -262,11 +274,11 @@ export class LancamentoListagemComponent implements OnInit {
                 }
               },
               error: (erroDeletar) => {
+                this.loadingService.hide();
                 console.error(erroDeletar);
                 this.handleError("Erro ao deletar!");
               }
             });
-
         } else {
           this.snackBar.open("Processo cancelado!", "Cancelado!", {
             duration: 3000
@@ -289,6 +301,7 @@ export class LancamentoListagemComponent implements OnInit {
           this.service.operacaoPersonalizada(this.listaIdSelecionados, this.tipeOperacaoLancamento )
             .subscribe({
               next: (_resposta) => {
+                this.loadingService.hide();
                 this.snackBar.open("Sucesso ao processar Lançamento(s)!", "Sucess!", {
                   duration: 2000
                 });
@@ -297,10 +310,10 @@ export class LancamentoListagemComponent implements OnInit {
                   this.listagemPersonalizada();
                 } else {
                   this.listagemMesAtual();
-                }
-                this.loadingService.hide();
+                }       
               },
               error: (_erroDeletarMultiplos) => {
+                this.loadingService.hide();
                 this.handleError("Erro ao processar!");
               }
             });
@@ -360,19 +373,19 @@ export class LancamentoListagemComponent implements OnInit {
           this.service.uploadFile(formData, id)
             .subscribe({
               next: (_resposta) => {
+                this.loadingService.hide();
                 if (this.filtroExistente()) {
                   this.listagemPersonalizada();
                 } else {
                   this.listagemMesAtual();
-                }
-                this.loadingService.hide();
+                }            
               },
               error: (_erroUpload) => {
+                this.loadingService.hide();
                 this.handleError("Erro ao efetuar UPLOAD!");
               }
             });
         } else {
-          this.loadingService.hide();
           this.snackBar.open("UPLOAD cancelado!", "Cancelado!", {
             duration: 3000
           });
@@ -390,16 +403,16 @@ export class LancamentoListagemComponent implements OnInit {
           this.service.downloadFile(id)
             .subscribe({
               next: (resposta) => {
+                this.loadingService.hide();
                 const sampleArr = this.base64ToArrayBufferAngular16(resposta.anexo);
                 this.saveByteArray(resposta, sampleArr);
-                this.loadingService.hide();
               },
               error: (_erroBaixar) => {
+                this.loadingService.hide();
                 this.handleError("Erro ao efetuar DOWNLOAD!");
               }
             });
         } else {
-          this.loadingService.hide();
           this.snackBar.open("Download cancelado!", "Cancelado!", {
             duration: 3000
           });
@@ -438,7 +451,6 @@ export class LancamentoListagemComponent implements OnInit {
 
   // Função compartilhada para lidar com erros
   private handleError(errorMessage: string) {
-    this.loadingService.hide();
     this.snackBar.open(errorMessage, "ERRO!", {
       duration: 4000
     });

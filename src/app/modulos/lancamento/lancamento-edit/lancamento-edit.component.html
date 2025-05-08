@@ -1,11 +1,4 @@
 <h1 class="mt-4">Editar Lançamento</h1>
-
-<div *ngIf="mostraProgresso">
-    Aguarde Processando arquivos...
-    <mat-progress-bar mode="indeterminate" class="progress">
-    </mat-progress-bar>
-</div>
-
 <div class="container">
     <form #lancamentoForm="ngForm" (ngSubmit)="onSubmit()">
 
