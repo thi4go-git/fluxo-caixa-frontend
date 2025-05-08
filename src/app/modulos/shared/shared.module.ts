@@ -23,7 +23,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MesStrPipe } from 'src/app/pipes/mes-str-pipe';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 // MÓDULO que tem todos os imports
@@ -58,6 +58,7 @@ import { MesStrPipe } from 'src/app/pipes/mes-str-pipe';
     MatSidenavModule,
     MatCheckboxModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
     NgxMaskDirective,
     NgxMaskPipe
   ], exports: [
@@ -85,6 +86,7 @@ import { MesStrPipe } from 'src/app/pipes/mes-str-pipe';
     MatSidenavModule,
     MatCheckboxModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
     NgxMaskDirective,
     NgxMaskPipe,
     MesStrPipe
