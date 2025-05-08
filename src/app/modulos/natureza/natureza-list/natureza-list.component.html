@@ -12,15 +12,15 @@
     </mat-progress-bar>
 </div>
 
-<div id="row">
-    <div id="col-md-2">
-        <button class="btn btn-warning" (click)="novaNatureza()">
-            <mat-icon>exposure_plus_1</mat-icon>
-            <em class="fa fa-plus"></em>Nova Natureza
-        </button>
+<div class="row mt-3 mb-3">
+    <div class="col-12 d-flex justify-content-end">      
+      <button class="btn btn-primary" (click)="novaNatureza()">
+        <mat-icon>exposure_plus_1</mat-icon>
+        <em class="fa fa-plus"></em>Nova
+      </button>
     </div>
-</div>
-<br />
+</div>  
+
 
 <mat-form-field class="full-width"> <mat-label>Filto Geral:</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Alimentação" #input>
