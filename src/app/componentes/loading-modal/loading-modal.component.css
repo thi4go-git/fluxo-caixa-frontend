@@ -1,0 +1,8 @@
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    color: #ffffff;
+    background-color: transparent;
+}

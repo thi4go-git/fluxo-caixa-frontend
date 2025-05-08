@@ -5,6 +5,7 @@ import { LancamentoDTOResponse } from 'src/app/model/lancamento/lancamentoDTORes
 import { LancamentoUpdateDTO } from 'src/app/model/lancamento/lancamentoUpdateDTO';
 import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { LancamentoService } from 'src/app/services/lancamento.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-lancamento-edit',
@@ -15,7 +16,6 @@ export class LancamentoEditComponent implements OnInit {
 
   id: number;
   lancamento: LancamentoDTOResponse;
-  mostraProgresso: boolean;
   listaErros: string[];
   tipoLancamento: any[];
   naturezaLancamento: any[];
@@ -28,12 +28,12 @@ export class LancamentoEditComponent implements OnInit {
     private service: LancamentoService,
     private snackBar: MatSnackBar,
     private avisoDialogService: AvisosDialogService,
+    private loadingService: LoadingService,
     private router: Router
   ) {
     this.id = 0;
     this.lancamento = new LancamentoDTOResponse();
     this.lancamentoUpdate = new LancamentoUpdateDTO();
-    this.mostraProgresso = false;
     this.listaErros = [];
     this.tipoLancamento = [];
     this.naturezaLancamento = [];
@@ -63,15 +63,15 @@ export class LancamentoEditComponent implements OnInit {
   }
 
   private async obterLancamentoById() {
-    this.mostraProgresso = true;
+    this.loadingService.show();
     this.service
       .getLancamentoById(this.id).subscribe({
         next: (resposta) => {
           this.lancamento = resposta;
-          this.mostraProgresso = false;
+          this.loadingService.hide();
         },
         error: (_errorResponse) => {
-          this.mostraProgresso = false;
+          this.loadingService.hide();
           this.snackBar.open("Erro ao obter Lançamento pelo id ", "Erro!", {
             duration: 2000
           });
@@ -80,16 +80,16 @@ export class LancamentoEditComponent implements OnInit {
   }
 
   private async definirComboBoxTipo() {
-    this.mostraProgresso = true;
+    this.loadingService.show();
     this.service
       .findAllTipo().subscribe({
         next: (resposta) => {
           this.tipoLancamento = resposta;
           this.tipoLancamento = this.tipoLancamento.filter(tipo => tipo !== "AMBOS");
-          this.mostraProgresso = false;
+          this.loadingService.hide();
         },
         error: (_errorResponse) => {
-          this.mostraProgresso = false;
+          this.loadingService.hide();
           this.snackBar.open("Erro ao obter tipos Lançamento", "Erro!", {
             duration: 2000
           });
@@ -98,7 +98,7 @@ export class LancamentoEditComponent implements OnInit {
   }
 
   private async definirComboBoxNatureza() {
-    this.mostraProgresso = true;
+    this.loadingService.show();
     this.service
       .getNaturezasByUsername().subscribe({
         next: (resposta) => {
@@ -107,10 +107,10 @@ export class LancamentoEditComponent implements OnInit {
               this.naturezaLancamento.push(natureza.descricao);
             }
           );
-          this.mostraProgresso = false;
+          this.loadingService.hide();
         },
         error: (_errorResponse) => {
-          this.mostraProgresso = false;
+          this.loadingService.hide();
           this.snackBar.open("Erro ao obter Naturezas do Usuário.", "Erro!", {
             duration: 2000
           });
@@ -119,15 +119,15 @@ export class LancamentoEditComponent implements OnInit {
   }
 
   private async definirComboBoxSituacao() {
-    this.mostraProgresso = true;
+    this.loadingService.show();
     this.service
       .findAllSituacao().subscribe({
         next: (resposta) => {
           this.situacaoLancamento = resposta;
-          this.mostraProgresso = false;
+          this.loadingService.hide();
         },
         error: (_errorResponse) => {
-          this.mostraProgresso = false;
+          this.loadingService.hide();
           this.snackBar.open("Erro ao obter Lista Situação.", "Erro!", {
             duration: 2000
           });
@@ -136,15 +136,15 @@ export class LancamentoEditComponent implements OnInit {
   }
 
   private async definirComboBoxOrigem() {
-    this.mostraProgresso = true;
+    this.loadingService.show();
     this.service
       .findAllOrigem().subscribe({
         next: (resposta) => {
           this.origemLancamento = resposta;
-          this.mostraProgresso = false;
+          this.loadingService.hide();
         },
         error: (_errorResponse) => {
-          this.mostraProgresso = false;
+          this.loadingService.hide();
           this.snackBar.open("Erro ao obter Lista Origem.", "Erro!", {
             duration: 2000
           });
@@ -173,18 +173,18 @@ export class LancamentoEditComponent implements OnInit {
     this.avisoDialogService.openConfirmationDialog("*** ATENÇÃO ESSE PROCESSO PODERÁ SUBSTITUIR UM ANEXO EXISTENTE!!! Deseja SUBSTITUIR/ENVIAR anexo para o Lançamento " + this.lancamento.descricao + " ? ***")
       .then(result => {
         if (result) {
-          this.mostraProgresso = true;
+          this.loadingService.show();
           this.service.uploadFile(formData, id)
             .subscribe({
               next: (_resposta) => {
-                this.mostraProgresso = false;
+                this.loadingService.hide();
                 this.snackBar.open("Sucesso ao salvar anexo para o Lançamento!", "SUCESSO!", {
                   duration: 3000
                 });
                 this.processoInicial();
               },
               error: (_erroUpload) => {
-                this.mostraProgresso = false;
+                this.loadingService.hide();
                 this.snackBar.open("Erro ao realziar upload.", "Erro!", {
                   duration: 2000
                 });
@@ -192,7 +192,7 @@ export class LancamentoEditComponent implements OnInit {
             });
 
         } else {
-          this.mostraProgresso = false;
+          this.loadingService.hide();
           this.snackBar.open("UPLOAD cancelado!", "Cancelado!", {
             duration: 3000
           });
@@ -210,7 +210,7 @@ export class LancamentoEditComponent implements OnInit {
         if (result) {
           this.atualizarLancamento();
         } else {
-          this.mostraProgresso = false;
+          this.loadingService.hide();
           this.snackBar.open("Atualização cancelada!", "Cancelado!", {
             duration: 3000
           });
@@ -228,12 +228,12 @@ export class LancamentoEditComponent implements OnInit {
     this.lancamentoUpdate.situacao = this.lancamento.situacao;
     this.lancamentoUpdate.origem = this.lancamento.origem;
 
-    this.mostraProgresso = true;
+    this.loadingService.show();
     this.service.update(this.lancamentoUpdate)
       .subscribe({
         next: (_resposta) => {
           this.listaErros = [];
-          this.mostraProgresso = false;
+          this.loadingService.hide();
           this.snackBar.open("Sucesso ao Atualizar Lançamento!", "SUCESSO!", {
             duration: 3000
           });
@@ -241,7 +241,7 @@ export class LancamentoEditComponent implements OnInit {
         },
         error: (erroUpdate) => {
           this.listaErros = erroUpdate.error.erros
-          this.mostraProgresso = false;
+          this.loadingService.hide();
           this.snackBar.open("Erro ao Atualziar Lançamento.", "Erro!", {
             duration: 3000
           });

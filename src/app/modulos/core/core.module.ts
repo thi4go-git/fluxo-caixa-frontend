@@ -18,6 +18,8 @@ import { LancamentoService } from 'src/app/services/lancamento.service';
 import { AppComponent } from 'src/app/app.component';
 import { NotFoundComponent } from 'src/app/componentes/not-found/not-found.component';
 import { DateFormatPipe } from 'src/app/pipes/date-format-pipe';
+import { LoadingModalComponent } from 'src/app/componentes/loading-modal/loading-modal.component';
+import { LoadingService } from 'src/app/services/loading.service';
 
 
 
@@ -27,7 +29,8 @@ import { DateFormatPipe } from 'src/app/pipes/date-format-pipe';
     NotFoundComponent,
     LayoutComponent,
     ConfirmationDialogComponent,
-    DateFormatPipe        
+    DateFormatPipe,
+    LoadingModalComponent
   ],
   imports: [
     CommonModule,
@@ -46,6 +49,7 @@ import { DateFormatPipe } from 'src/app/pipes/date-format-pipe';
   ], providers: [
     AvisosDialogService,
     LancamentoService,
+    LoadingService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
