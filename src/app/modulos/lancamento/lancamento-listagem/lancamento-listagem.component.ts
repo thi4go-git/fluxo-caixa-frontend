@@ -12,6 +12,7 @@ import { AnexoDownloaDTO } from 'src/app/model/anexoDownloaDTO';
 import { Buffer } from 'buffer';
 import { NaturezaNewDTO } from 'src/app/model/natureza/naturezaNewDTO';
 import { Router } from '@angular/router';
+import { LoadingService } from 'src/app/services/loading.service';
 
 
 
@@ -48,8 +49,6 @@ export class LancamentoListagemComponent implements OnInit {
 
   listaIdSelecionados: string[] = [];
 
-  mostraProgresso: boolean = false;
-
   tipeOperacaoLancamento: any
 
 
@@ -58,6 +57,7 @@ export class LancamentoListagemComponent implements OnInit {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private avisoDialogService: AvisosDialogService,
+    private loadingService: LoadingService,
     private router: Router
   ) { }
 
@@ -125,9 +125,9 @@ export class LancamentoListagemComponent implements OnInit {
   }
 
 
-  listagemMesAtual() {
-    this.mostraProgresso = true;
-    this.service.finByIdUserDataMesAtual()
+  listagemMesAtual() {    
+    this.loadingService.show();
+     this.service.finByIdUserDataMesAtual()
       .subscribe({
         next: (resposta) => {
           this.lancamentoFilter.dataInicio = resposta.dataInicio;
@@ -137,7 +137,7 @@ export class LancamentoListagemComponent implements OnInit {
 
           this.dataSource = new MatTableDataSource(this.listaLancamentos);
           this.definirInfo();
-          this.mostraProgresso = false;
+          this.loadingService.hide();
         },
         error: (erroListagemMesAtual) => {
           console.error(erroListagemMesAtual);
@@ -186,7 +186,7 @@ export class LancamentoListagemComponent implements OnInit {
 
   listagemPersonalizada() {
 
-    this.mostraProgresso = true;
+    this.loadingService.show();
 
     let natureza = this.lancamentoFilter.idNatureza;
     let tipo = this.lancamentoFilter.tipo;
@@ -215,7 +215,7 @@ export class LancamentoListagemComponent implements OnInit {
             this.listaLancamentos = resposta.lancamentos
             this.dataSource = new MatTableDataSource(this.listaLancamentos);
             this.definirInfo();
-            this.mostraProgresso = false;
+            this.loadingService.hide();
           },
           error: (erroListagemPersonalizada) => {
             console.error(erroListagemPersonalizada);
@@ -285,7 +285,7 @@ export class LancamentoListagemComponent implements OnInit {
         
       this.avisoDialogService.openConfirmationDialog(mensagem).then(result => {
         if (result) {
-          this.mostraProgresso = true;
+          this.loadingService.show();
           this.service.operacaoPersonalizada(this.listaIdSelecionados, this.tipeOperacaoLancamento )
             .subscribe({
               next: (_resposta) => {
@@ -298,7 +298,7 @@ export class LancamentoListagemComponent implements OnInit {
                 } else {
                   this.listagemMesAtual();
                 }
-                this.mostraProgresso = false;
+                this.loadingService.hide();
               },
               error: (_erroDeletarMultiplos) => {
                 this.handleError("Erro ao processar!");
@@ -356,7 +356,7 @@ export class LancamentoListagemComponent implements OnInit {
     this.avisoDialogService.openConfirmationDialog("Deseja realizar o UPLOAD do Anexo? ")
       .then(result => {
         if (result) {
-          this.mostraProgresso = true;
+          this.loadingService.show();
           this.service.uploadFile(formData, id)
             .subscribe({
               next: (_resposta) => {
@@ -365,14 +365,14 @@ export class LancamentoListagemComponent implements OnInit {
                 } else {
                   this.listagemMesAtual();
                 }
-                this.mostraProgresso = false;
+                this.loadingService.hide();
               },
               error: (_erroUpload) => {
                 this.handleError("Erro ao efetuar UPLOAD!");
               }
             });
         } else {
-          this.mostraProgresso = false;
+          this.loadingService.hide();
           this.snackBar.open("UPLOAD cancelado!", "Cancelado!", {
             duration: 3000
           });
@@ -386,20 +386,20 @@ export class LancamentoListagemComponent implements OnInit {
     this.avisoDialogService.openConfirmationDialog("Deseja baixar o Anexo? ")
       .then(result => {
         if (result) {
-          this.mostraProgresso = true;
+          this.loadingService.show();
           this.service.downloadFile(id)
             .subscribe({
               next: (resposta) => {
                 const sampleArr = this.base64ToArrayBufferAngular16(resposta.anexo);
                 this.saveByteArray(resposta, sampleArr);
-                this.mostraProgresso = false;
+                this.loadingService.hide();
               },
               error: (_erroBaixar) => {
                 this.handleError("Erro ao efetuar DOWNLOAD!");
               }
             });
         } else {
-          this.mostraProgresso = false;
+          this.loadingService.hide();
           this.snackBar.open("Download cancelado!", "Cancelado!", {
             duration: 3000
           });
@@ -438,7 +438,7 @@ export class LancamentoListagemComponent implements OnInit {
 
   // Função compartilhada para lidar com erros
   private handleError(errorMessage: string) {
-    this.mostraProgresso = false;
+    this.loadingService.hide();
     this.snackBar.open(errorMessage, "ERRO!", {
       duration: 4000
     });
