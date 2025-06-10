@@ -400,7 +400,7 @@ export class LancamentoListagemComponent implements OnInit {
       .then(result => {
         if (result) {
           this.loadingService.show();
-          this.service.downloadFile(id)
+          this.service.baixarAnexoByIdLancamento(id)
             .subscribe({
               next: (resposta) => {
                 this.loadingService.hide();
@@ -416,6 +416,23 @@ export class LancamentoListagemComponent implements OnInit {
           this.snackBar.open("Download cancelado!", "Cancelado!", {
             duration: 3000
           });
+        }
+      });
+  }
+
+
+  verAnexo(idLancamento: number): void {
+    this.loadingService.show();
+    this.service.baixarAnexoByIdLancamento(idLancamento)
+      .subscribe({
+        next: (resposta) => {
+          this.loadingService.hide();
+          const sampleArr = this.base64ToArrayBufferAngular16(resposta.anexo);
+          this.abrirArquivoNoNavegador(resposta, sampleArr);
+        },
+        error: (_erroBaixar) => {
+          this.loadingService.hide();
+          this.handleError("Erro ao obter anexo!");
         }
       });
   }
@@ -446,6 +463,12 @@ export class LancamentoListagemComponent implements OnInit {
     var fileName = arquivo.nome;
     link.download = fileName;
     link.click();
+  }
+
+  private abrirArquivoNoNavegador(arquivo: AnexoDownloaDTO, byte: any) {
+    const blob = new Blob([byte], { type: arquivo.type });
+    const blobUrl = window.URL.createObjectURL(blob);
+    window.open(blobUrl, '_blank');
   }
 
 
