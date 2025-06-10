@@ -108,7 +108,7 @@ export class LancamentoService {
     return this.http.post(this.apiUrl + `/lancamentos/${id}/upload`, formData, { responseType: 'blob' });
   }
 
-  downloadFile(id: number): Observable<AnexoDownloaDTO> {
+  baixarAnexoByIdLancamento(id: number): Observable<AnexoDownloaDTO> {
     return this.http.get<AnexoDownloaDTO>(this.apiUrl + `/lancamentos/${id}/download`);
   }
 

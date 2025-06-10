@@ -197,8 +197,20 @@
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)">
                 <div *ngIf="lancamento.nomeAnexo">
                     {{ lancamento.nomeAnexo }}
-                    <mat-icon class="cursorMao" *ngIf="lancamento.nomeAnexo" (click)="baixar(lancamento.id)">
+                    <mat-icon 
+                        class="cursorMao" 
+                        *ngIf="lancamento.nomeAnexo" 
+                        (click)="baixar(lancamento.id)"
+                        matTooltip="Baixar Anexo">
                         get_app
+                    </mat-icon>
+                    <mat-icon
+                      class="cursorMao"
+                      *ngIf="lancamento.nomeAnexo"
+                      (click)="verAnexo(lancamento.id)"
+                      matTooltip="Visualizar Anexo"
+                    >
+                      visibility
                     </mat-icon>
                 </div>
             </td>
