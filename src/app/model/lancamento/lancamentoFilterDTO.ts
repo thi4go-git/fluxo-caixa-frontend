@@ -6,7 +6,7 @@ export class LancamentoFilterDTO {
     qtdeParcelas: any;
     nrParcela: any;
     idNatureza: any;
-    situacao: any;
+    situacao: any = null;
     origem: any;
     dataInicio: any;
     dataFim: any;

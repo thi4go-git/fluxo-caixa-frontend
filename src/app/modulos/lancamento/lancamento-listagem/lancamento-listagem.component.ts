@@ -25,8 +25,8 @@ export class LancamentoListagemComponent implements OnInit {
 
 
   total_lancamentos: number = 0;
-  displayedColumns: string[] = ['selecionado', 'valorParcela', 'dataLancamento', 'tipo', 'descricao'
-    , 'situacao', 'nrParcela', 'qtdeParcelas', 'natureza', 'origem', 'dataCriacao', 'nomeAnexo', 'edit', 'delete',];
+  displayedColumns: string[] = ['selecionado', 'valorParcela', 'dataLancamento', 'descricao', 'situacao',
+    'nrParcela', 'qtdeParcelas', 'natureza', 'origem', 'dataCriacao', 'nomeAnexo', 'edit', 'delete',];
 
   dataSource: MatTableDataSource<LancamentoDTOResponse> = new MatTableDataSource;
 
@@ -39,6 +39,7 @@ export class LancamentoListagemComponent implements OnInit {
   lancamentoDeletar: LancamentoDTOResponse = new LancamentoDTOResponse;
   tipoLancamento: any[] = [];
   origemEnum: any[] = [];
+  situacaoLancamento: any[] = [];
 
   lancamentoFilter: LancamentoFilterDTO = new LancamentoFilterDTO;
 
@@ -65,6 +66,7 @@ export class LancamentoListagemComponent implements OnInit {
 
   ngOnInit(): void {
     this.definirTipo();
+    this.definirComboFiltroSituacao();
     this.definirNatureza();
     this.definirOrigemEnum();
 
@@ -112,6 +114,22 @@ export class LancamentoListagemComponent implements OnInit {
           this.loadingService.hide();
           console.error(erroDefinirTipo);
           this.handleError("Erro ao obter lista de Tipos ");
+        }
+      });
+  }
+
+  definirComboFiltroSituacao() {
+    this.loadingService.show();
+    this.service.findAllSituacao()
+      .subscribe({
+        next: (resposta) => {
+          this.loadingService.hide();
+          this.situacaoLancamento = resposta;
+        },
+        error: (erroDefinirSituacao) => {
+          this.loadingService.hide();
+          console.error(erroDefinirSituacao);
+          this.handleError("Erro ao obter Situação filtro.");
         }
       });
   }
@@ -201,6 +219,7 @@ export class LancamentoListagemComponent implements OnInit {
     let natureza = this.lancamentoFilter.idNatureza;
     let tipo = this.lancamentoFilter.tipo;
     let origem = this.lancamentoFilter.origem;
+    let situacao = this.lancamentoFilter.situacao;
 
     if (natureza == 'TUDO') {
       this.lancamentoFilter.idNatureza = null;
@@ -210,6 +229,9 @@ export class LancamentoListagemComponent implements OnInit {
     }
     if (origem == 'TUDO') {
       this.lancamentoFilter.origem = null;
+    }
+    if (situacao == 'TUDO') {
+      this.lancamentoFilter.situacao = null;
     }
 
     if (this.lancamentoFilter.dataInicio && this.lancamentoFilter.dataFim) {
