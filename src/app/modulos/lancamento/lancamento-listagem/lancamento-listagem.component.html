@@ -7,28 +7,28 @@
 </p>
 <mat-card class="mb-2">
     <div class="row align-items-center">
-        <div class="col-auto">
+        <div class="col-11 col-md-auto ml-2 mr-2">
             <form #anoForm="ngForm">
-                <mat-form-field appearance="fill" class="espaco">
+                <mat-form-field appearance="fill" class="espaco w-100">
                     <mat-label><strong>Ano:</strong></mat-label>
                     <select
                         matNativeControl
                         matInput
-                        [ngModelOptions]="{standalone: true}"
+                        [ngModelOptions]="{ standalone: true }"
                         [(ngModel)]="anoFilter"
                         (ngModelChange)="atualizarPeriodoPorAnoMes()">
                             <option *ngFor="let ano of anosFilter" [ngValue]="ano">
-                              {{ ano }}
+                                {{ ano }}
                             </option>
                     </select>
                 </mat-form-field>
             </form>
-        </div>
-        <div class="col">
-            <mat-button-toggle-group 
+        </div>  
+        <div class="col-12 col-md mb-3 mr-3">
+            <mat-button-toggle-group
                 appearance="standard"
-                [(ngModel)]="mesFilter" 
-                class="mb-3"
+                [(ngModel)]="mesFilter"
+                class="grupo-meses"
                 (ngModelChange)="atualizarPeriodoPorAnoMes()">
                     <mat-button-toggle
                         *ngFor="let mes of mesesBotoes"

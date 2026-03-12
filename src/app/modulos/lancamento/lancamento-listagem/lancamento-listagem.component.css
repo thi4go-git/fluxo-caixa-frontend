@@ -43,3 +43,29 @@ table {
 .file-input {
     display: none;
 }
+
+
+
+
+::ng-deep .grupo-meses {
+  display: grid !important;
+  width: 100%;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+::ng-deep .grupo-meses .mat-button-toggle,
+::ng-deep .grupo-meses .mat-mdc-button-toggle {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  ::ng-deep .grupo-meses {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  ::ng-deep .grupo-meses {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
