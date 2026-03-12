@@ -5,9 +5,9 @@ import { LancamentoService } from 'src/app/services/lancamento.service';
 import { NaturezaFormComponent } from '../natureza-form/natureza-form.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { NaturezaNewDTO } from 'src/app/model/natureza/naturezaNewDTO';
 import { LoadingService } from 'src/app/services/loading.service';
+
 
 @Component({
   selector: 'app-natureza-list',
@@ -30,8 +30,7 @@ export class NaturezaListComponent implements OnInit {
     private service: LancamentoService,
     private dialog: MatDialog,
     private avisoDialogService: AvisosDialogService,
-    private loadingService: LoadingService,
-    private snackBar: MatSnackBar,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
@@ -84,9 +83,10 @@ export class NaturezaListComponent implements OnInit {
         if (result) {
           this.excluirNatureza(natureza);
         } else {
-          this.snackBar.open("EXCLUSÃO Cancelada!", "Cancelado!", {
-            duration: 3000
-          });
+          this.avisoDialogService.notificar(
+            "Exclusão Cancelada!",
+            "Cancelado!"
+          ); 
         }
       });
 
@@ -98,17 +98,19 @@ export class NaturezaListComponent implements OnInit {
       .subscribe({
         next: (_resposta) => {
           this.loadingService.hide();
-          this.snackBar.open("Sucesso ao excluir natureza!", "SUCESSO!", {
-            duration: 3000
-          });
+          this.avisoDialogService.notificar(
+            "Sucesso ao excluir natureza!",
+            "SUCESSO!"
+          ); 
           this.listarNaturezas();   
         },
         error: (responseError) => {
           this.loadingService.hide();
           console.error(responseError);
-          this.snackBar.open(responseError.error.erros, "ERRO!", {
-            duration: 6000
-          });
+          this.avisoDialogService.notificar(
+            responseError.error.erros,
+            "ERRO!"
+          ); 
         }
       });
   }

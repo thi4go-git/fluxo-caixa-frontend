@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild, } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import Chart from 'chart.js/auto'
 import { LancamentoDashboardDTO } from 'src/app/model/lancamento/lancamentoDashboardDTO';
+import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { LancamentoService } from 'src/app/services/lancamento.service';
 import { LoadingService } from 'src/app/services/loading.service';
 
@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private service: LancamentoService,
     private loadingService: LoadingService,
-    private snackBar: MatSnackBar
+    private avisoDialogService: AvisosDialogService,
   ) {  }
 
   ngOnInit(): void {
@@ -62,9 +62,10 @@ export class DashboardComponent implements OnInit {
         },
         error: (responseError) => {
           console.error(responseError);      
-          this.snackBar.open("ERRO Ao Atualizar Informações, verifique o LOG na parte superior!", "ERRO!", {
-            duration: 5000
-          });
+          this.avisoDialogService.notificar(
+            "ERRO ao Atualizar Informações, verifique o LOG na parte superior!",
+            "ERRO!"
+          );  
         }
       });
   }

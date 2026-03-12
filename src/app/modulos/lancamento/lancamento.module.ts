@@ -14,7 +14,7 @@ import { LancamentoEditComponent } from './lancamento-edit/lancamento-edit.compo
   ],
   imports: [
     SharedModule,
-    LancamentoRoutingModule
+    LancamentoRoutingModule    
   ], exports: [
     LancamentoListagemComponent,
     LancamentoFormComponent,

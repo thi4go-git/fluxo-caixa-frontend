@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { LancamentoDTOResponse } from 'src/app/model/lancamento/lancamentoDTOResponse';
 import { LancamentoFilterDTO } from 'src/app/model/lancamento/lancamentoFilterDTO';
@@ -51,12 +50,30 @@ export class LancamentoListagemComponent implements OnInit {
   listaIdSelecionados: string[] = [];
 
   tipeOperacaoLancamento: any
+  
+  anosFilter: number[] = [];
+  anoFilter: number | string = '';  
+  mesFilter!: number;
+
+  mesesBotoes = [
+    { id: 1, nome: 'Jan' },
+    { id: 2, nome: 'Fev' },
+    { id: 3, nome: 'Mar' },
+    { id: 4, nome: 'Abr' },
+    { id: 5, nome: 'Mai' },
+    { id: 6, nome: 'Jun' },
+    { id: 7, nome: 'Jul' },
+    { id: 8, nome: 'Ago' },
+    { id: 9, nome: 'Set' },
+    { id: 10, nome: 'Out' },
+    { id: 11, nome: 'Nov' },
+    { id: 12, nome: 'Dez' }
+  ];
 
 
   constructor(
     private service: LancamentoService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar,
     private avisoDialogService: AvisosDialogService,
     private loadingService: LoadingService,
     private router: Router
@@ -69,6 +86,7 @@ export class LancamentoListagemComponent implements OnInit {
     this.definirComboFiltroSituacao();
     this.definirNatureza();
     this.definirOrigemEnum();
+    this.carregarAnosMesFilter();
 
     const filtrosSalvos = sessionStorage.getItem('filtrosLancamento');
     if (filtrosSalvos) {
@@ -86,9 +104,7 @@ export class LancamentoListagemComponent implements OnInit {
         next: (resposta) => {
           this.loadingService.hide();
           if (resposta == null) {
-            this.snackBar.open("Não existem Naturezas, favor cadastrar", "Info!", {
-              duration: 5000
-            });
+            this.avisoDialogService.notificar("Não existem Naturezas, favor cadastrar","Info!");
           } else {
             this.naturezas = resposta;
           }
@@ -202,7 +218,6 @@ export class LancamentoListagemComponent implements OnInit {
 
 
     this.mesExtenso = this.lancamentoFilter.dataInicio;
-    console.log(this.mesExtenso);
 
   }
 
@@ -258,9 +273,7 @@ export class LancamentoListagemComponent implements OnInit {
 
     } else {
       this.loadingService.hide();
-      this.snackBar.open("Verifique a(s) data(s) informada(s)!", "Erro!", {
-        duration: 5000
-      });
+      this.avisoDialogService.notificar("Verifique a(s) data(s) informada(s)!","Erro!");
     }
   }
 
@@ -285,10 +298,7 @@ export class LancamentoListagemComponent implements OnInit {
             .subscribe({
               next: (_resposta) => {
                 this.loadingService.hide();
-                this.snackBar.open("Sucesso ao deletar!", "Sucess!", {
-                  duration: 2000
-                });
-
+                this.avisoDialogService.notificar("Sucesso ao deletar!","Sucess!");
                 if (this.filtroExistente()) {
                   this.listagemPersonalizada();
                 } else {
@@ -302,9 +312,7 @@ export class LancamentoListagemComponent implements OnInit {
               }
             });
         } else {
-          this.snackBar.open("Processo cancelado!", "Cancelado!", {
-            duration: 3000
-          });
+          this.avisoDialogService.notificar("Processo cancelado!","Cancelado!");
         }
       });
   }
@@ -324,9 +332,7 @@ export class LancamentoListagemComponent implements OnInit {
             .subscribe({
               next: (_resposta) => {
                 this.loadingService.hide();
-                this.snackBar.open("Sucesso ao processar Lançamento(s)!", "Sucess!", {
-                  duration: 2000
-                });
+                this.avisoDialogService.notificar("Sucesso ao processar Lançamento(s)!","Sucess!");
                 this.listaIdSelecionados = [];
                 if (this.filtroExistente()) {
                   this.listagemPersonalizada();
@@ -341,9 +347,7 @@ export class LancamentoListagemComponent implements OnInit {
             });
 
         } else {
-          this.snackBar.open("Processo cancelado!", "Cancelado!", {
-            duration: 3000
-          });
+          this.avisoDialogService.notificar("Processo cancelado!","Cancelado!");
         }
       });
     }
@@ -381,9 +385,7 @@ export class LancamentoListagemComponent implements OnInit {
       formData.append("type", anexo.type);
       this.upload(formData, id);
     } else {
-      this.snackBar.open("Selecione um arquivo!", "INFO!", {
-        duration: 3000
-      });
+      this.avisoDialogService.notificar("Selecione um arquivo!","INFO!");
     }
   }
 
@@ -408,9 +410,7 @@ export class LancamentoListagemComponent implements OnInit {
               }
             });
         } else {
-          this.snackBar.open("UPLOAD cancelado!", "Cancelado!", {
-            duration: 3000
-          });
+          this.avisoDialogService.notificar("UPLOAD cancelado!","Cancelado!");
         }
       });
   }
@@ -435,9 +435,7 @@ export class LancamentoListagemComponent implements OnInit {
               }
             });
         } else {
-          this.snackBar.open("Download cancelado!", "Cancelado!", {
-            duration: 3000
-          });
+          this.avisoDialogService.notificar("Download cancelado!","Cancelado!");
         }
       });
   }
@@ -494,11 +492,9 @@ export class LancamentoListagemComponent implements OnInit {
   }
 
 
-  // Função compartilhada para lidar com erros
+
   private handleError(errorMessage: string) {
-    this.snackBar.open(errorMessage, "ERRO!", {
-      duration: 4000
-    });
+    this.avisoDialogService.notificar(errorMessage,"ERRO!");
   }
 
   private filtroExistente(): boolean {
@@ -514,16 +510,59 @@ export class LancamentoListagemComponent implements OnInit {
     this.lancamentoFilter = new LancamentoFilterDTO;
     sessionStorage.removeItem('filtrosLancamento');
     this.listagemMesAtual();
+    this.carregarAnosMesFilter();
     this.listaIdSelecionados = [];
   }
 
   realizarOperacaoLancamento(){
     if(this.tipeOperacaoLancamento == undefined || !this.tipeOperacaoLancamento){
-      this.snackBar.open("Selecione a operação!", "Atenção", {
-        duration: 3000
-      });
+      this.avisoDialogService.notificar("Selecione a operação!","Atenção");
     }else{
       this.operacaoPersonalizadaLancamentos();
     }      
   }
+
+
+  private carregarAnosMesFilter(){
+    const anoAtual = new Date().getFullYear();
+    const anoFinal = anoAtual + 5;  
+    for (let ano = 2000; ano <= anoFinal; ano++) {
+      this.anosFilter.push(ano);
+    }  
+    this.anosFilter.sort((a, b) => b - a); 
+    this.anoFilter = anoAtual;
+
+    this.mesFilter = new Date().getMonth() + 1;
+  }
+
+
+  atualizarPeriodoPorAnoMes(): void {
+    if (!this.anoFilter || !this.mesFilter) {
+      return;
+    }  
+    const ano = Number(this.anoFilter);
+    const mes = Number(this.mesFilter);
+  
+    const primeiroDia = new Date(ano, mes - 1, 1);
+    const ultimoDia = new Date(ano, mes, 0);
+  
+    this.lancamentoFilter.dataInicio = this.formatarDataParaInput(primeiroDia);
+    this.lancamentoFilter.dataFim = this.formatarDataParaInput(ultimoDia);
+
+
+    if (this.filtroExistente()) {
+      this.listagemPersonalizada();
+    } else {
+      this.listagemMesAtual();
+    }
+  }
+
+  private formatarDataParaInput(data: Date): string {
+    const ano = data.getFullYear();
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const dia = String(data.getDate()).padStart(2, '0');
+  
+    return `${ano}-${mes}-${dia}`;
+  }
+
 }

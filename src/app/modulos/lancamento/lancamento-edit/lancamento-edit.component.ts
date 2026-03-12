@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LancamentoDTOResponse } from 'src/app/model/lancamento/lancamentoDTOResponse';
 import { LancamentoUpdateDTO } from 'src/app/model/lancamento/lancamentoUpdateDTO';
 import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { LancamentoService } from 'src/app/services/lancamento.service';
 import { LoadingService } from 'src/app/services/loading.service';
+
 
 @Component({
   selector: 'app-lancamento-edit',
@@ -26,7 +26,6 @@ export class LancamentoEditComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private service: LancamentoService,
-    private snackBar: MatSnackBar,
     private avisoDialogService: AvisosDialogService,
     private loadingService: LoadingService,
     private router: Router
@@ -72,9 +71,10 @@ export class LancamentoEditComponent implements OnInit {
         },
         error: (_errorResponse) => {
           this.loadingService.hide();
-          this.snackBar.open("Erro ao obter Lançamento pelo id ", "Erro!", {
-            duration: 2000
-          });
+          this.avisoDialogService.notificar(
+            "Erro ao obter Lançamento pelo id ",
+            "Erro!"
+          );  
         }
       });
   }
@@ -90,9 +90,10 @@ export class LancamentoEditComponent implements OnInit {
         },
         error: (_errorResponse) => {
           this.loadingService.hide();
-          this.snackBar.open("Erro ao obter tipos Lançamento", "Erro!", {
-            duration: 2000
-          });
+          this.avisoDialogService.notificar(
+            "Erro ao obter tipos Lançamento",
+            "Erro!"
+          ); 
         }
       });
   }
@@ -111,9 +112,10 @@ export class LancamentoEditComponent implements OnInit {
         },
         error: (_errorResponse) => {
           this.loadingService.hide();
-          this.snackBar.open("Erro ao obter Naturezas do Usuário.", "Erro!", {
-            duration: 2000
-          });
+          this.avisoDialogService.notificar(
+            "Erro ao obter Naturezas do Usuário.",
+            "Erro!"
+          ); 
         }
       });
   }
@@ -128,9 +130,10 @@ export class LancamentoEditComponent implements OnInit {
         },
         error: (_errorResponse) => {
           this.loadingService.hide();
-          this.snackBar.open("Erro ao obter Lista Situação.", "Erro!", {
-            duration: 2000
-          });
+          this.avisoDialogService.notificar(
+            "Erro ao obter Lista Situação.",
+            "Erro!"
+          ); 
         }
       });
   }
@@ -145,9 +148,10 @@ export class LancamentoEditComponent implements OnInit {
         },
         error: (_errorResponse) => {
           this.loadingService.hide();
-          this.snackBar.open("Erro ao obter Lista Origem.", "Erro!", {
-            duration: 2000
-          });
+          this.avisoDialogService.notificar(
+            "Erro ao obter Lista Origem.",
+            "Erro!"
+          ); 
         }
       });
   }
@@ -163,9 +167,10 @@ export class LancamentoEditComponent implements OnInit {
       formData.append("type", anexo.type);
       this.upload(formData, id);
     } else {
-      this.snackBar.open("Selecione um arquivo!", "INFO!", {
-        duration: 3000
-      });
+      this.avisoDialogService.notificar(
+        "Selecione um arquivo!",
+        "INFO!"
+      ); 
     }
   }
 
@@ -178,24 +183,27 @@ export class LancamentoEditComponent implements OnInit {
             .subscribe({
               next: (_resposta) => {
                 this.loadingService.hide();
-                this.snackBar.open("Sucesso ao salvar anexo para o Lançamento!", "SUCESSO!", {
-                  duration: 3000
-                });
+                this.avisoDialogService.notificar(
+                  "Sucesso ao salvar anexo para o Lançamento!",
+                  "SUCESSO!"
+                ); 
                 this.processoInicial();
               },
               error: (_erroUpload) => {
                 this.loadingService.hide();
-                this.snackBar.open("Erro ao realziar upload.", "Erro!", {
-                  duration: 2000
-                });
+                this.avisoDialogService.notificar(
+                  "Erro ao realziar upload.",
+                  "Erro!"
+                ); 
               }
             });
 
         } else {
           this.loadingService.hide();
-          this.snackBar.open("UPLOAD cancelado!", "Cancelado!", {
-            duration: 3000
-          });
+          this.avisoDialogService.notificar(
+            "UPLOAD cancelado!",
+            "Cancelado!"
+          ); 
         }
       });
   }
@@ -211,9 +219,10 @@ export class LancamentoEditComponent implements OnInit {
           this.atualizarLancamento();
         } else {
           this.loadingService.hide();
-          this.snackBar.open("Atualização cancelada!", "Cancelado!", {
-            duration: 3000
-          });
+          this.avisoDialogService.notificar(
+            "Atualização cancelada!",
+            "Cancelado!"
+          ); 
         }
       });
   }
@@ -234,17 +243,19 @@ export class LancamentoEditComponent implements OnInit {
         next: (_resposta) => {
           this.listaErros = [];
           this.loadingService.hide();
-          this.snackBar.open("Sucesso ao Atualizar Lançamento!", "SUCESSO!", {
-            duration: 3000
-          });
+          this.avisoDialogService.notificar(
+            "Sucesso ao Atualizar Lançamento!",
+            "SUCESSO!"
+          ); 
           this.processoInicial();
         },
         error: (erroUpdate) => {
           this.listaErros = erroUpdate.error.erros
           this.loadingService.hide();
-          this.snackBar.open("Erro ao Atualziar Lançamento.", "Erro!", {
-            duration: 3000
-          });
+          this.avisoDialogService.notificar(
+            "Erro ao Atualziar Lançamento.",
+            "Erro!"
+          ); 
         }
       });
 

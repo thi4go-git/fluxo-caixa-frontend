@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AutenticacaoService } from 'src/app/services/autenticacao.service';
+import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { apiEnvironment } from 'src/environments/apiEnvironment';
 
@@ -21,11 +21,12 @@ export class LoginFormComponent {
   usuarioLogado: string = "Deslogado";
   version = apiEnvironment.versao;
 
+
   constructor(
     private router: Router,
     private authService: AutenticacaoService,
     private loadingService: LoadingService,
-    private snackBar: MatSnackBar
+    private avisoDialogService: AvisosDialogService,
   ) {
     this.username = '';
     this.password = '';
@@ -37,9 +38,7 @@ export class LoginFormComponent {
     if (this.username && this.password) {
       this.logar();
     } else {
-      this.snackBar.open("Favor informar username e Senha!", "Info!", {
-        duration: 2000
-      });
+      this.avisoDialogService.notificar("Favor informar username e Senha!","Info!");
     }
   }
 

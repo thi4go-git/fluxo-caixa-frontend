@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../componentes/confirmation-dialog/confirmation-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
 @Injectable({ providedIn: 'root' })
 export class AvisosDialogService {
 
-  constructor(private dialog: MatDialog) { }
+  constructor(
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+  ) { }
 
   openConfirmationDialog(mensagem: String): Promise<boolean> {
     return new Promise<boolean>((resolve, _reject) => {
@@ -20,5 +24,13 @@ export class AvisosDialogService {
       });
     });
   }
+
+
+  notificar(msg: string, title: string){
+    this.snackBar.open(msg, title, {
+      duration: 5000
+    });
+  }
+
 
 }

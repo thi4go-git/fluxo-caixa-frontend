@@ -5,7 +5,40 @@
         </span>
     </mat-toolbar>
 </p>
-
+<mat-card class="mb-2">
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <form #anoForm="ngForm">
+                <mat-form-field appearance="fill" class="espaco">
+                    <mat-label><strong>Ano:</strong></mat-label>
+                    <select
+                        matNativeControl
+                        matInput
+                        [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="anoFilter"
+                        (ngModelChange)="atualizarPeriodoPorAnoMes()">
+                            <option *ngFor="let ano of anosFilter" [ngValue]="ano">
+                              {{ ano }}
+                            </option>
+                    </select>
+                </mat-form-field>
+            </form>
+        </div>
+        <div class="col">
+            <mat-button-toggle-group 
+                appearance="standard"
+                [(ngModel)]="mesFilter" 
+                class="mb-3"
+                (ngModelChange)="atualizarPeriodoPorAnoMes()">
+                    <mat-button-toggle
+                        *ngFor="let mes of mesesBotoes"
+                        [value]="mes.id">
+                        {{ mes.nome }}
+                    </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+    </div>
+</mat-card>
 <mat-card>
     <mat-card-content>
         <strong>Filtros</strong>
@@ -107,7 +140,7 @@
             <option [ngValue]="2">Marcar Como Pago(s)</option>
         </select>
     </mat-form-field>
-    <button class="btn btn-secondary" 
+    <button class="btn btn-secondary mb-1 ml-2" 
         (click)="realizarOperacaoLancamento()" 
         *ngIf="tipeOperacaoLancamento" >
         <em class="fa fa-plus"></em>Confirmar

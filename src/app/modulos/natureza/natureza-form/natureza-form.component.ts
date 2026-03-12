@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Natureza } from 'src/app/model/natureza/natureza';
 import { ParameterViolations } from 'src/app/model/parameterViolations';
 import { AutenticacaoService } from 'src/app/services/autenticacao.service';
+import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { LancamentoService } from 'src/app/services/lancamento.service';
 import { LoadingService } from 'src/app/services/loading.service';
 
@@ -25,7 +25,7 @@ export class NaturezaFormComponent {
     private auth: AutenticacaoService,
     private lancamentoService: LancamentoService,
     private loadingService: LoadingService,
-    private snackBar: MatSnackBar,
+    private avisoDialogService: AvisosDialogService,
     private router: Router,
   ) {
     this.natureza.username = auth.getUsuarioAutenticado();
@@ -46,9 +46,10 @@ export class NaturezaFormComponent {
         next: (_resposta) => {
           this.loadingService.hide();
           this.msgErros = [];
-          this.snackBar.open("Sucesso Ao Salvar Natureza!", "Info!", {
-            duration: 5000
-          });
+          this.avisoDialogService.notificar(
+            "Sucesso Ao Salvar Natureza!",
+            "Info!"
+          ); 
           this.fecharDialog();
           this.router.navigateByUrl('naturezas/lista');
           window.location.reload();
@@ -57,9 +58,10 @@ export class NaturezaFormComponent {
           this.loadingService.hide();
           console.error(responseError);
           this.msgErros = responseError.error.erros
-          this.snackBar.open("Erro Ao Salvar!", "Err!", {
-            duration: 5000
-          });
+          this.avisoDialogService.notificar(
+            "Erro Ao Salvar!",
+            "Err!"
+          ); 
         }
       });
   }
