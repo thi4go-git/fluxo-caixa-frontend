@@ -12,7 +12,7 @@ const routes: Routes = [
     path: 'graficos', component: LayoutComponent, canActivate: [authGuard], children: [
       { path: 'dashboard', component: DashboardComponent, title: 'Dashboard' },
       { path: 'dashboard-metabase', component: MetabaseDashComponent, title: 'Dashboard Metabase' },
-      { path: '', redirectTo: '/graficos/dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: '/graficos/dashboard-metabase', pathMatch: 'full' },
       { path: '**', component: NotFoundComponent }
     ]
   }

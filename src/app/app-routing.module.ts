@@ -5,7 +5,7 @@ import { LoginFormComponent } from './modulos/login/login-form/login-form.compon
 
 
 const routes: Routes = [
-    { path: '', redirectTo: '/graficos/dashboard', pathMatch: 'full' },
+    { path: '', redirectTo: '/graficos/dashboard-metabase', pathMatch: 'full' },
     { path: 'login', component: LoginFormComponent }
 ];
 
