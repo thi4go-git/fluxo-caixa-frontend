@@ -1,0 +1,14 @@
+<p class="mb-3">
+    <mat-toolbar>
+        <h1 class="mt-4">Dashboard Metabase</h1>
+    </mat-toolbar>
+</p>
+<div class="metabase-wrapper" *ngIf="metabaseToken">
+  <metabase-dashboard
+    class="metabase-dashboard"
+    [attr.token]="metabaseToken"
+    with-title="false"
+    with-downloads="true"
+    initial-parameters='{"data_lancamento":"thismonth"}'>
+  </metabase-dashboard>
+</div>
