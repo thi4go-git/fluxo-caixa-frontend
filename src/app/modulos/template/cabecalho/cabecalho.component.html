@@ -1,6 +1,14 @@
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand">Fluxo CAIXA</a>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" id="sidebarToggle2">
+<nav class="sb-topnav app-topbar">
+    <a class="navbar-brand app-brand" routerLink="/graficos/dashboard-metabase">
+        <span class="brand-mark">FC</span>
+        <span class="brand-text">
+            <strong>Fluxo Caixa</strong>
+            <small>Gestão financeira</small>
+        </span>
+    </a>
+
+    <button mat-icon-button class="menu-toggle" aria-label="Abrir ou fechar menu lateral" id="sidebarToggle2"
+        (click)="alternarMenu($event)">
         <mat-icon>menu</mat-icon>
     </button>
 </nav>

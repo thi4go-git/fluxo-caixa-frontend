@@ -10939,14 +10939,15 @@ body {
 
 #layoutSidenav {
     display: flex;
+    background: #f8fafc;
 }
 
 #layoutSidenav #layoutSidenav_nav {
-    flex-basis: 225px;
+    flex-basis: 260px;
     flex-shrink: 0;
-    transition: transform 0.15s ease-in-out;
+    transition: transform 0.2s ease-in-out;
     z-index: 1038;
-    transform: translateX(-225px);
+    transform: translateX(-260px);
 }
 
 #layoutSidenav #layoutSidenav_content {
@@ -10956,8 +10957,8 @@ body {
     justify-content: space-between;
     min-width: 0;
     flex-grow: 1;
-    min-height: calc(100vh - 56px);
-    margin-left: -225px;
+    min-height: calc(100vh - 64px);
+    margin-left: -260px;
 }
 
 .sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
@@ -10989,11 +10990,11 @@ body {
     }
 
     .sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
-        transform: translateX(-225px);
+        transform: translateX(-260px);
     }
 
     .sb-sidenav-toggled #layoutSidenav #layoutSidenav_content {
-        margin-left: -225px;
+        margin-left: -260px;
     }
 
     .sb-sidenav-toggled #layoutSidenav #layoutSidenav_content:before {
@@ -11006,13 +11007,13 @@ body {
 }
 
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav {
-    width: 225px;
+    width: 260px;
     height: 100vh;
     z-index: 1038;
 }
 
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav {
-    padding-top: 56px;
+    padding-top: 64px;
 }
 
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav .sb-sidenav-menu {
@@ -11020,8 +11021,8 @@ body {
 }
 
 .sb-nav-fixed #layoutSidenav #layoutSidenav_content {
-    padding-left: 225px;
-    top: 56px;
+    padding-left: 260px;
+    top: 64px;
 }
 
 #layoutError {
@@ -11050,12 +11051,12 @@ body {
 
 .sb-topnav {
     padding-left: 0;
-    height: 56px;
+    height: 64px;
     z-index: 1039;
 }
 
 .sb-topnav .navbar-brand {
-    width: 225px;
+    width: 260px;
     padding-left: 1rem;
     padding-right: 1rem;
     margin: 0;
@@ -11196,6 +11197,16 @@ body {
 
 .sb-sidenav-light .sb-sidenav-footer {
     background-color: #e9ecef;
+}
+
+.app-page-container {
+    padding: 1.5rem;
+}
+
+@media (max-width: 576px) {
+    .app-page-container {
+        padding: 1rem;
+    }
 }
 
 html,

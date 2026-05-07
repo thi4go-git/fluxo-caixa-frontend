@@ -27,13 +27,19 @@ export class MenuComponent implements OnInit {
   }
 
   logout() {
+    document.body.classList.remove('sb-sidenav-toggled');
     this.authService.encerrarSessao();
     this.router.navigate(['/login']);
   }
 
+  fecharMenuMobile(): void {
+    if (window.innerWidth < 992) {
+      document.body.classList.remove('sb-sidenav-toggled');
+    }
+  }
 
   navegarInicio() {
-    this.router.navigate(['/graficos/dashboard']);
+    this.router.navigate(['/graficos/dashboard-metabase']);
   }
 
 

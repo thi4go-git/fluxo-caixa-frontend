@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class CabecalhoComponent {
 
+  alternarMenu(event: Event): void {
+    event.preventDefault();
+    document.body.classList.toggle('sb-sidenav-toggled');
+  }
+
 }

@@ -1,3 +1,63 @@
-.branco{
-    color: white;
+.app-topbar {
+    align-items: center;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    display: flex;
+    gap: 0.75rem;
+    height: 64px;
+    padding: 0 1rem;
+}
+
+.app-brand {
+    align-items: center;
+    color: #111827;
+    display: inline-flex;
+    gap: 0.75rem;
+    min-width: 225px;
+    text-decoration: none;
+}
+
+.brand-mark {
+    align-items: center;
+    background: linear-gradient(135deg, #0f766e, #2563eb);
+    border-radius: 8px;
+    color: #ffffff;
+    display: inline-flex;
+    font-size: 0.85rem;
+    font-weight: 700;
+    height: 36px;
+    justify-content: center;
+    width: 36px;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.brand-text strong {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.brand-text small {
+    color: #64748b;
+    font-size: 0.72rem;
+    margin-top: 0.15rem;
+}
+
+.menu-toggle {
+    color: #334155;
+}
+
+@media (max-width: 576px) {
+    .app-brand {
+        min-width: 0;
+    }
+
+    .brand-text small {
+        display: none;
+    }
 }
