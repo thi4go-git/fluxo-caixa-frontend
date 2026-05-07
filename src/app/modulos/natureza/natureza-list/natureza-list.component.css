@@ -1,20 +1,242 @@
+table {
+    width: 100%;
+}
+
 .full-width {
     width: 100%;
 }
+
 .linha-selecionada {
     font-weight: bold;
 }
 
 .cursorMao {
+    color: rgb(207, 71, 18);
     cursor: pointer;
-    color: blue;
+    display: inline-flex;
+    flex: 0 0 24px;
+    font-size: 24px;
+    height: 24px;
+    line-height: 24px;
+    overflow: visible;
+    vertical-align: middle;
+    width: 24px;
 }
 
-.mat-row.mat-row:nth-child(odd) {
-    background-color: #ffffff; /* Cor de fundo para linhas ímpares */
+.natureza-titulo {
+    margin-bottom: 8px;
 }
 
-/* Estilo para linhas pares */
-.mat-row.mat-row:nth-child(even) {
-    background-color: #e2e2e2; /* Cor de fundo para linhas pares */
+.natureza-toolbar {
+    border-radius: 6px;
+    min-height: 52px;
+}
+
+.natureza-toolbar span {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.natureza-filtros-card {
+    border-radius: 6px;
+    margin-bottom: 16px;
+}
+
+.natureza-filtros {
+    align-items: center;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.filtro-geral {
+    width: 100%;
+}
+
+.nova-botao {
+    align-items: center;
+    display: inline-flex;
+    gap: 4px;
+    justify-content: center;
+    min-height: 38px;
+    min-width: 112px;
+}
+
+.natureza-tabela {
+    margin-top: 8px;
+}
+
+.natureza-tabela-cabecalho {
+    align-items: center;
+    background: #f8fafc;
+    border: 1px solid #d9e2ec;
+    border-bottom: 0;
+    border-radius: 6px 6px 0 0;
+    color: #243b53;
+    display: flex;
+    justify-content: space-between;
+    min-height: 44px;
+    padding: 10px 14px;
+}
+
+.tabela-container {
+    background: #ffffff;
+    border: 1px solid #d9e2ec;
+    border-radius: 0 0 6px 6px;
+    padding: 0;
+}
+
+.naturezas-table {
+    min-width: 640px;
+}
+
+.naturezas-table th.mat-header-cell,
+.naturezas-table th.mat-mdc-header-cell {
+    background: #f1f5f9;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.naturezas-table td.mat-cell,
+.naturezas-table td.mat-mdc-cell {
+    color: #1f2937;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.tabela-linha:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.tabela-linha:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+.tabela-linha:hover {
+    background-color: #eef6ff;
+}
+
+.coluna-id {
+    min-width: 90px;
+    text-align: center;
+    white-space: nowrap;
+    width: 90px;
+}
+
+.coluna-descricao {
+    min-width: 260px;
+}
+
+.coluna-acao {
+    text-align: center;
+    width: 90px;
+}
+
+.sem-registros td {
+    color: #64748b;
+    padding: 24px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .natureza-filtros {
+        grid-template-columns: 1fr;
+    }
+
+    .nova-botao {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .natureza-toolbar {
+        min-height: 46px;
+    }
+
+    .natureza-toolbar span {
+        font-size: 16px;
+    }
+
+    .tabela-container {
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        overflow-x: visible;
+    }
+
+    .naturezas-table {
+        background: transparent;
+        min-width: 0;
+    }
+
+    .naturezas-table tr.mat-header-row,
+    .naturezas-table tr.mat-mdc-header-row {
+        display: none;
+    }
+
+    .naturezas-table tbody,
+    .naturezas-table tr.mat-row,
+    .naturezas-table tr.mat-mdc-row,
+    .naturezas-table td.mat-cell,
+    .naturezas-table td.mat-mdc-cell {
+        display: block;
+        width: 100%;
+    }
+
+    .tabela-linha {
+        background: #ffffff !important;
+        border: 1px solid #d9e2ec;
+        border-radius: 6px;
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+        height: auto;
+        margin-bottom: 10px;
+        padding: 8px 12px;
+    }
+
+    .naturezas-table td.mat-cell,
+    .naturezas-table td.mat-mdc-cell {
+        align-items: center;
+        border-bottom: 1px solid #eef2f7;
+        display: flex;
+        gap: 12px;
+        justify-content: space-between;
+        min-height: 38px;
+        padding: 8px 0;
+        text-align: right;
+    }
+
+    .naturezas-table td.mat-cell::before,
+    .naturezas-table td.mat-mdc-cell::before {
+        color: #64748b;
+        content: attr(data-label);
+        flex: 0 0 42%;
+        font-size: 12px;
+        font-weight: 700;
+        text-align: left;
+        text-transform: uppercase;
+    }
+
+    .naturezas-table td.mat-cell:last-child,
+    .naturezas-table td.mat-mdc-cell:last-child {
+        border-bottom: 0;
+    }
+
+    .coluna-id,
+    .coluna-acao {
+        min-width: 0;
+        text-align: right;
+        width: 100%;
+    }
+
+    .coluna-descricao {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .sem-registros td {
+        display: block;
+    }
 }

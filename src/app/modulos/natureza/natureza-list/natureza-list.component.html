@@ -1,57 +1,65 @@
-<p>
-    <mat-toolbar>
+<p class="natureza-titulo">
+    <mat-toolbar class="natureza-toolbar">
         <span>
             Naturezas
         </span>
     </mat-toolbar>
 </p>
 
-<div class="row mt-3 mb-3">
-    <div class="col-12 d-flex justify-content-end">      
-      <button class="btn btn-primary" (click)="novaNatureza()">
-        <mat-icon>exposure_plus_1</mat-icon>
-        <em class="fa fa-plus"></em>Nova
-      </button>
+<mat-card class="natureza-filtros-card">
+    <mat-card-content>
+        <div class="natureza-filtros">
+            <mat-form-field class="full-width filtro-geral" appearance="fill">
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-label>Filtro Geral</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Alimentação" #input>
+            </mat-form-field>
+
+            <button class="btn btn-primary nova-botao" (click)="novaNatureza()">
+                <mat-icon>exposure_plus_1</mat-icon>
+                <em class="fa fa-plus"></em>Nova
+            </button>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<div class="natureza-tabela">
+    <div class="natureza-tabela-cabecalho">
+        <strong>Total de Registros: {{ dataSource.data.length }}</strong>
     </div>
-</div>  
 
+    <div class="mat-elevation-z2 col-md-12 table-responsive tabela-container">
+        <table mat-table [dataSource]="dataSource" class="naturezas-table">
 
-<mat-form-field class="full-width"> <mat-label>Filto Geral:</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Alimentação" #input>
-</mat-form-field>
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef class="coluna-id"> Id </th>
+                <td mat-cell *matCellDef="let natureza" class="coluna-id" data-label="Id" (click)=" selecionaLinha(natureza)"
+                    [class.linha-selecionada]="itemSelecionado.has(natureza)"> {{ natureza.id }} </td>
+            </ng-container>
 
-<div class="mat-elevation-z8 col-md-12 table-responsive">
+            <ng-container matColumnDef="descricao">
+                <th mat-header-cell *matHeaderCellDef> Descrição </th>
+                <td mat-cell *matCellDef="let natureza" class="coluna-descricao" data-label="Descrição" (click)=" selecionaLinha(natureza)"
+                    [class.linha-selecionada]="itemSelecionado.has(natureza)"> {{ natureza.descricao }} </td>
+            </ng-container>
 
-    <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="del">
+                <th mat-header-cell *matHeaderCellDef class="coluna-acao"> Ação </th>
+                <td mat-cell *matCellDef="let natureza" class="coluna-acao" data-label="Excluir">
+                    <mat-icon class="cursorMao" (click)="dialogExclusao(natureza)">
+                        delete
+                    </mat-icon>
+                </td>
+            </ng-container>
 
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> Id: </th>
-            <td mat-cell *matCellDef="let natureza" (click)=" selecionaLinha(natureza)"
-                [class.linha-selecionada]="itemSelecionado.has(natureza)"> {{ natureza.id }} </td>
-        </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="mat-row tabela-linha"></tr>
 
-        <ng-container matColumnDef="descricao">
-            <th mat-header-cell *matHeaderCellDef> descricao: </th>
-            <td mat-cell *matCellDef="let natureza" (click)=" selecionaLinha(natureza)"
-                [class.linha-selecionada]="itemSelecionado.has(natureza)"> {{ natureza.descricao }} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="del">
-            <th mat-header-cell *matHeaderCellDef> Del </th>
-            <td mat-cell *matCellDef="let natureza">
-                <mat-icon class="cursorMao" (click)="dialogExclusao(natureza)">
-                    delete
-                </mat-icon>
-            </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns" class="mat-row"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="mat-row"></tr>
-
-        <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">
-                <strong>Sem registros na tabela!</strong>
-            </td>
-        </tr>
-    </table>
+            <tr class="mat-row sem-registros" *matNoDataRow>
+                <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                    <strong>Sem registros na tabela!</strong>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>

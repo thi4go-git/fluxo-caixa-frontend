@@ -61,7 +61,10 @@ export class NaturezaListComponent implements OnInit {
 
   novaNatureza() {
     this.dialog.open(NaturezaFormComponent, {
-      width: '400px', height: '300px'
+      width: '560px',
+      maxWidth: '95vw',
+      maxHeight: '90vh',
+      panelClass: 'natureza-dialog'
     });
   }
 

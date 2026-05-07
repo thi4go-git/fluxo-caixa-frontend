@@ -1,57 +1,46 @@
-<mat-card>
+<mat-card class="natureza-form-card">
 
-    <mat-card-header>
+    <mat-card-header class="natureza-form-header">
         <mat-card-title>
-            <mat-icon>assignment</mat-icon>
+            <mat-icon>category</mat-icon>
             Nova Natureza
-            <br />
         </mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
-
-        <div id="row">
-            <div id="col-md-12">
-                <div class="alert alert-danger" role="alert" *ngFor="let erro of msgErros">
-                    {{ erro }}
-                </div>
+        <div class="erros-container" *ngIf="msgErros.length > 0">
+            <div class="alert alert-danger" role="alert" *ngFor="let erro of msgErros">
+                {{ erro }}
             </div>
         </div>
 
-        <div class="container">
-            <form #arquivoForm="ngForm" (ngSubmit)="onSubmit()">
-
+        <form #arquivoForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="form-grid">
                 <mat-form-field class="full-width" appearance="fill">
-                    <mat-icon matSuffix>fingerprint</mat-icon>
-                    <mat-label> <strong>username:</strong> </mat-label>
+                    <mat-icon matSuffix>person</mat-icon>
+                    <mat-label> <strong>Usuário:</strong> </mat-label>
                     <input matInput placeholder="Informe o username:" name="username" [(ngModel)]="natureza.username"
                         disabled="true" />
                 </mat-form-field>
 
-
                 <mat-form-field class="full-width" appearance="fill">
-                    <mat-icon matSuffix>fingerprint</mat-icon>
-                    <mat-label> <strong>natureza:</strong> </mat-label>
-                    <input matInput placeholder="Informe a descricao:" name="descricao" [(ngModel)]="natureza.descricao"
-                        disabled="false" />
+                    <mat-icon matSuffix>label</mat-icon>
+                    <mat-label> <strong>Natureza:</strong> </mat-label>
+                    <input matInput placeholder="Informe a descrição:" name="descricao" [(ngModel)]="natureza.descricao" />
                 </mat-form-field>
+            </div>
 
-                <br />
-
-                <button type="submit" class="btn btn-primary">
+            <div class="form-acoes">
+                <button type="submit" class="btn btn-primary form-botao">
                     <em class="fa fa-sync-alt"></em>
                     <mat-icon>save</mat-icon>Salvar
                 </button>
-                <button type="button" class="btn btn-danger ml-2" (click)="fecharDialog()">
+                <button type="button" class="btn btn-danger form-botao" (click)="fecharDialog()">
                     <em class="fa fa-solid fa-arrow-alt-circle-left"></em>
                     <mat-icon>keyboard_return</mat-icon>Voltar
                 </button>
-            </form>
-        </div>
-
-
+            </div>
+        </form>
     </mat-card-content>
-
-
 
 </mat-card>

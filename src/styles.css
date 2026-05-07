@@ -11209,12 +11209,15 @@ body {
 }
 
 .lancamento-dialog .mat-mdc-dialog-container,
-.lancamento-dialog .mat-dialog-container {
+.lancamento-dialog .mat-dialog-container,
+.natureza-dialog .mat-mdc-dialog-container,
+.natureza-dialog .mat-dialog-container {
     padding: 0;
 }
 
 @media (max-width: 600px) {
-    .lancamento-dialog {
+    .lancamento-dialog,
+    .natureza-dialog {
         height: 100vh;
         max-width: 100vw !important;
         width: 100vw !important;
