@@ -1,3 +1,167 @@
 .full-width {
     width: 100%;
 }
+
+.lancamento-edit-page {
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 18px 12px 28px;
+}
+
+.lancamento-edit-card {
+    border-radius: 6px;
+}
+
+.lancamento-edit-header {
+    border-bottom: 1px solid #e2e8f0;
+    padding: 18px 22px 12px;
+}
+
+.lancamento-edit-header mat-card-title {
+    align-items: center;
+    color: #243b53;
+    display: flex;
+    font-size: 22px;
+    font-weight: 700;
+    gap: 8px;
+    margin: 0;
+}
+
+.lancamento-edit-card mat-card-content {
+    padding: 18px 22px 22px;
+}
+
+.erros-container {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.erros-container .alert {
+    margin-bottom: 0;
+}
+
+.form-grid {
+    display: grid;
+    gap: 10px 14px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.campo-descricao {
+    grid-column: span 2;
+}
+
+.campo-id {
+    grid-column: span 1;
+}
+
+.anexo-section {
+    background: #f8fafc;
+    border: 1px solid #d9e2ec;
+    border-radius: 6px;
+    margin-top: 10px;
+    padding: 14px;
+}
+
+.section-title {
+    align-items: center;
+    color: #243b53;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.anexo-grid {
+    align-items: center;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.file-input {
+    display: none;
+}
+
+.upload-box {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.upload-botao,
+.form-botao {
+    align-items: center;
+    display: inline-flex;
+    gap: 4px;
+    justify-content: center;
+    min-height: 38px;
+}
+
+.form-acoes {
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 16px;
+    padding-top: 16px;
+}
+
+.form-botao {
+    min-width: 120px;
+}
+
+@media (max-width: 768px) {
+    .lancamento-edit-page {
+        padding: 12px 8px 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .campo-descricao,
+    .campo-id {
+        grid-column: auto;
+    }
+
+    .anexo-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .upload-box,
+    .upload-botao {
+        width: 100%;
+    }
+
+    .form-acoes {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .form-botao {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .lancamento-edit-page {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .lancamento-edit-card {
+        border-radius: 0;
+    }
+
+    .lancamento-edit-header {
+        padding: 16px 16px 10px;
+    }
+
+    .lancamento-edit-header mat-card-title {
+        font-size: 18px;
+    }
+
+    .lancamento-edit-card mat-card-content {
+        padding: 16px;
+    }
+}
