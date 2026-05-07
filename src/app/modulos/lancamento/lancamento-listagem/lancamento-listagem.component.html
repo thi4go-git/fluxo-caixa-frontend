@@ -254,8 +254,7 @@
             <th mat-header-cell *matHeaderCellDef> Anexo </th>
             <td mat-cell *matCellDef="let lancamento" data-label="Anexo" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)">
-                <div *ngIf="lancamento.nomeAnexo" class="anexo-cell">
-                    <span>{{ lancamento.nomeAnexo }}</span>
+                <div *ngIf="lancamento.nomeAnexo" class="anexo-cell">                    
                     <mat-icon 
                         class="cursorMao" 
                         *ngIf="lancamento.nomeAnexo" 
@@ -271,6 +270,7 @@
                     >
                       visibility
                     </mat-icon>
+                    <span>{{ lancamento.nomeAnexo }}</span>
                 </div>
             </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
