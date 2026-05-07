@@ -21,6 +21,7 @@ import { NaturezaRoutingModule } from '../natureza/natureza-routing.module';
 import { RouterModule } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { NgxCurrencyDirective } from 'ngx-currency';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MesStrPipe } from 'src/app/pipes/mes-str-pipe';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -62,6 +63,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatButtonToggleModule,
+    NgxCurrencyDirective,
     NgxMaskDirective,
     NgxMaskPipe
   ], exports: [
@@ -91,6 +93,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatButtonToggleModule,
+    NgxCurrencyDirective,
     NgxMaskDirective,
     NgxMaskPipe,
     MesStrPipe

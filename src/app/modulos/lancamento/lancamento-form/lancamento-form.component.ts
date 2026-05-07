@@ -7,6 +7,7 @@ import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { NaturezaNewDTO } from 'src/app/model/natureza/naturezaNewDTO';
 import { LancamentoNewDTO } from 'src/app/model/lancamento/lancamentoNewDTO';
 import { LoadingService } from 'src/app/services/loading.service';
+import { NgxCurrencyConfig, NgxCurrencyInputMode } from 'ngx-currency';
 
 
 
@@ -28,6 +29,14 @@ export class LancamentoFormComponent implements OnInit {
 
   lancamento!: LancamentoNewDTO;
   data_referencia!: Date;
+  valorTotalCurrencyOptions: Partial<NgxCurrencyConfig> = {
+    prefix: 'R$ ',
+    thousands: '.',
+    decimal: ',',
+    precision: 2,
+    allowNegative: false,
+    inputMode: NgxCurrencyInputMode.Financial
+  };
 
   msgErros: ParameterViolations[] = [];
 

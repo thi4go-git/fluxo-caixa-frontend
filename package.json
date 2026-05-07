@@ -25,6 +25,7 @@
     "buffer": "^6.0.3",
     "chart.js": "^4.0.0",
     "jquery": "^3.6.3",
+    "ngx-currency": "^4.0.0",
     "ngx-mask": "^15.1.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

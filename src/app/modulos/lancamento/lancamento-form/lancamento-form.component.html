@@ -77,8 +77,8 @@
                         <mat-icon matSuffix>attach_money</mat-icon>
                         <mat-label> <strong>valorTotal:</strong> </mat-label>
                         <input matInput placeholder="Informe o valorTotal:" name="valorTotal" type="text"
-                            [(ngModel)]="lancamento.valorTotal" mask="separator.2" thousandSeparator="."
-                            [allowNegativeNumbers]="false" suffix=" $" />
+                            [(ngModel)]="lancamento.valorTotal" currencyMask
+                            [options]="valorTotalCurrencyOptions" />
                     </mat-form-field>
 
                     <mat-form-field class="full-width" appearance="fill">
