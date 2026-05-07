@@ -12,7 +12,7 @@ table {
 
 .cursorMao {
     cursor: pointer;
-    color: blue;
+    color: #1d4ed8;
 }
 
 .cursorMao-delete {
@@ -29,15 +29,149 @@ table {
     margin: 5px;
 }
 
-.mat-row.mat-row:nth-child(odd) {
-    background-color: #ffffff;
-    /* Cor de fundo para linhas ímpares */
+.lista-tabela {
+    margin-top: 8px;
 }
 
-/* Estilo para linhas pares */
-.mat-row.mat-row:nth-child(even) {
-    background-color: #e2e2e2;
-    /* Cor de fundo para linhas pares */
+.lista-tabela-cabecalho {
+    align-items: center;
+    background: #f8fafc;
+    border: 1px solid #d9e2ec;
+    border-bottom: 0;
+    border-radius: 6px 6px 0 0;
+    color: #243b53;
+    display: flex;
+    justify-content: space-between;
+    min-height: 44px;
+    padding: 10px 14px;
+}
+
+.selecionados-info {
+    background: #e0f2fe;
+    border: 1px solid #7dd3fc;
+    border-radius: 999px;
+    color: #075985;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+}
+
+.tabela-container {
+    background: #ffffff;
+    border: 1px solid #d9e2ec;
+    border-radius: 0 0 6px 6px;
+    padding: 0;
+}
+
+.lancamentos-table {
+    min-width: 1180px;
+}
+
+.lancamentos-table th.mat-header-cell,
+.lancamentos-table th.mat-mdc-header-cell {
+    background: #f1f5f9;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.lancamentos-table td.mat-cell,
+.lancamentos-table td.mat-mdc-cell {
+    color: #1f2937;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.tabela-linha:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.tabela-linha:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+.tabela-linha:hover {
+    background-color: #eef6ff;
+}
+
+.coluna-selecao,
+.coluna-acao {
+    text-align: center;
+    width: 48px;
+}
+
+.coluna-valor {
+    min-width: 120px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.valor-lancamento {
+    font-weight: 700;
+}
+
+.valor-positivo {
+    color: #15803d !important;
+}
+
+.valor-negativo {
+    color: #b91c1c !important;
+}
+
+.coluna-data {
+    min-width: 104px;
+    white-space: nowrap;
+}
+
+.coluna-numero {
+    text-align: center;
+    white-space: nowrap;
+}
+
+.coluna-descricao {
+    max-width: 280px;
+    min-width: 220px;
+}
+
+.situacao-badge {
+    border-radius: 999px;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 6px 10px;
+    white-space: nowrap;
+}
+
+.situacao-aberto {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+.situacao-pago {
+    background: #ecfdf5;
+    color: #047857;
+}
+
+.anexo-cell {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    max-width: 220px;
+}
+
+.anexo-cell span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sem-registros td {
+    color: #64748b;
+    padding: 24px;
+    text-align: center;
 }
 
 .file-input {
