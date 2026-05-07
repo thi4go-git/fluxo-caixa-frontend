@@ -17,7 +17,8 @@ export class AvisosDialogService {
     return new Promise<boolean>((resolve, _reject) => {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '300px',
-        data: mensagem
+        data: mensagem,
+        panelClass: 'aviso-confirmacao-dialog'
       });
       dialogRef.afterClosed().subscribe(result => {
         resolve(result === true);
@@ -28,7 +29,10 @@ export class AvisosDialogService {
 
   notificar(msg: string, title: string){
     this.snackBar.open(msg, title, {
-      duration: 5000
+      duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['aviso-snackbar-topo']
     });
   }
 

@@ -11215,6 +11215,22 @@ body {
     padding: 0;
 }
 
+.aviso-confirmacao-dialog .mat-mdc-dialog-container .mdc-dialog__surface,
+.aviso-confirmacao-dialog .mat-dialog-container {
+    background-color: #fff3cd;
+    color: #664d03;
+}
+
+.cdk-overlay-container .mat-mdc-snack-bar-container.aviso-snackbar-topo,
+.cdk-overlay-container .mat-snack-bar-container.aviso-snackbar-topo {
+    position: relative;
+    z-index: 2000;
+}
+
+.cdk-overlay-container:has(.aviso-snackbar-topo) {
+    z-index: 2000;
+}
+
 @media (max-width: 600px) {
     .lancamento-dialog,
     .natureza-dialog {
