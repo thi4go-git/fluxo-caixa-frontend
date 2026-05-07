@@ -5,6 +5,7 @@ import { LancamentoUpdateDTO } from 'src/app/model/lancamento/lancamentoUpdateDT
 import { AvisosDialogService } from 'src/app/services/avisos-dialog.service';
 import { LancamentoService } from 'src/app/services/lancamento.service';
 import { LoadingService } from 'src/app/services/loading.service';
+import { NgxCurrencyConfig, NgxCurrencyInputMode } from 'ngx-currency';
 
 
 @Component({
@@ -22,6 +23,14 @@ export class LancamentoEditComponent implements OnInit {
   situacaoLancamento: any[];
   origemLancamento: any[];
   lancamentoUpdate: LancamentoUpdateDTO;
+  valorParcelaCurrencyOptions: Partial<NgxCurrencyConfig> = {
+    prefix: 'R$ ',
+    thousands: '.',
+    decimal: ',',
+    precision: 2,
+    allowNegative: false,
+    inputMode: NgxCurrencyInputMode.Financial
+  };
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -262,5 +271,4 @@ export class LancamentoEditComponent implements OnInit {
   }
 
 }
-
 
