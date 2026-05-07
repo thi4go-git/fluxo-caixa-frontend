@@ -1,15 +1,16 @@
-<p>
-    <mat-toolbar>
+<p class="periodo-titulo">
+    <mat-toolbar class="periodo-toolbar">
         <span>
             {{ mesExtenso | mesStr }}
         </span>
     </mat-toolbar>
 </p>
-<mat-card class="mb-2">
-    <div class="row align-items-center">
-        <div class="col-11 col-md-auto ml-2 mr-2">
+<mat-card class="mb-2 periodo-card">
+    <mat-card-content>
+    <div class="periodo-grid">
+        <div class="periodo-ano">
             <form #anoForm="ngForm">
-                <mat-form-field appearance="fill" class="espaco w-100">
+                <mat-form-field appearance="fill" class="full-width">
                     <mat-label><strong>Ano:</strong></mat-label>
                     <select
                         matNativeControl
@@ -24,7 +25,7 @@
                 </mat-form-field>
             </form>
         </div>  
-        <div class="col-12 col-md mb-3 mr-3">
+        <div class="periodo-meses mb-3">
             <mat-button-toggle-group
                 appearance="standard"
                 [(ngModel)]="mesFilter"
@@ -38,24 +39,27 @@
             </mat-button-toggle-group>
         </div>
     </div>
+    </mat-card-content>
 </mat-card>
-<mat-card>
+<mat-card class="filtros-card">
     <mat-card-content>
-        <strong>Filtros</strong>
+        <div class="filtros-cabecalho">
+            <strong>Filtros</strong>
+        </div>
         <div>
             <form #arquivoForm="ngForm">
-                <div id="row">
-                    <mat-form-field appearance="fill" class="espaco">
+                <div class="filtros-grid">
+                    <mat-form-field appearance="fill">
                         <mat-label> <strong>Data Inicial:</strong> </mat-label>
                         <input matInput placeholder="Informe a Data Emissão" type="date" name="dataInicio"
                             [(ngModel)]="lancamentoFilter.dataInicio" />
                     </mat-form-field>
-                    <mat-form-field appearance="fill" class="espaco">
+                    <mat-form-field appearance="fill">
                         <mat-label> <strong>Data Final:</strong> </mat-label>
                         <input matInput placeholder="Informe a Data Emissão" type="date" name="data_fim"
                             [(ngModel)]="lancamentoFilter.dataFim" />
                     </mat-form-field>
-                    <mat-form-field appearance="fill" class="espaco">
+                    <mat-form-field appearance="fill">
                         <mat-label> <strong>Origem:</strong> </mat-label>
                         <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
                             [(ngModel)]="lancamentoFilter.origem">
@@ -65,7 +69,7 @@
                             </option>
                         </select>
                     </mat-form-field>
-                    <mat-form-field appearance="fill" class="espaco">
+                    <mat-form-field appearance="fill">
                         <mat-label> <strong>Tipo:</strong> </mat-label>
                         <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
                             [(ngModel)]="lancamentoFilter.tipo">
@@ -75,7 +79,7 @@
                             </option>
                         </select>
                     </mat-form-field>
-                    <mat-form-field appearance="fill" class="espaco">
+                    <mat-form-field appearance="fill">
                         <mat-label> <strong>Situação:</strong> </mat-label>
                         <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
                             [(ngModel)]="lancamentoFilter.situacao">
@@ -85,7 +89,7 @@
                             </option>
                         </select>
                     </mat-form-field>
-                    <mat-form-field appearance="fill" class="espaco">
+                    <mat-form-field appearance="fill">
                         <mat-label> <strong>natureza:</strong> </mat-label>
                         <select matNativeControl matInput [ngModelOptions]="{standalone: true}"
                             [(ngModel)]="lancamentoFilter.idNatureza">
@@ -95,19 +99,19 @@
                             </option>
                         </select>
                     </mat-form-field>
-                    <mat-form-field appearance="fill" class="espaco">
+                    <mat-form-field appearance="fill" class="filtro-descricao">
                         <mat-icon matSuffix>fingerprint</mat-icon>
                         <mat-label> <strong>Descrição</strong> </mat-label>
                         <input matInput placeholder="Informe a Descrição:" name="descricao"
                             [(ngModel)]="lancamentoFilter.descricao" />
                     </mat-form-field>
-                    <div id="row">
-                        <button type="button" class="btn btn-success" (click)="listagemPersonalizada()">
+                    <div class="filtros-acoes">
+                        <button type="button" class="btn btn-success filtro-botao" (click)="listagemPersonalizada()">
                             <em class="fa fa-save"></em>
                             <mat-icon>search</mat-icon>
                             Pesquisar
                         </button>
-                        <button type="button" class="btn btn-warning ml-3" (click)="limparFiltros()">
+                        <button type="button" class="btn btn-warning filtro-botao" (click)="limparFiltros()">
                             <em class="fa fa-save"></em>
                             <mat-icon>clear</mat-icon>
                             Limpar
@@ -119,18 +123,16 @@
     </mat-card-content>
 </mat-card>
 
-<div class="row mt-3 mb-3">
-    <div class="col-12 d-flex justify-content-end">      
-      <button class="btn btn-primary" (click)="novoLancamento()">
+<div class="acoes-listagem">
+      <button class="btn btn-primary novo-botao" (click)="novoLancamento()">
         <mat-icon>exposure_plus_1</mat-icon>
         <em class="fa fa-plus"></em>Novo
       </button>
-    </div>
 </div>  
 
 
-<div *ngIf="listaIdSelecionados.length > 0">
-    <mat-form-field appearance="fill" class="espaco">
+<div *ngIf="listaIdSelecionados.length > 0" class="operacao-selecionados">
+    <mat-form-field appearance="fill">
         <mat-label> <strong>Selecionar Operação</strong> </mat-label>
         <select matNativeControl matInput 
             [ngModelOptions]="{standalone: true}" 
@@ -140,7 +142,7 @@
             <option [ngValue]="2">Marcar Como Pago(s)</option>
         </select>
     </mat-form-field>
-    <button class="btn btn-secondary mb-1 ml-2" 
+    <button class="btn btn-secondary operacao-botao" 
         (click)="realizarOperacaoLancamento()" 
         *ngIf="tipeOperacaoLancamento" >
         <em class="fa fa-plus"></em>Confirmar
@@ -168,7 +170,7 @@
                     matTooltip="Selecionar todos">
                 </mat-checkbox>
             </th>
-            <td mat-cell *matCellDef="let lancamento" class="coluna-selecao">
+            <td mat-cell *matCellDef="let lancamento" class="coluna-selecao" data-label="Selecionar">
                 <section class="example-section">
                     <mat-checkbox
                         class="example-margin"
@@ -183,6 +185,7 @@
             <th mat-header-cell *matHeaderCellDef class="coluna-valor"> Valor </th>
             <td mat-cell *matCellDef="let lancamento"
                 class="coluna-valor valor-lancamento"
+                data-label="Valor"
                 [class.valor-negativo]="lancamento.valorParcela < 0"
                 [class.valor-positivo]="lancamento.valorParcela >= 0"
                 (click)=" selecionaLinha(lancamento)" [class.linha-selecionada]="itemSelecionado.has(lancamento)">
@@ -192,20 +195,20 @@
         </ng-container>
         <ng-container matColumnDef="dataLancamento">
             <th mat-header-cell *matHeaderCellDef class="coluna-data">Data</th>
-            <td mat-cell *matCellDef="let lancamento" class="coluna-data" (click)=" selecionaLinha(lancamento)"
+            <td mat-cell *matCellDef="let lancamento" class="coluna-data" data-label="Data" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{lancamento.dataLancamento |
                 date:'dd/MM/yyyy' }} </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
         <ng-container matColumnDef="descricao">
             <th mat-header-cell *matHeaderCellDef> Descrição </th>
-            <td mat-cell *matCellDef="let lancamento" class="coluna-descricao" (click)=" selecionaLinha(lancamento)"
+            <td mat-cell *matCellDef="let lancamento" class="coluna-descricao" data-label="Descrição" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{lancamento.descricao}} </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
         <ng-container matColumnDef="situacao">
             <th mat-header-cell *matHeaderCellDef> Situação </th>
-            <td mat-cell *matCellDef="let lancamento"
+            <td mat-cell *matCellDef="let lancamento" data-label="Situação"
                 (click)=" selecionaLinha(lancamento)" [class.linha-selecionada]="itemSelecionado.has(lancamento)">
                 <span
                     class="situacao-badge"
@@ -218,38 +221,38 @@
         </ng-container>
         <ng-container matColumnDef="nrParcela">
             <th mat-header-cell *matHeaderCellDef class="coluna-numero"> Nº Parcela </th>
-            <td mat-cell *matCellDef="let lancamento" class="coluna-numero" (click)=" selecionaLinha(lancamento)"
+            <td mat-cell *matCellDef="let lancamento" class="coluna-numero" data-label="Nº Parcela" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.nrParcela }}</td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
         <ng-container matColumnDef="qtdeParcelas">
             <th mat-header-cell *matHeaderCellDef class="coluna-numero"> Qtde Parcelas </th>
-            <td mat-cell *matCellDef="let lancamento" class="coluna-numero" (click)=" selecionaLinha(lancamento)"
+            <td mat-cell *matCellDef="let lancamento" class="coluna-numero" data-label="Qtde Parcelas" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{lancamento.qtdeParcelas}} </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
         <ng-container matColumnDef="natureza">
             <th mat-header-cell *matHeaderCellDef> Natureza </th>
-            <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
+            <td mat-cell *matCellDef="let lancamento" data-label="Natureza" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.natureza }} </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
         <ng-container matColumnDef="origem">
             <th mat-header-cell *matHeaderCellDef> Origem </th>
-            <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
+            <td mat-cell *matCellDef="let lancamento" data-label="Origem" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.origem }} </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
         <ng-container matColumnDef="dataCriacao">
             <th mat-header-cell *matHeaderCellDef class="coluna-data"> Criado em </th>
-            <td mat-cell *matCellDef="let lancamento" class="coluna-data" (click)=" selecionaLinha(lancamento)"
+            <td mat-cell *matCellDef="let lancamento" class="coluna-data" data-label="Criado em" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)"> {{ lancamento.dataCriacao |
                 date:'dd/MM/yyyy' }} </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
         <ng-container matColumnDef="nomeAnexo">
             <th mat-header-cell *matHeaderCellDef> Anexo </th>
-            <td mat-cell *matCellDef="let lancamento" (click)=" selecionaLinha(lancamento)"
+            <td mat-cell *matCellDef="let lancamento" data-label="Anexo" (click)=" selecionaLinha(lancamento)"
                 [class.linha-selecionada]="itemSelecionado.has(lancamento)">
                 <div *ngIf="lancamento.nomeAnexo" class="anexo-cell">
                     <span>{{ lancamento.nomeAnexo }}</span>
@@ -274,14 +277,14 @@
         </ng-container>
         <ng-container matColumnDef="edit">
             <th mat-header-cell *matHeaderCellDef class="coluna-acao"></th>
-            <td mat-cell *matCellDef="let lancamento" class="coluna-acao">
+            <td mat-cell *matCellDef="let lancamento" class="coluna-acao" data-label="Editar">
                 <mat-icon class="cursorMao" (click)="editarLancamento(lancamento.id)">edit</mat-icon>
             </td>
             <td mat-footer-cell *matFooterCellDef> . </td>
         </ng-container>
         <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef class="coluna-acao"></th>
-            <td mat-cell *matCellDef="let lancamento" class="coluna-acao">
+            <td mat-cell *matCellDef="let lancamento" class="coluna-acao" data-label="Excluir">
                 <mat-icon class="cursorMao-delete" (click)="selecionarLancamentoDeletar(lancamento)" data-toggle="modal"
                     data-target="#modalExclusao">delete</mat-icon>
             </td>
