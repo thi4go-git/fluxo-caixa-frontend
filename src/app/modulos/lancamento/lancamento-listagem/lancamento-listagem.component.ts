@@ -377,6 +377,42 @@ export class LancamentoListagemComponent implements OnInit {
     }
   }
 
+  alternarSelecaoTodos(selecionado: boolean) {
+    const lancamentos = this.getLancamentosTabela();
+
+    lancamentos.forEach((lancamento) => {
+      lancamento.selecionado = selecionado;
+    });
+
+    if (selecionado) {
+      const idsSelecionados = new Set(this.listaIdSelecionados);
+      lancamentos.forEach((lancamento) => idsSelecionados.add(lancamento.id.toString()));
+      this.listaIdSelecionados = Array.from(idsSelecionados);
+    } else {
+      const idsRemover = new Set(lancamentos.map((lancamento) => lancamento.id.toString()));
+      this.listaIdSelecionados = this.listaIdSelecionados.filter((id) => !idsRemover.has(id));
+    }
+  }
+
+  todosLancamentosSelecionados(): boolean {
+    const lancamentos = this.getLancamentosTabela();
+    return lancamentos.length > 0 &&
+      lancamentos.every((lancamento) => this.listaIdSelecionados.includes(lancamento.id.toString()));
+  }
+
+  algunsLancamentosSelecionados(): boolean {
+    const lancamentos = this.getLancamentosTabela();
+    const totalSelecionados = lancamentos.filter((lancamento) =>
+      this.listaIdSelecionados.includes(lancamento.id.toString())
+    ).length;
+
+    return totalSelecionados > 0 && totalSelecionados < lancamentos.length;
+  }
+
+  private getLancamentosTabela(): LancamentoDTOResponse[] {
+    return this.dataSource.filter ? this.dataSource.filteredData : this.dataSource.data;
+  }
+
   uploadFile(event: any, id: number) {
     const files = event.target.files;
     if (files) {
