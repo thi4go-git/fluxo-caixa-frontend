@@ -1,8 +1,8 @@
 .app-topbar {
     align-items: center;
-    background: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    background: #1f2937;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
     display: flex;
     gap: 0.75rem;
     height: 64px;
@@ -11,7 +11,7 @@
 
 .app-brand {
     align-items: center;
-    color: #111827;
+    color: #ffffff;
     display: inline-flex;
     gap: 0.75rem;
     min-width: 225px;
@@ -43,13 +43,13 @@
 }
 
 .brand-text small {
-    color: #64748b;
+    color: #cbd5e1;
     font-size: 0.72rem;
     margin-top: 0.15rem;
 }
 
 .menu-toggle {
-    color: #334155;
+    color: #e2e8f0;
 }
 
 @media (max-width: 576px) {
