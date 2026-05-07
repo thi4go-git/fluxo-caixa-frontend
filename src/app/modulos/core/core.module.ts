@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConfirmationDialogComponent } from 'src/app/componentes/confirmation-dialog/confirmation-dialog.component';
 import { LayoutComponent } from 'src/app/componentes/layout/layout.component';
@@ -20,7 +20,10 @@ import { NotFoundComponent } from 'src/app/componentes/not-found/not-found.compo
 import { DateFormatPipe } from 'src/app/pipes/date-format-pipe';
 import { LoadingModalComponent } from 'src/app/componentes/loading-modal/loading-modal.component';
 import { LoadingService } from 'src/app/services/loading.service';
+import localePtBr from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
 
+registerLocaleData(localePtBr);
 
 
 @NgModule({
@@ -50,6 +53,7 @@ import { LoadingService } from 'src/app/services/loading.service';
     AvisosDialogService,
     LancamentoService,
     LoadingService,
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
