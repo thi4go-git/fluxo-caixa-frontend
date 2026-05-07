@@ -364,11 +364,13 @@ export class LancamentoListagemComponent implements OnInit {
     }
   }
 
-  populaListaSelecionados(lancamento: LancamentoDTOResponse) {
-    if (lancamento.selecionado != undefined && lancamento.selecionado) {
-      this.listaIdSelecionados.push(lancamento.id.toString());
+  populaListaSelecionados(lancamento: LancamentoDTOResponse, selecionado: boolean) {
+    const idLancamento = lancamento.id.toString();
+
+    if (selecionado && !this.listaIdSelecionados.includes(idLancamento)) {
+      this.listaIdSelecionados.push(idLancamento);
     } else {
-      const indexRemover = this.listaIdSelecionados.indexOf(lancamento.id.toString());
+      const indexRemover = this.listaIdSelecionados.indexOf(idLancamento);
       if (indexRemover !== -1) {
         this.listaIdSelecionados.splice(indexRemover, 1);
       }
@@ -498,8 +500,7 @@ export class LancamentoListagemComponent implements OnInit {
   }
 
   private filtroExistente(): boolean {
-    return this.lancamentoFilter.descricao || this.lancamentoFilter.idNatureza ||
-      this.lancamentoFilter.tipo || this.lancamentoFilter.dataInicio || this.lancamentoFilter.dataFim;
+    return sessionStorage.getItem('filtrosLancamento') !== null;
   }
 
   editarLancamento(id: number) {
@@ -526,6 +527,8 @@ export class LancamentoListagemComponent implements OnInit {
   private carregarAnosMesFilter(){
     const anoAtual = new Date().getFullYear();
     const anoFinal = anoAtual + 5;  
+    this.anosFilter = [];
+
     for (let ano = 2000; ano <= anoFinal; ano++) {
       this.anosFilter.push(ano);
     }  
@@ -549,12 +552,7 @@ export class LancamentoListagemComponent implements OnInit {
     this.lancamentoFilter.dataInicio = this.formatarDataParaInput(primeiroDia);
     this.lancamentoFilter.dataFim = this.formatarDataParaInput(ultimoDia);
 
-
-    if (this.filtroExistente()) {
-      this.listagemPersonalizada();
-    } else {
-      this.listagemMesAtual();
-    }
+    this.listagemPersonalizada();
   }
 
   private formatarDataParaInput(data: Date): string {
