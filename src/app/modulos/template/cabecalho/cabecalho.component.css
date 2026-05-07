@@ -49,7 +49,35 @@
 }
 
 .menu-toggle {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
     color: #e2e8f0;
+    cursor: pointer;
+    display: inline-flex;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    width: 40px;
+}
+
+.menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+}
+
+.menu-toggle:focus-visible {
+    outline: 2px solid rgba(37, 99, 235, 0.75);
+    outline-offset: 2px;
+}
+
+.menu-toggle mat-icon {
+    font-size: 22px;
+    height: 22px;
+    width: 22px;
 }
 
 @media (max-width: 576px) {
