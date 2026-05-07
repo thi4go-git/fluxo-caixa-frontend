@@ -1,27 +1,24 @@
-<mat-card>
+<mat-card class="lancamento-form-card">
 
-    <mat-card-header>
+    <mat-card-header class="lancamento-form-header">
         <mat-card-title>
             <mat-icon>assignment</mat-icon>
             Novo Lançamento
-            <br />
         </mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
 
-        <div id="row">
-            <div id="col-md-12">
-                <div class="alert alert-danger" role="alert" *ngFor="let erro of msgErros">
-                    {{ erro.message }}
-                </div>
+        <div class="erros-container" *ngIf="msgErros.length > 0">
+            <div class="alert alert-danger" role="alert" *ngFor="let erro of msgErros">
+                {{ erro.message }}
             </div>
         </div>
 
-        <div class="container">
+        <div class="form-container">
             <form #arquivoForm="ngForm" (ngSubmit)="onSubmit()">
 
-                <div id="row">
+                <div class="form-grid">
 
                     <mat-form-field class="full-width" appearance="fill">
                         <mat-icon matSuffix>fingerprint</mat-icon>
@@ -60,7 +57,7 @@
                         </select>
                     </mat-form-field>
 
-                    <mat-form-field class="full-width" appearance="fill">
+                    <mat-form-field class="full-width campo-descricao" appearance="fill">
                         <mat-icon matSuffix>description</mat-icon>
                         <mat-label> <strong>descricao:</strong> </mat-label>
                         <input matInput placeholder="Informe descricao:" name="descricao"
@@ -90,16 +87,16 @@
 
                 </div>
 
-                <br />
-
-                <button type="submit" class="btn btn-primary">
-                    <em class="fa fa-sync-alt"></em>
-                    <mat-icon>save</mat-icon>Salvar
-                </button>
-                <button type="button" class="btn btn-danger ml-2" (click)="fecharDialog()">
-                    <em class="fa fa-solid fa-arrow-alt-circle-left"></em>
-                    <mat-icon>keyboard_return</mat-icon>Voltar
-                </button>
+                <div class="form-acoes">
+                    <button type="submit" class="btn btn-primary form-botao">
+                        <em class="fa fa-sync-alt"></em>
+                        <mat-icon>save</mat-icon>Salvar
+                    </button>
+                    <button type="button" class="btn btn-danger form-botao" (click)="fecharDialog()">
+                        <em class="fa fa-solid fa-arrow-alt-circle-left"></em>
+                        <mat-icon>keyboard_return</mat-icon>Voltar
+                    </button>
+                </div>
             </form>
         </div>
 

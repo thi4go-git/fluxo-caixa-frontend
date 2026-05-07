@@ -2,47 +2,102 @@
     width: 100%;
 }
 
-.example-h2 {
-    margin-left: 10px;
-    margin-right: 10px;
+.lancamento-form-card {
+    border-radius: 6px;
+    box-shadow: none;
+    max-height: 90vh;
+    overflow: auto;
 }
 
-.example-section {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
+.lancamento-form-header {
+    border-bottom: 1px solid #e2e8f0;
+    padding: 18px 22px 12px;
+}
+
+.lancamento-form-header mat-card-title {
     align-items: center;
-}
-
-.example-margin {
-    margin: 8px;
-}
-
-.example-width {
-    max-width: 180px;
-    width: 100%;
-}
-
-.mat-mdc-slider {
-    max-width: 300px;
-    width: 100%;
-}
-
-.mat-mdc-card+.mat-mdc-card {
-    margin-top: 8px;
-}
-
-.example-result-card h2 {
-    margin: 0 8px;
-}
-
-.example-label-container {
+    color: #243b53;
     display: flex;
-    justify-content: space-between;
-    margin: 20px 10px 0;
-    max-width: 284px;
+    font-size: 20px;
+    font-weight: 700;
+    gap: 8px;
+    margin: 0;
 }
 
-.example-result-card .example-value-label {
-    font-weight: 600;
+.lancamento-form-card mat-card-content {
+    padding: 18px 22px 22px;
+}
+
+.erros-container {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.erros-container .alert {
+    margin-bottom: 0;
+}
+
+.form-container {
+    width: 100%;
+}
+
+.form-grid {
+    display: grid;
+    gap: 10px 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.campo-descricao {
+    grid-column: 1 / -1;
+}
+
+.form-acoes {
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 8px;
+    padding-top: 16px;
+}
+
+.form-botao {
+    align-items: center;
+    display: inline-flex;
+    gap: 4px;
+    justify-content: center;
+    min-height: 38px;
+    min-width: 112px;
+}
+
+@media (max-width: 600px) {
+    .lancamento-form-card {
+        border-radius: 0;
+        max-height: 100vh;
+    }
+
+    .lancamento-form-header {
+        padding: 16px 16px 10px;
+    }
+
+    .lancamento-form-header mat-card-title {
+        font-size: 18px;
+    }
+
+    .lancamento-form-card mat-card-content {
+        padding: 16px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-acoes {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .form-botao {
+        width: 100%;
+    }
 }

@@ -280,7 +280,10 @@ export class LancamentoListagemComponent implements OnInit {
 
   novoLancamento() {
     this.dialog.open(LancamentoFormComponent, {
-      width: '400px', height: '450px'
+      width: '720px',
+      maxWidth: '95vw',
+      maxHeight: '90vh',
+      panelClass: 'lancamento-dialog'
     });
   }
 
