@@ -1,11 +1,8 @@
 pipeline {
-
     agent any;  
-
     tools{
         nodejs 'NODE_20.4.0'
     }
-
     stages {
         stage('Dependencias') {
             steps {
@@ -13,7 +10,7 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('NPM Build') {
+        stage('Build') {
             steps {
                 echo "Instalando dependências"
                 sh 'npm run build'
@@ -24,8 +21,15 @@ pipeline {
                 scannerHome = tool 'SONAR_SCANNER'
             }
             steps {
-                withSonarQubeEnv('SONAR'){
-                    sh "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=fluxo-caixa-frontend  -Dsonar.sources=. -Dsonar.host.url=http://cloudtecnologia.dynns.com:9000 -Dsonar.login=077acf48ec42830d1467826860ba6cc537a97510"
+                withSonarQubeEnv('SONAR') {
+                    sh """
+                        ${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=fluxo-caixa-frontend \
+                        -Dsonar.projectName=fluxo-caixa-frontend \
+                        -Dsonar.sources=src \
+                        -Dsonar.exclusions=node_modules/**,dist/**,coverage/**,.angular/** \
+                        -Dsonar.sourceEncoding=UTF-8
+                    """
                 }
             }
         }
@@ -51,26 +55,34 @@ pipeline {
             }
         }
         stage('Limpando Cache'){
-           steps {
+            steps {
                 sleep(10)
                 sh 'docker system prune -f'
                 sh 'docker ps'
-           }
+            }
         } 
     }
-
-   post{
+    post{
         always {
             script {
                 if (currentBuild.result == 'FAILURE') {
                     echo "Build Com erro(s)!"
-                    emailext attachLog: true, body: 'LOG:', subject: "BUILD ${BUILD_NUMBER} fluxo-caixa-frontend Executado com Erro(s)!", to: 'thi4go19+jenkins@gmail.com'
+                    emailext(
+                        attachLog: true,
+                        body: 'LOG:',
+                        subject: "BUILD ${BUILD_NUMBER} fluxo-caixa-frontend Executado com Erro(s)!",
+                        to: 'thi4go19+jenkins@gmail.com'
+                    )
                 } else {
                     echo "Build bem-sucedido!"
-                    emailext attachLog: true, body: 'LOG:', subject: "BUILD ${BUILD_NUMBER} fluxo-caixa-frontend Executado com Sucesso!", to: 'thi4go19+jenkins@gmail.com'
+                    emailext(
+                        attachLog: true,
+                        body: 'LOG:',
+                        subject: "BUILD ${BUILD_NUMBER} fluxo-caixa-frontend Executado com Sucesso!",
+                        to: 'thi4go19+jenkins@gmail.com'
+                    )
                 }
             }
         }
-   }
-
+    }
 }
